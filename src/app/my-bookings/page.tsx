@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   CalendarCheck, Star, Zap, MapPin, Clock, CheckCircle2,
   ChevronRight, Crown, QrCode, TrendingUp, Globe, Ticket,
-  ArrowRight, Flame, User
+  ArrowRight, Flame, User, LogOut
 } from 'lucide-react'
+import { useAuth } from '@/components/AuthProvider'
 
 type BookingStatus = 'upcoming' | 'completed' | 'all'
 
@@ -73,6 +75,8 @@ const totalSaved = DEMO_BOOKINGS.reduce((s, b) => s + (b.originalPrice - b.paidP
 const cities = [...new Set(DEMO_BOOKINGS.map((b) => b.city))]
 
 export default function MyBookings() {
+  const { user, tier, signOut } = useAuth()
+  const router = useRouter()
   const [filter, setFilter] = useState<BookingStatus>('all')
   const [showQr, setShowQr] = useState<string | null>(null)
 
@@ -91,22 +95,40 @@ export default function MyBookings() {
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                <User className="w-6 h-6 text-orange-500" />
+                {user ? (
+                  <span className="text-orange-600 font-bold text-sm">
+                    {(user.user_metadata?.name as string | undefined)?.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) ?? '?'}
+                  </span>
+                ) : (
+                  <User className="w-6 h-6 text-orange-500" />
+                )}
               </div>
               <div>
-                <p className="font-bold text-gray-900 text-sm">Guest User</p>
-                <span className="inline-flex items-center gap-1 text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">
-                  <Zap className="w-3 h-3" /> Free
+                <p className="font-bold text-gray-900 text-sm">
+                  {user ? ((user.user_metadata?.name as string | undefined) ?? user.email?.split('@')[0]) : 'Guest User'}
+                </p>
+                <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium capitalize ${tier === 'vip' ? 'bg-purple-100 text-purple-700' : tier === 'pro' ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-600'}`}>
+                  {tier === 'vip' ? <Crown className="w-3 h-3" /> : tier === 'pro' ? <Star className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
+                  {tier}
                 </span>
               </div>
             </div>
-            <Link
-              href="/auth"
-              className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-xl transition-colors"
-            >
-              Sign in for real bookings
-              <ArrowRight className="w-3 h-3" />
-            </Link>
+            {user ? (
+              <button
+                onClick={async () => { await signOut(); router.push('/') }}
+                className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-2 rounded-xl transition-colors"
+              >
+                <LogOut className="w-3 h-3" /> Sign out
+              </button>
+            ) : (
+              <Link
+                href="/auth"
+                className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-2 rounded-xl transition-colors"
+              >
+                Sign in for real bookings
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
           </div>
 
           {/* Stats */}
@@ -240,10 +262,12 @@ export default function MyBookings() {
           </div>
 
           {/* Sign-in notice */}
-          <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 flex items-center justify-between mb-5 text-sm">
-            <p className="text-blue-700"><span className="font-semibold">Showing demo bookings.</span> Sign in to track real ones.</p>
-            <Link href="/auth" className="text-blue-600 font-semibold hover:underline whitespace-nowrap ml-3">Sign in →</Link>
-          </div>
+          {!user && (
+            <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 flex items-center justify-between mb-5 text-sm">
+              <p className="text-blue-700"><span className="font-semibold">Showing demo bookings.</span> Sign in to track real ones.</p>
+              <Link href="/auth" className="text-blue-600 font-semibold hover:underline whitespace-nowrap ml-3">Sign in →</Link>
+            </div>
+          )}
 
           {/* Booking cards */}
           <div className="space-y-4">

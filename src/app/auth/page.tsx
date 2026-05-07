@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Zap, ArrowLeft } from 'lucide-react'
+import { Zap, ArrowLeft, AlertCircle } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 
 export default function AuthPage() {
   const router = useRouter()
@@ -12,12 +13,35 @@ export default function AuthPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    // Demo: just redirect home
-    setTimeout(() => router.push('/'), 600)
+    setError('')
+    setSuccess('')
+
+    try {
+      if (tab === 'signup') {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name, tier: 'free' } },
+        })
+        if (error) throw error
+        setSuccess('Account created! Check your email to confirm, then sign in.')
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password })
+        if (error) throw error
+        router.push('/')
+        router.refresh()
+      }
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -39,13 +63,25 @@ export default function AuthPage() {
           {(['signin', 'signup'] as const).map((t) => (
             <button
               key={t}
-              onClick={() => setTab(t)}
+              onClick={() => { setTab(t); setError(''); setSuccess('') }}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
             >
               {t === 'signin' ? 'Sign in' : 'Sign up'}
             </button>
           ))}
         </div>
+
+        {error && (
+          <div className="flex items-start gap-2 bg-red-50 border border-red-100 text-red-700 text-sm px-3 py-2.5 rounded-xl mb-4">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="bg-green-50 border border-green-100 text-green-700 text-sm px-3 py-2.5 rounded-xl mb-4">
+            {success}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {tab === 'signup' && (
@@ -79,6 +115,7 @@ export default function AuthPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
+              minLength={6}
               className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
