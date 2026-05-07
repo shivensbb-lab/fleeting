@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { Zap, Settings, LogOut, User, Crown, Star, ChevronDown } from 'lucide-react'
+import { Zap, Settings, LogOut, User, Crown, Star, ChevronDown, XCircle } from 'lucide-react'
 import { Suspense, useState, useRef, useEffect } from 'react'
 import { useAuth } from '@/components/AuthProvider'
 
@@ -15,6 +15,7 @@ function UserMenu() {
   const { user, tier, signOut } = useAuth()
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [cancelling, setCancelling] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -72,6 +73,40 @@ function UserMenu() {
             className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
             <Settings className="w-4 h-4 text-gray-400" /> Setup
           </Link>
+          {tier !== 'free' && (
+            <>
+              <div className="border-t border-gray-100 mt-1 pt-1" />
+              <button
+                disabled={cancelling}
+                onClick={async () => {
+                  if (!user?.email) return
+                  setCancelling(true)
+                  try {
+                    const res = await fetch('/api/cancel-subscription', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email: user.email }),
+                    })
+                    const data = await res.json()
+                    if (data.url) {
+                      window.location.href = data.url
+                    } else if (data.demo) {
+                      alert('Demo mode: In a live app this would open the Stripe billing portal to cancel.')
+                    } else {
+                      alert(data.error ?? 'Could not open billing portal')
+                    }
+                  } finally {
+                    setCancelling(false)
+                    setOpen(false)
+                  }
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 w-full transition-colors disabled:opacity-50"
+              >
+                <XCircle className="w-4 h-4 text-gray-400" />
+                {cancelling ? 'Opening portal…' : 'Manage / Cancel plan'}
+              </button>
+            </>
+          )}
           <div className="border-t border-gray-100 mt-1 pt-1">
             <button
               onClick={async () => { setOpen(false); await signOut(); router.push('/') }}
