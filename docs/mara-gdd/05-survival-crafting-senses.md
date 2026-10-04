@@ -2,12 +2,14 @@
 
 ## 5.0 Player Fantasy & Progression
 
-The player is a **Maasai-trained young ranger** (or a selectable background) caught in the Mara after a disaster: a plane crash, a flood that wrecks a ranger post, or a poacher ambush. Progression has two parallel tracks that meet in the middle:
+> **Reframe:** the player is a **safari guide at a luxury lodge** (core loop in [07](./07-safari-guide-gameplay.md)). This document covers the **on-foot and survival layer**: what the guide carries, what they can make in the bush, and how body and senses work whenever the guide or guests leave the vehicle (walking safaris, bush meals, breakdowns, fly-camping, camp incidents).
+
+Many Mara guides grew up Maasai, herding cattle in the same landscape, so the guide's skill set has two strands that meet:
 
 | Track | Source | Progression Feel |
 |-------|--------|------------------|
-| **Traditional Knowledge** (Enkiguena ("council/discussion") with elders, mentors) | Maasai mentor NPCs, discovery, practice | Learn to *read* the land: crafting recipes, tracking skill, plant medicine, livestock-herder bushcraft |
-| **Modern Ranger Tech** | Recovered/salvaged from ranger posts, supply drops, research camps | Information superiority: telemetry, cameras, radios, thermal optics; requires power/batteries (scarcity) |
+| **Traditional Knowledge** | Upbringing, elders, the lodge's Maasai spotter/askari team | Read the land: tracks, plant medicine, bushcraft, livestock-herder instincts about predators |
+| **Professional Guiding Kit** | Lodge-issued and tip-funded gear | Information and comfort: binoculars, radio, spotlight, first aid, guest-safety equipment |
 
 > **Cultural guardrail:** Maa-language names and every crafting recipe below must be checked by cultural consultants before shipping. Terms here use common English/Swahili/Maa forms as *placeholders*.
 
@@ -86,14 +88,14 @@ struct FMaraItemInstance
 
 ---
 
-## 5.3 Modern Ranger Equipment
+## 5.3 Guide & Lodge Equipment (incl. conservancy/research kit)
 
 | Item | Function | Power | Gameplay Systems |
 |------|----------|-------|------------------|
 | **VHF Telemetry Receiver + Yagi Antenna** | Track collared lions/elephants/rhinos: beep strength vs direction | AA batteries (8 h) | Directional audio minigame (rotate antenna, beep pitch/volume); finds collared animals within 2–8 km (terrain occlusion) |
 | **GPS Handheld** | Waypoints, track logs | AA (12 h) | Map breadcrumbs; doesn't show animals |
-| **Satellite GPS Collar Data (via Ranger Post)** | Historic movement tracks of collared animals (daily fixes) | Base station | Strategic layer: plan routes around prides; investigate "stationary collar" = possible dead/snared animal |
-| **Camera Traps (anti-poaching cameras)** | PIR-triggered stills/video; some with **cellular/satellite real-time alerts** | Lithium (weeks) | Place on trails/waterholes/carcasses → captures animals and **poachers**; returns intel (species, time, direction); AI-classified alerts in late game |
+| **Satellite GPS Collar Data (via research partnership)** | Historic movement tracks of collared animals (daily fixes) | Base station | Strategic layer: plan routes around prides; investigate "stationary collar" = possible dead/snared animal |
+| **Camera Traps** | PIR-triggered stills/video at the lodge waterhole, dens (from a distance), trails | Lithium (weeks) | Overnight intel for the morning brief (what passed through camp?), guest slideshow at dinner, conservancy research data (and occasionally evidence of snaring for rangers) |
 | **Thermal Monocular** | Heat signatures at night up to 300–800 m | Rechargeable (4 h) | Strongest anti-ambush tool; blocked by dense vegetation/heat of rocks after hot days (rocks glow!); power scarcity |
 | **Night-Vision (Gen 2 equivalent)** | Light amplification | Rechargeable (6 h) | Useless in total darkness without IR illuminator; blooms with fire |
 | **Handheld Radio** | Ranger network comms | Rechargeable (12 h) | Weather warnings, mission dispatch, call for vehicle extraction (if network/repeater in range) |
@@ -103,7 +105,10 @@ struct FMaraItemInstance
 | **First-Aid & Antivenom Kit** | Treat bites, wounds | — | Limited antivenom (polyvalent): time-critical snakebite treatment |
 | **Solar Charger** | Recharge electronics | Sun (Dry season efficient, Wet poor) | Climate-coupled power economy |
 | **Binoculars (10×42)** | Observation | — | Identify species/sex/age/collar ID from range; spot vulture columns |
-| **Rifle (Ranger Service)** | Defence/anti-poaching (non-lethal options emphasised) | Ammo scarce | **Last resort**; killing protected animals has heavy consequences (mission fail, reputation loss). Most designs keep it story-gated |
+| **Armed Ranger Escort (NPC)** | Walking safaris are accompanied by an armed conservancy/KWS ranger | — | The guide never carries a firearm. The ranger NPC fires only as an absolute last resort; any shooting is a catastrophic outcome (investigation, suspension). The guide's job is to never let it get that far |
+| **Guest Safety Kit** | Trauma first aid, snakebite protocol, epinephrine (bee stings), satellite messenger, evacuation contacts | — | Medical emergency events (§07.10) |
+| **Red-filter Spotlight** | Night drives | Vehicle power | Minimise time on animals' eyes (etiquette stress §07.6) |
+| **Field Guides & Journal** | Species ID, behaviour notes | — | Feeds interpretation menu (§07.7.3) |
 
 ### 5.3.1 Power Economy
 `BatteryCharge` items decay with use; the solar charger gives `ChargeRate = SolarIrradiance × (1 − CloudCover) × PanelAngleFactor` (W). In the Wet season, power is scarce, so players lean on traditional knowledge. **This is the systemic bridge between the two gear tracks.**
@@ -279,9 +284,9 @@ Response selection (species-weighted):
 | Milestone | Duration | Deliverables |
 |-----------|----------|--------------|
 | **M0: Tech Spikes** | 6–8 weeks | Grass rendering path decision (Nanite vs HISM), Mass herd 10k prototype, Lumen Far Field test, Substrate wetness MF, Water stage tiers |
-| **M1: Vertical Slice (2 × 2 km)** | 4–6 months | Savannah + riverine + 1 kopje; lion pride, hyena clan, wildebeest/zebra herd crossing; Dry season + 1 storm; Golden hour → night; scent system; rungu/spear/shúkà/fire/boma |
+| **M1: Vertical Slice (2 × 2 km)** | 4–6 months | See [07 §7.11](./07-safari-guide-gameplay.md): one full guiding shift with guests, vehicle, sightings, radio, walking-safari prototype |
 | **M2: Ecosystem Alpha** | 6–9 months | Full fauna roster LOD0–3, carcass guild, bird systems, disease model, season cycle, flash floods, fires |
-| **M3: Ranger Layer** | 4–6 months | Telemetry, camera traps, anti-poaching missions, ranger posts, vehicle |
+| **M3: Lodge & Career Layer** | 4–6 months | Lodge economy and upgrades, certification path, guest archetype roster, Reserve day trips, conservation side-missions, fly-camping |
 | **M4: Content & Polish** | 6–12 months | 16 × 16 km world, cultural review passes, accessibility, performance certification |
 
 > **Top 5 Technical Risks:** (1) Grass rendering cost at 60 fps, (2) Mass herd + skeletal LOD transitions without pops, (3) Lumen noise/stability in dense foliage at night with torches, (4) Water plugin runtime level changes, (5) Groom fur cost on many animals (use groom only on LOD0 hero animals within 15–25 m; cards beyond).

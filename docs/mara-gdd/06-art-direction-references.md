@@ -15,7 +15,7 @@ Source: the team's "massai mara" image-search mood board (Tripadvisor, Great Adv
 | R5 | Two zebras in tall gold grass, green *Euclea/Croton* treeline behind | Dry, midday | Gold grass vs dark evergreen thicket contrast, flat midday light, pale washed sky | Midday preset: Saturation 0.92, Film Shoulder 0.30, Local Exposure Highlight Contrast 0.7 (§03 3.3); riverine/drainage thicket Band C (§04 4.2) |
 | R6 | Male lion, dark mane, **backlit** in intense orange haze, grass glowing | Golden hour (sun 1–4°) | Orange-red scattering, rim light on the mane, near-black body silhouette, hazy background | Golden-hour preset: Mie Scale **0.015**, Mie Anisotropy **0.85**, Volumetric Fog Albedo (1.0, 0.86, 0.70), dust motes ON; groom needs a strong **transmission/backscatter** term on mane tips (Substrate hair/fuzz) (§03 3.2, §01 1.1.2) |
 | R7 | Maasai man in a red shúkà standing under acacias, green grass, cloudy sky | Long Rains, daylight | The **red shúkà as the single strongest colour accent** in a green/gold world | Shúkà red ≈ `#C4202A` (verify against fabric photo scans), cloth sheen via Substrate fuzz; character composition rule (§5.2). Portrait must be culturally reviewed |
-| R8 | Giraffe beside a pop-top safari vehicle, gold grass, blue sky | Dry | Scale reference (giraffe ~5 m vs vehicle ~2.5 m), tourism layer | Optional "game-drive" photo-mode mission; ranger/tour vehicle props (§5.3) |
+| R8 | Giraffe beside a pop-top safari vehicle, gold grass, blue sky | Dry | Scale reference (giraffe ~5 m vs vehicle ~2.5 m), tourism layer | **This is the core camera/composition of the game:** the game-drive vehicle beside wildlife. Validate vehicle-to-animal scale, guests' eye height (~2.2–2.5 m from the pop-top) and photo angles (§07.3, §07.8) |
 | R9 | Lions (male + lioness) resting in golden grass; a lion on a termite mound/rise against the plain | Dry, day | Lions near-invisible in grass at rest: colour match between coat and cured *Themeda* | Coat albedo and grass albedo must sit within ~10% luminance of each other. Validate in-engine with a greyscale view (this *is* the ambush gameplay) (§01 Lion, §5.5.2 C) |
 | R10 | Acacia silhouette at sunset, gold sky | Golden hour / civil twilight | Flat-topped *Vachellia tortilis* silhouette readability | Tree LOD silhouettes must keep the flat crown at all HLODs; Local Exposure keeps silhouettes near-black (§03 3.2.1, §04 4.5.1) |
 
@@ -47,7 +47,7 @@ Source: the team's "massai mara" image-search mood board (Tripadvisor, Great Adv
 |------------------------|------------|
 | The MakeMyTrip "Maasai Mara" zebra image shows **Grévy's zebras** (narrow dense stripes, white belly, large rounded ears, broad dark dorsal stripe) | The Mara has **plains zebra** (*Equus quagga boehmi*): broad stripes reaching under the belly, smaller pointed ears. Don't use this image for zebra modelling (§01 header warning) |
 | Stock photos are heavily graded (saturation pushed, orange LUTs on R6) | Treat R6 as the **upper bound** of golden-hour saturation. Gameplay grading should sit ~15–20% below it; let photo mode go further |
-| Tourism images over-represent vehicles and crowds at sightings | The game takes place largely *off* the tourist circuit; vehicles appear only in story-driven ranger/tourism contexts |
+| Tourism images over-represent vehicles and crowds at sightings | Crowding is a real system in the game (§07.6): reproduce it in the Reserve on purpose, and make the conservancy's low-density, exclusive sightings feel like the premium |
 
 ---
 

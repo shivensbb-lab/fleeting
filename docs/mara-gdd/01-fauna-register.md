@@ -25,6 +25,8 @@
 | Player standing tall, arms raised, shúkà spread | Predators +40% (reads as dangerous); some herbivores −10% |
 | Player in group of ≥ 3 NPC Maasai | Lions +60% (lions in the Mara really do avoid Maasai men) |
 | Night (sun elevation < −6°) | Ambush predators −30% |
+| **Player/guests inside a game-drive vehicle, seated** | Threat model largely suspended: habituated animals read the vehicle as a non-threatening object (see [07 §7.3.2](./07-safari-guide-gameplay.md)). Standing up/leaning out partially restores it; exiting fully restores it |
+| Vehicle approaching fast / revving / crowding | Raises **Disturbance Stress** instead of threat (§07.6); elephants may still mock-charge vehicles |
 | Player carrying fresh meat / bleeding | Predators/scavengers −35% |
 
 ---

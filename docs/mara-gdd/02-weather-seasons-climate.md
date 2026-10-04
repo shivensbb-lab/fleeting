@@ -158,6 +158,8 @@ All implemented as **GAS Gameplay Effects** on `UMaraVitalsAttributeSet` (`CoreT
 
 ### 2.3.1 Thermal Model (Heat Balance)
 
+> Applies to the guide **and every guest**. Guest heat stress lowers `Comfort` and can escalate to a medical emergency on long midday drives or walks (§07.7.2, §07.10). Shade stops, cold drinks and drive timing are guiding decisions.
+
 ```
 dCoreTemp/dt = (M + R_sun + R_ground + C_air − E_sweat − E_resp) / (Mass × c_body)
 
@@ -226,9 +228,9 @@ Every water source has a `UMaraWaterQualityComponent`:
 | Disease | Source | Incubation (game-hours) | Symptoms (gameplay) | Treatment |
 |---------|--------|--------------------------|----------------------|-----------|
 | **Gastroenteritis / Cholera-like** | Untreated stagnant/faecal water | 6–24 | Hydration drain ×3, stamina −30%, frequent "stops" | ORS (oral rehydration salts), boiled water, rest |
-| **Typhoid-like fever** | Contaminated water/food | 48–96 | Fever (Core Temp +1.5 °C), fatigue, delirium visuals | Antibiotics (ranger station) |
+| **Typhoid-like fever** | Contaminated water/food | 48–96 | Fever (Core Temp +1.5 °C), fatigue, delirium visuals | Antibiotics (lodge clinic / flying-doctor evacuation) |
 | **Giardiasis** | Clear-looking stream water | 24–72 | Calorie absorption −40% | Antibiotics |
-| **Schistosomiasis (Bilharzia)** | *Wading/bathing* in still freshwater (snail habitat) | Long (days) | Slow fatigue/health max decline | Praziquantel (ranger station); avoid still-water wading |
+| **Schistosomiasis (Bilharzia)** | *Wading/bathing* in still freshwater (snail habitat) | Long (days) | Slow fatigue/health max decline | Praziquantel (lodge clinic / flying-doctor evacuation); avoid still-water wading |
 | **Leptospirosis** | Floodwater + rodent contamination (wet season) | 48–120 | Fever, muscle pain (stamina) | Antibiotics |
 | **Malaria** | *Anopheles* bites, wet season, dusk–dawn | 7–14 game days (compressed) | Cyclic fever spikes, chills | Mosquito net (prevention), repellent, antimalarials |
 | **Trypanosomiasis** | Tsetse bites (riverine/woodland) | Long | Progressive fatigue, sleep attacks | Ranger station; avoid dark blue/black clothing, tsetse traps |

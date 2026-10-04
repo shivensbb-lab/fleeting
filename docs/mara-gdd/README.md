@@ -1,7 +1,7 @@
-# MARA — Savannah Survival
+# MARA — Safari Guide Simulator
 ## Game Design & Technical Framework (Core Development Blueprint)
 
-**Target:** Photoreal open-world survival · **Engine:** Unreal Engine 5.5+ (Nanite, Lumen, PCG, Substrate, Mass, StateTree, World Partition) · **DCC:** Blender 4.x
+**Target:** Photoreal open-world safari-guide simulation (with survival stakes) · **Engine:** Unreal Engine 5.5+ (Nanite, Lumen, PCG, Substrate, Mass, StateTree, World Partition) · **DCC:** Blender 4.x
 **Setting:** Maasai Mara National Reserve, its adjoining community conservancies, and the Mara River corridor (Narok County, Kenya)
 
 ---
@@ -15,32 +15,40 @@
 | 02 | [Weather, Seasons & Climate](./02-weather-seasons-climate.md) | Two-season cycle, dynamic events, survival penalties, UE5 implementation |
 | 03 | [Lumen, Lighting & Time of Day](./03-lighting-time-of-day.md) | Golden hour, midday, nocturnal: exact component parameters |
 | 04 | [Procedural Biomes (PCG)](./04-pcg-biomes.md) | Grasslands, riverine forest, kopjes: graph structures and density rules |
-| 05 | [Inventory, Crafting & Survival](./05-survival-crafting-senses.md) | Traditional + ranger gear, health model, Stealth & Scent system |
+| 05 | [Inventory, Crafting & Survival](./05-survival-crafting-senses.md) | Guide's kit, Maasai bushcraft, health model, Stealth & Scent system (on-foot layer) |
 | 06 | [Art Direction: Reference Board](./06-art-direction-references.md) | Mood-board breakdown → engine parameters, palette, accuracy warnings, look-dev tests |
+| 07 | [Safari Guide Gameplay](./07-safari-guide-gameplay.md) | **Core loop:** game drives, guests, sightings, vehicle, guide radio, photography, lodge, career, economy |
 
 ---
 
 ## 1. Vision Statement
 
-> *You are small. The Mara is not.*
+> *Find it. Read it. Share it. Bring everyone home.*
 
-A grounded, ecologically accurate survival game. The player is one human, on foot, in one of Earth's densest large-mammal ecosystems. The game isn't about killing the ecosystem. It's about **reading** it: wind, tracks, birds, the behaviour of herds. The Mara is beautiful and indifferent. Every system feeds one loop:
+A photoreal, ecologically accurate **safari-guide simulator**. The player is a professional guide working for a luxury tented lodge in a Mara conservancy. Every day you take paying guests out on game drives, walking safaris, bush breakfasts and sundowners. Your job is to **find wildlife, read behaviour well enough to predict what happens next, position the vehicle for the moment, explain it, and keep everyone safe**, all while respecting conservancy rules and the animals.
+
+The survival layer from the original brief stays, but it's no longer the whole game. It's the **stakes**. Getting out of the vehicle, walking safaris, breakdowns, flash floods, a guest who wanders off at night: these turn a beautiful sim into a tense one.
 
 ```
-OBSERVE (senses, tracks, birds, wind) → DECIDE (route, shelter, water, risk)
-     → ACT (move, craft, hide, deter) → CONSEQUENCE (ecosystem reacts) → OBSERVE
+MORNING BRIEF (guest wishes, weather, radio reports, tracks at camp)
+  → PLAN (route, drive vs walk, timing for light & animal activity)
+  → SEARCH (tracks, alarm calls, vultures, other guides on the radio)
+  → SIGHTING (position for light/behaviour, follow etiquette, narrate)
+  → MOMENT (kill, crossing, cubs, leopard in tree → guest photos & emotion)
+  → RETURN (safety, timing, lodge services) → REVIEW (tips, ratings, reputation, licence) → next day
 ```
 
 ### Design Pillars
 
 | Pillar | Meaning | Systems that serve it |
 |--------|---------|------------------------|
-| **Ecological Truth** | Animals behave like real animals: they flee, threat-display and bluff far more often than they attack. | Mass herds, StateTree predators, scent model, fear/flight-distance model |
-| **The Land Is the Clock** | Season, rainfall and time of day decide everything: where water is, where herds are, who hunts. | Climate subsystem, MPC-driven materials, migration flow field |
-| **Knowledge Is the Weapon** | The player gets stronger mostly by learning, not through stat levelling. | Tracking, field journal, bird-alarm interpretation, Maasai craft knowledge |
-| **Respectful Authenticity** | Maasai culture is shown with consultation and accuracy, never as costume. | Cultural advisory board, crafting lore, voice casting, revenue/credit agreements |
+| **Ecological Truth** | Animals behave like real animals; sightings are earned, never spawned in front of the guest. | Mass herds, StateTree predators, scent model, fear/flight-distance model, vehicle habituation |
+| **The Land Is the Clock** | Season, rainfall and time of day decide where animals are and when they act. | Climate subsystem, migration flow field, activity curves |
+| **Knowledge Is the Product** | Guests pay for what you *know*. Better reading of the bush = better sightings, interpretation and tips. | Tracking, field journal, behaviour prediction, interpretation system, guide certification |
+| **Respect Is Gameplay** | Crowding, harassing animals or breaking conservancy rules is punished; ethical guiding is rewarded long-term. | Sighting etiquette system, conservancy rules, reputation |
+| **Respectful Authenticity** | Many Mara guides are Maasai; their culture is portrayed with consultation and accuracy, never as costume. | Cultural advisory board, voice casting, community/conservancy partnership storylines |
 
-> **Cultural & Conservation Note (production requirement):** Hire paid Maasai cultural consultants (for example through community conservancy partnerships) from pre-production onward. Don't make traditional lion hunting (*olamayio*) a gameplay reward. Today's Maasai-led conservation (for example the Lion Guardians model) is a much stronger and more respectful narrative frame. Poaching appears as something you oppose, never as a player option.
+> **Cultural & Conservation Note (production requirement):** Hire paid Maasai cultural consultants (for example through community conservancy partnerships) from pre-production onward. Don't make traditional lion hunting (*olamayio*) a gameplay reward. Today's Maasai-led conservation (for example the Lion Guardians model) is a much stronger and more respectful narrative frame. Poaching appears as something you oppose (report snares, assist rangers), never as a player option. Hunting is not a player activity.
 
 ---
 
@@ -57,6 +65,10 @@ OBSERVE (senses, tracks, birds, wind) → DECIDE (route, shelter, water, risk)
 | `MaraAI` | Runtime | StateTree tasks, custom AI senses (`UAISense_Scent`), EQS contexts, Smart Objects |
 | `MaraSurvival` | Runtime | Vitals components (GAS attributes), status effects, disease model |
 | `MaraCrafting` | Runtime | Recipe data assets, inventory component, gear thermal/scent modifiers |
+| `MaraVehicle` | Runtime | Chaos Vehicle open-sided 4×4 game-drive vehicle (unbranded), off-road terrain response, breakdowns, recovery |
+| `MaraGuests` | Runtime | Guest profiles, StateTree guest AI, satisfaction model, conversation/interpretation |
+| `MaraGuiding` | Runtime | Sightings registry, guide radio network, etiquette/rules enforcement, photography scoring |
+| `MaraLodge` | Runtime | Lodge schedule, services, economy, reputation, career & certification |
 | `MaraWorldGen` | Runtime + Editor | Custom PCG nodes (biome classifier, kopje generator, game-trail carver) |
 | `MaraEditor` | Editor | Validation tools, biome painting utilities, fauna placement debuggers |
 
@@ -74,7 +86,7 @@ OBSERVE (senses, tracks, birds, wind) → DECIDE (route, shelter, water, risk)
 | **Smart Objects** | Waterholes, shade trees, kopje dens, carcasses, wallows | Claimed by AI for drinking/resting/feeding behaviour |
 | **Water Plugin** | Mara River, Talek River, seasonal luggas, waterholes | Water Zone + spline-driven Water Body River; runtime spline metadata changes |
 | **Niagara** | Dust, rain, embers, fire fronts, insect swarms, heat shimmer volumes, blood/dust impacts | GPU sims with fluid (Niagara Fluids) for hero fire/dust events |
-| **Chaos** | Vehicle (late-game ranger Land Cruiser), destruction (fallen trees), cloth (shúkà) | Chaos Cloth for the shúkà, with ML Deformer for hero animals optional |
+| **Chaos** | Game-drive vehicle (core player tool), destruction (fallen trees), cloth (shúkà) | Chaos Cloth for the shúkà, with ML Deformer for hero animals optional |
 | **MetaSounds** | Procedural dawn chorus, hyena whoops, lion roars, distance-based propagation | Audio propagation tied to wind and humidity |
 | **GAS** | Vitals, status effects, gear modifiers | Attributes: Health, Hydration, Calories, CoreTemp, Stamina, Fear, Fatigue |
 
