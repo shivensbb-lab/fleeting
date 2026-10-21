@@ -18,14 +18,14 @@ export const terminalState = (frame: number) => {
   const edit = LF("edit");
   const test = LF("test");
   const ship = LF("ship");
-  const enter = ramp(frame, 0, 54);
+  const enter = ramp(frame, 0, 42);
   const back = ramp(frame, edit.start - 22, edit.start + 8, move) * (1 - ramp(frame, test.start - 28, test.start - 2, move));
   const shrink = ramp(frame, ship.start + 2, ship.start + 20, leave);
-  const z = mix(-38, 0, enter) - 10 * back;
+  const z = mix(-16, 0, enter) - 10 * back;
   return {
     at: [0, 0, z] as [number, number, number],
-    haze: 1 - ramp(frame, 0, 40),
-    opacity: mix(0.35, 1, enter) * mix(1, 0.55, back),
+    haze: 1 - ramp(frame, 0, 24),
+    opacity: mix(0.7, 1, enter) * mix(1, 0.55, back),
     grow: mix(1, 0.03, shrink),
     gone: frame > ship.start + 20,
   };

@@ -41,7 +41,7 @@ const acts = (): Act[] => {
       to: A.read,
       drift: 1,
       keys: [
-        { u: 0, pos: [0.6, 0.8, 42], target: O, roll: -1.2 },
+        { u: 0, pos: [0.6, 0.8, 34], target: O, roll: -1.2 },
         { u: 1, pos: [0, 0.2, 26], target: O, roll: 0 },
       ],
     },
