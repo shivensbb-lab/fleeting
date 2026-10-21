@@ -1,0 +1,11 @@
+{ "fps": 60, "duration": 20.0,
+  "lines": [
+    { "id": "hook",  "text": "You describe it. It builds it.",     "start": 0.3,  "end": 2.3,  "accent": 1.6 },
+    { "id": "read",  "text": "It reads your whole codebase first.", "start": 2.7,  "end": 4.7,  "accent": 3.6 },
+    { "id": "edit",  "text": "Plans the change. Edits every file.", "start": 5.1,  "end": 7.1,  "accent": 6.4 },
+    { "id": "test",  "text": "Runs the tests. Fixes what breaks.",  "start": 7.5,  "end": 9.6,  "accent": 8.9 },
+    { "id": "quiet", "text": "Then it waits for your review.",      "start": 10.1, "end": 12.4, "accent": 11.6 },
+    { "id": "ship",  "text": "Commits, opens the PR, ships.",       "start": 12.8, "end": 15.0, "accent": 14.4 },
+    { "id": "where", "text": "Terminal. IDE. Desktop. Web.",        "start": 15.4, "end": 17.0, "accent": 16.6 },
+    { "id": "cta",   "text": "Claude Code. Your best teammate.",    "start": 17.4, "end": 19.8, "accent": 18.3 }
+  ] }
