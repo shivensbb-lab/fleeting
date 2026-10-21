@@ -1,0 +1,14 @@
+{
+  "fps": 60,
+  "duration": 20.0,
+  "lines": [
+    { "id": "hook",  "text": "What if maths felt addictive?",      "kicker": "What if maths felt",      "hero": "*addictive?*",       "start": 0.3,  "end": 2.3,  "accent": 1.4 },
+    { "id": "model", "text": "Singapore Maths, the S.A.M way.",    "kicker": "Singapore Maths,",        "hero": "the *S.A.M* way.",   "start": 2.7,  "end": 4.9,  "accent": 4.0 },
+    { "id": "count", "text": "180+ students already love it.",     "kicker": "180+ students",           "hero": "already *love* it.", "start": 5.3,  "end": 7.5,  "accent": 6.8 },
+    { "id": "place", "text": "Find us at J3 Mall.",                "kicker": "Find us at",              "hero": "*J3 Mall.*",         "start": 7.9,  "end": 10.1, "accent": 9.2 },
+    { "id": "quiet", "text": "And now, we're growing.",            "kicker": "And now,",                "hero": "we're *growing.*",   "start": 10.6, "end": 12.8, "accent": 12.0 },
+    { "id": "ab",    "text": "Opening soon at AB Centre.",         "kicker": "Opening soon at",         "hero": "*AB Centre.*",       "start": 13.2, "end": 15.4, "accent": 14.4 },
+    { "id": "free",  "text": "Book a free placement.",             "kicker": "Book a",                  "hero": "*free* placement.",  "start": 15.8, "end": 17.6, "accent": 17.0 },
+    { "id": "cta",   "text": "See you soon.",                      "kicker": "",                        "hero": "See you *soon.*",    "start": 18.0, "end": 19.8, "accent": 18.7 }
+  ]
+}
