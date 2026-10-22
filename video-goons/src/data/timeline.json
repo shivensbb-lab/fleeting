@@ -1,0 +1,16 @@
+{
+  "fps": 60,
+  "duration": 30.0,
+  "lines": [
+    { "id": "hook",    "text": "Looking for a squad?",                    "kicker": "Looking for",                "hero": "a *squad?*",            "start": 0.3,  "end": 2.5,  "accent": 1.7 },
+    { "id": "intro",   "text": "Introducing Professional Goons.",         "kicker": "Introducing",                "hero": "*Professional Goons.*", "start": 2.9,  "end": 5.1,  "accent": 4.1 },
+    { "id": "best",    "text": "Just a friend group. The best one.",      "kicker": "Just a friend group.",       "hero": "The *best* one.",       "start": 5.5,  "end": 8.0,  "accent": 6.9 },
+    { "id": "mc",      "text": "Minecraft server built in: DAworld.",     "kicker": "Minecraft server built in:", "hero": "*DAworld.*",            "start": 8.5,  "end": 11.3, "accent": 10.2 },
+    { "id": "mcbest",  "text": "The best MC server you'll ever join.",    "kicker": "The best MC server",         "hero": "you'll *ever* join.",   "start": 11.7, "end": 14.3, "accent": 13.3 },
+    { "id": "crew",    "text": "Complete with 5 jobless individuals.",    "kicker": "Complete with",              "hero": "*5 jobless* individuals.", "start": 14.8, "end": 17.4, "accent": 16.4 },
+    { "id": "ready",   "text": "Always ready to play.",                   "kicker": "Always ready",               "hero": "to *play.*",            "start": 17.8, "end": 20.2, "accent": 19.2 },
+    { "id": "games",   "text": "Whatever's on, we play it.",              "kicker": "Whatever's on,",             "hero": "we *play it.*",         "start": 20.6, "end": 24.0, "accent": 23.4 },
+    { "id": "cta",     "text": "Professional Goons. On Root.",            "kicker": "Professional Goons.",        "hero": "On *Root.*",            "start": 24.5, "end": 26.6, "accent": 25.6 },
+    { "id": "credits", "text": "Built by Shiven, Group Admin. Under his command: Adam Buenavida, Andreas, Vihaan. In partnership with: Aadam Kamraan.", "kicker": "", "hero": "", "start": 27.0, "end": 30.0, "accent": 27.4 }
+  ]
+}
