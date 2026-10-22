@@ -1,0 +1,14 @@
+{
+  "fps": 60,
+  "duration": 20.0,
+  "lines": [
+    { "id": "hook",    "text": "Your group chat deserves better.", "kicker": "Your group chat",      "hero": "deserves *better.*", "start": 0.3,  "end": 2.3,  "accent": 1.6 },
+    { "id": "meet",    "text": "Meet Root.",                       "kicker": "Meet",                 "hero": "*Root.*",            "start": 2.7,  "end": 4.9,  "accent": 3.8 },
+    { "id": "free",    "text": "Everything's free. No paywall.",   "kicker": "Everything's free.",   "hero": "No *paywall.*",      "start": 5.3,  "end": 7.3,  "accent": 6.5 },
+    { "id": "voice",   "text": "Voice and chat in one tap.",       "kicker": "Voice and chat in",    "hero": "*one tap.*",         "start": 7.7,  "end": 9.7,  "accent": 8.9 },
+    { "id": "rules",   "text": "Your server. Your rules.",         "kicker": "Your server.",         "hero": "Your *rules.*",      "start": 10.1, "end": 12.1, "accent": 11.2 },
+    { "id": "crew",    "text": "Built for your crew, not for ads.", "kicker": "Built for your crew,", "hero": "not for *ads.*",     "start": 12.5, "end": 14.5, "accent": 13.7 },
+    { "id": "grow",    "text": "Root. Grow together.",             "kicker": "Root.",                "hero": "Grow *together.*",   "start": 15.0, "end": 16.8, "accent": 16.0 },
+    { "id": "credits", "text": "Built by Shiven, Group Admin. Under his command: Adam Buenavida, Andreas, Vihaan. In partnership with: Aadam Kamraan.", "kicker": "", "hero": "", "start": 17.2, "end": 20.0, "accent": 17.6 }
+  ]
+}
