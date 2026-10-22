@@ -96,7 +96,7 @@ export const DAworld: React.FC<{ frame: number; pose: Pose }> = ({ frame, pose }
   const open = ramp(frame, mc.accent - 8, mc.accent + 12, arrive);
   const sink = ramp(frame, mcbest.end - 6, crew.start + 30, leave);
   return (
-    <Place pose={pose} at={[ISLAND[0], ISLAND[1] + 4.6 - sink * 7, ISLAND[2]]} w={1100} h={320} opacity={1 - sink}>
+    <Place pose={pose} at={[ISLAND[0], ISLAND[1] + 4.6 - sink * 7, ISLAND[2]]} w={1100} h={320} opacity={1 - ramp(frame, mcbest.end - 10, crew.start + 4)}>
       <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6,
         clipPath: `inset(0 ${(1 - open) * 50}% 0 ${(1 - open) * 50}%)` }}>
         <div style={{ fontFamily: FONT.mono, fontWeight: 500, fontSize: 44, letterSpacing: "0.3em", color: COLOR.accent, paddingLeft: "0.3em" }}>MC SERVER</div>
@@ -119,7 +119,7 @@ export const Players: React.FC<{ frame: number }> = ({ frame }) => {
   return (
     <div style={{ position: "absolute", left: 140, right: 140, top: 250, display: "grid", gap: 22, zIndex: 20000 }}>
       {Array.from({ length: 5 }, (_, i) => {
-        const t = ramp(frame, crew.start - 8 + i * 6, crew.start + 10 + i * 6, arrive);
+        const t = ramp(frame, crew.start + 8 + i * 6, crew.start + 26 + i * 6, arrive);
         const on = ramp(frame, ready.accent - 40 + i * 8, ready.accent - 32 + i * 8 + 8, arrive);
         return (
           <div key={i} style={{ overflow: "hidden", borderRadius: 26 }}>
