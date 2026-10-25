@@ -1,0 +1,26 @@
+{
+  "fps": 30,
+  "shotSeconds": 2.5,
+  "shots": [
+    { "id": "battle",   "text": "Emperor. General. *Conqueror.*" },
+    { "id": "squash",   "text": "And famously... *tiny.*" },
+    { "id": "title",    "text": "Except he *wasn't.*" },
+    { "id": "same",     "text": "He was about *five foot seven.*" },
+    { "id": "crowd",    "text": "Average for a Frenchman. Maybe *taller.*" },
+    { "id": "autopsy",  "text": "His autopsy said *five foot two.*" },
+    { "id": "rulers",   "text": "But in *French* inches." },
+    { "id": "blocks",   "text": "A French inch was *longer.*" },
+    { "id": "nobody1",  "text": "*Nobody checked.*" },
+    { "id": "shop",     "text": "Then British cartoonists got *involved.*" },
+    { "id": "doodle",   "text": "James Gillray drew him as a *tantrum-throwing toddler.*" },
+    { "id": "street",   "text": "Britain *loved* it." },
+    { "id": "normal",   "text": "\"I am a *normal size.*\"" },
+    { "id": "sure",     "text": "\"*Sure* you are.\"" },
+    { "id": "guards",   "text": "His elite guards were picked for *height.*" },
+    { "id": "corporal", "text": "His troops called him *\"the little corporal.\"*" },
+    { "id": "nobody2",  "text": "Affectionately. *Nobody checked.*" },
+    { "id": "argue",    "text": "Historians still argue over the *units.*" },
+    { "id": "french",   "text": "Most say *French.*" },
+    { "id": "loop",     "text": "Two hundred years later... *nobody checked.*" }
+  ]
+}
