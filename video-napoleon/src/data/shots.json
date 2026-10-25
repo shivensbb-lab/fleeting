@@ -1,0 +1,16 @@
+{
+  "fps": 30,
+  "shotSeconds": 5,
+  "shots": [
+    { "id": "A01_1", "text": "Everyone knows Napoleon was tiny. Everyone is *wrong.*" },
+    { "id": "A01_2", "text": "About five foot seven. Average for a Frenchman, maybe *taller.*" },
+    { "id": "A02_1", "text": "His autopsy said five foot two. In *French* inches." },
+    { "id": "A02_2", "text": "A French inch was longer than a British one. *Nobody checked.*" },
+    { "id": "A03_1", "text": "British cartoonists, led by James Gillray, drew him as a *tantrum-throwing toddler.*" },
+    { "id": "A03_2", "text": "Napoleon: \"I am a normal size.\" Britain: *\"Sure you are.\"*" },
+    { "id": "A04_1", "text": "It didn't help that his elite guards were picked for *height.*" },
+    { "id": "A04_2", "text": "His troops called him \"the little corporal.\" Affectionately. *Nobody checked.*" },
+    { "id": "A05_1", "text": "Some historians still argue over the autopsy's units. Most say *French.*" },
+    { "id": "A05_2", "text": "Two hundred years later, still... *nobody checked.*" }
+  ]
+}
