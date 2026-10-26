@@ -1,0 +1,26 @@
+{
+  "fps": 30,
+  "shotSeconds": 2.5,
+  "shots": [
+    { "id": "raid",     "text": "Vikings. Raiders. *Horned helmets.*" },
+    { "id": "pop",      "text": "Except... *no.*" },
+    { "id": "title",    "text": "Vikings never wore *horned helmets.*" },
+    { "id": "dig",      "text": "In 1943, a Norwegian farmer dug up a *Viking helmet.*" },
+    { "id": "helmet",   "text": "The only near-complete one *ever found.*" },
+    { "id": "zero1",    "text": "Horns: *zero.*" },
+    { "id": "grab",     "text": "Horns in a fight? Great way to get *grabbed.*" },
+    { "id": "where",    "text": "So where did the horns *come from?*" },
+    { "id": "bronze",   "text": "Horned helmets did exist. In *Bronze Age* Denmark." },
+    { "id": "years",    "text": "About *1,700 years* before the Vikings." },
+    { "id": "ritual",   "text": "Probably ceremonial. Historians *still argue.*" },
+    { "id": "painter",  "text": "Then 1800s artists painted Vikings with *horns.*" },
+    { "id": "cool",     "text": "Because it looked *cool.*" },
+    { "id": "opera",    "text": "In 1876, Wagner's opera costumes went *all in.*" },
+    { "id": "clap",     "text": "Audiences *loved* it." },
+    { "id": "stuck",    "text": "The horns *stuck.*" },
+    { "id": "costume",  "text": "Now they're on every costume and *cartoon.*" },
+    { "id": "real",     "text": "Real Vikings? Round helmets. *No horns.*" },
+    { "id": "zero2",    "text": "Horns: still *zero.*" },
+    { "id": "loop",     "text": "Anyway, here's the *wrong* version again." }
+  ]
+}
