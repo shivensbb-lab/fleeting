@@ -1,0 +1,26 @@
+{
+  "fps": 30,
+  "shotSeconds": 2.5,
+  "shots": [
+    { "id": "warn",     "text": "1492. Everyone warned Columbus he'd sail off the *edge.*" },
+    { "id": "twist",    "text": "Except... *nobody said that.*" },
+    { "id": "title",    "text": "Medieval people knew the Earth was *round.*" },
+    { "id": "greek",    "text": "Around 240 BCE, Eratosthenes *measured it.*" },
+    { "id": "stick",    "text": "With shadows and a *stick.*" },
+    { "id": "close",    "text": "Pretty close. How close depends on *his units.*" },
+    { "id": "monks",    "text": "Medieval scholars kept copying it for *centuries.*" },
+    { "id": "sphere",   "text": "Universities taught from a book called *On the Sphere.*" },
+    { "id": "orb",      "text": "Kings even held a little round *Earth.*" },
+    { "id": "round1",   "text": "The Earth: still *round.*" },
+    { "id": "size",     "text": "The real argument? The Earth's *size.*" },
+    { "id": "small",    "text": "Columbus thought it was *way smaller.*" },
+    { "id": "food",     "text": "The experts said he'd run out of *food.*" },
+    { "id": "right",    "text": "The experts were *right.*" },
+    { "id": "america",  "text": "He survived because America was *in the way.*" },
+    { "id": "irving",   "text": "So who invented the flat part? *Washington Irving,* 1828." },
+    { "id": "drama",    "text": "A Columbus biography. With *extra drama.*" },
+    { "id": "books",    "text": "Later writers repeated it. Textbooks *loved* it." },
+    { "id": "round2",   "text": "The Earth: still *round.*" },
+    { "id": "loop",     "text": "Anyway, here's the *myth* again." }
+  ]
+}
