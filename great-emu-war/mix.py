@@ -255,7 +255,7 @@ music *= (vr / mr) * 10 ** (-10 / 20)
 print(f'voice/music during speech: {20 * np.log10(rms(vo[sp]) / rms(music[sp])):.1f} dB')
 
 mix = vo + music + fx
-mix = np.stack([limit(mix[:, 0], .95), limit(mix[:, 1], .95)], 1).astype(np.float32)
+mix = np.stack([limit(mix[:, 0], .40, .008), limit(mix[:, 1], .40, .008)], 1).astype(np.float32)  # peaks tamed so loudnorm to −14 LUFS keeps true peak ≤ −1.2 dB
 os.makedirs(f'{P}/out', exist_ok=True)
 sf.write(f'{P}/out/mix.wav', mix, SR)
 json.dump([{'t0': s['t0'] + VOFF, 't1': s['t0'] + VOFF + s['vdur'] + .3, 'text': s['sub'].replace('*', '')} for s in SH],
