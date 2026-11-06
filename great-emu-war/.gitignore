@@ -1,0 +1,6 @@
+out/
+voice/
+stills/
+sheets/
+*.mp4
+!style/test.mp4
