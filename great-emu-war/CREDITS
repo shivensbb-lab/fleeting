@@ -1,0 +1,16 @@
+THE GREAT EMU WAR
+An "Under 7 Minutes" episode
+
+Written, directed, animated and scored in code with the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar).
+
+Narration and character voices: Kokoro-82M text-to-speech (Apache-2.0), voices bm_george, am_michael, bm_daniel, bm_lewis.
+Music: original score, played on samples from VS Chamber Orchestra: Community Edition (Versilian Studios), CC0.
+Sound effects: synthesised in code (core/audio/sfx.py).
+Typeface: Inter Tight by Rasmus Andersson and contributors, SIL Open Font License 1.1 (fonts/OFL-intertight.txt).
+
+History notes: the operation ran from November to December 1932 in the Campion district of Western Australia, under
+Major G. P. W. Meredith of the Royal Australian Artillery. Numbers in the film follow the commonly cited figures
+(about 20,000 emus, ~10 rounds per confirmed kill, 57,034 bounties claimed in six months of 1934); sources disagree on
+some of them.
+
+Character designs, the emu, the title card and the refrain are original to this film.
