@@ -1,0 +1,14 @@
+THE S.A.M WAY
+A 90-second Reel for S.A.M Singapore Maths (J3 Mall, Meydan, Al Barsha, AB Centre opening soon) · @sam.j3malldubai
+
+Written, animated and scored in code with the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar),
+in its Mid-century Cartoon style.
+
+Narration: Kokoro-82M text-to-speech (Apache-2.0), voice af_heart.
+Music: original cool-jazz score, played on samples from VS Chamber Orchestra: Community Edition (Versilian Studios)
+and the Versilian Community Sample Library (VCSL), both CC0.
+Sound effects: synthesised in code (core/audio/sfx.py) and VCSL woodblock samples (CC0).
+Typefaces: Alfa Slab One, Oleo Script and Jost, SIL Open Font License 1.1 (fonts/OFL-*.txt), via Fontsource.
+
+Engine code in engine/ (toon.js, chars.js, icons.js) is copied from the Lemo-Opuscar library, MIT License.
+The maths problem, the layouts and the score are original to this film.

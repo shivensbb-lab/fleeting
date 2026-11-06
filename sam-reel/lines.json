@@ -1,0 +1,148 @@
+[
+ {
+  "id": "h1",
+  "part": "hook",
+  "voice": "af_heart",
+  "text": "Here's a maths problem.",
+  "sub": "Here's a *maths problem*."
+ },
+ {
+  "id": "h2",
+  "part": "hook",
+  "voice": "af_heart",
+  "text": "Mia has three times as many marbles as Ben.",
+  "sub": "Mia has *3 times* as many marbles as Ben."
+ },
+ {
+  "id": "h3",
+  "part": "hook",
+  "voice": "af_heart",
+  "text": "Together, they have twenty-four. How many does Ben have?",
+  "sub": "Together, they have *24*. How many does Ben have?"
+ },
+ {
+  "id": "h4",
+  "part": "hook",
+  "voice": "af_heart",
+  "text": "Tricky? Not the SAM way.",
+  "sub": "Tricky? Not the *S.A.M* way.",
+  "asr": "Tricky? Not the Sam way."
+ },
+ {
+  "id": "s1a",
+  "part": "step1",
+  "voice": "af_heart",
+  "text": "Step one. Make it real.",
+  "sub": "Step 1. Make it *real*."
+ },
+ {
+  "id": "s1b",
+  "part": "step1",
+  "voice": "af_heart",
+  "text": "One block for Ben. Three blocks for Mia.",
+  "sub": "*1 block* for Ben. *3 blocks* for Mia."
+ },
+ {
+  "id": "s1c",
+  "part": "step1",
+  "voice": "af_heart",
+  "text": "Every block is the same size. That's the secret.",
+  "sub": "Every block is the *same size*. That's the secret."
+ },
+ {
+  "id": "s2a",
+  "part": "step2",
+  "voice": "af_heart",
+  "text": "Step two. Draw a picture.",
+  "sub": "Step 2. Draw a *picture*."
+ },
+ {
+  "id": "s2b",
+  "part": "step2",
+  "voice": "af_heart",
+  "text": "Each block becomes a bar. We call it a unit.",
+  "sub": "Each block becomes a bar. We call it a *unit*."
+ },
+ {
+  "id": "s2c",
+  "part": "step2",
+  "voice": "af_heart",
+  "text": "All the units together make twenty-four.",
+  "sub": "All the units together make *24*."
+ },
+ {
+  "id": "s3a",
+  "part": "step3",
+  "voice": "af_heart",
+  "text": "Step three. Now the numbers.",
+  "sub": "Step 3. Now the *numbers*."
+ },
+ {
+  "id": "s3b",
+  "part": "step3",
+  "voice": "af_heart",
+  "text": "Four units make twenty-four.",
+  "sub": "*4 units* = 24"
+ },
+ {
+  "id": "s3c",
+  "part": "step3",
+  "voice": "af_heart",
+  "text": "So one unit is six.",
+  "sub": "So *1 unit* = 6"
+ },
+ {
+  "id": "s3d",
+  "part": "step3",
+  "voice": "af_heart",
+  "text": "Ben has six marbles. Mia has eighteen.",
+  "sub": "Ben has *6*. Mia has *18*."
+ },
+ {
+  "id": "pay",
+  "part": "payoff",
+  "voice": "af_heart",
+  "text": "Concrete. Pictorial. Abstract. That's how Singapore teaches maths.",
+  "sub": "Concrete. Pictorial. Abstract. That's *Singapore Maths*."
+ },
+ {
+  "id": "proof",
+  "part": "proof",
+  "voice": "af_heart",
+  "text": "More than one hundred and eighty students are already learning this way at J3 Mall.",
+  "sub": "*180+ students* are already learning this way at J3 Mall.",
+  "asr": "More than 180 students are already learning this way at J3 Mall."
+ },
+ {
+  "id": "b1",
+  "part": "branches",
+  "voice": "af_heart",
+  "text": "And SAM is growing.",
+  "sub": "And *S.A.M* is growing.",
+  "asr": "And Sam is growing."
+ },
+ {
+  "id": "b2",
+  "part": "branches",
+  "voice": "af_heart",
+  "text": "New branches in May-dahn, and in Al Barr-sha.",
+  "sub": "New branches in *Meydan* and *Al Barsha*.",
+  "asr": "New branches in Maidan and in Al-Barsha."
+ },
+ {
+  "id": "b3",
+  "part": "branches",
+  "voice": "af_heart",
+  "text": "And AB Centre, opening soon.",
+  "sub": "And *AB Centre*, opening soon.",
+  "asr": "And AB Center, opening soon."
+ },
+ {
+  "id": "cta",
+  "part": "cta",
+  "voice": "af_heart",
+  "text": "SAM. Singapore Maths. Come and see the bars.",
+  "sub": "*S.A.M* Singapore Maths. Come and see the bars.",
+  "asr": "Sam. Singapore Maths. Come and see the bars."
+ }
+]

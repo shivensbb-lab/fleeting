@@ -1,0 +1,79 @@
+1
+00:00:00,250 --> 00:00:02,238
+Here's a maths problem.
+
+2
+00:00:04,250 --> 00:00:07,449
+Mia has 3 times as many marbles as Ben.
+
+3
+00:00:08,250 --> 00:00:11,986
+Together, they have 24. How many does Ben have?
+
+4
+00:00:13,000 --> 00:00:15,443
+Tricky? Not the S.A.M way.
+
+5
+00:00:18,250 --> 00:00:20,416
+Step 1. Make it real.
+
+6
+00:00:22,250 --> 00:00:25,590
+1 block for Ben. 3 blocks for Mia.
+
+7
+00:00:26,250 --> 00:00:29,881
+Every block is the same size. That's the secret.
+
+8
+00:00:30,250 --> 00:00:32,451
+Step 2. Draw a picture.
+
+9
+00:00:34,250 --> 00:00:37,549
+Each block becomes a bar. We call it a unit.
+
+10
+00:00:38,250 --> 00:00:40,959
+All the units together make 24.
+
+11
+00:00:42,250 --> 00:00:44,564
+Step 3. Now the numbers.
+
+12
+00:00:46,250 --> 00:00:48,452
+4 units = 24
+
+13
+00:00:51,000 --> 00:00:53,027
+So 1 unit = 6
+
+14
+00:00:54,250 --> 00:00:57,474
+Ben has 6. Mia has 18.
+
+15
+00:00:58,250 --> 00:01:03,355
+Concrete. Pictorial. Abstract. That's Singapore Maths.
+
+16
+00:01:06,250 --> 00:01:11,910
+180+ students are already learning this way at J3 Mall.
+
+17
+00:01:12,250 --> 00:01:14,322
+And S.A.M is growing.
+
+18
+00:01:16,250 --> 00:01:19,663
+New branches in Meydan and Al Barsha.
+
+19
+00:01:20,250 --> 00:01:22,862
+And AB Centre, opening soon.
+
+20
+00:01:24,250 --> 00:01:27,869
+S.A.M Singapore Maths. Come and see the bars.
