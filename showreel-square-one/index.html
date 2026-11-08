@@ -1,0 +1,454 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Square One</title>
+<style>
+@font-face{font-family:"IT";font-weight:900;src:url(fonts/inter-tight-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:"IT";font-weight:600;src:url(fonts/inter-tight-latin-600-normal.woff2) format("woff2")}
+html,body{margin:0;background:#0A0A0A;overflow:hidden}canvas{display:block}
+</style></head><body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// SQUARE ONE — every idea starts as a square. 15 s, 120 BPM, 1920×1080.
+// Everything is a pure function of t inside seek(t): no timers, no CSS animation, no state between frames.
+const W = 1920, H = 1080, CX = 960, CY = 540, BEAT = 0.5, DUR = 15;
+const BK = '#0A0A0A', WH = '#F2F0EB', OR = '#FF4F1A', CO = '#2E4BFF';
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const B = n => (n - 1) * BEAT;                         // time of beat n (1-based)
+
+// ---------- easing: exponential and critically damped spring, both functions of time ----------
+const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const expo = x => x <= 0 ? 0 : x >= 1 ? 1 : (1 - Math.pow(2, -10 * x)) / (1 - Math.pow(2, -10));
+const expoIO = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
+const E = (t, a, d) => expo((t - a) / d);              // expo-out from time a over d seconds
+const EIO = (t, a, d) => expoIO((t - a) / d);
+const spring = (t, a, w = 16) => { const x = t - a; return x <= 0 ? 0 : 1 - (1 + w * x) * Math.exp(-w * x); };  // critically damped: no overshoot
+
+// ---------- drawing helpers ----------
+const FONT = px => `900 ${px}px IT`;
+function rect(x, y, w, h, c) { g.fillStyle = c; g.fillRect(x, y, w, h); }
+function poly(pts, c) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fillStyle = c; g.fill(); }
+// directional motion blur: draw copies spread along the frame's displacement (dx, dy)
+function smear(dx, dy, draw) {
+  const L = Math.hypot(dx, dy);
+  if (L < 3) { draw(0, 0); return; }
+  const n = Math.max(2, Math.min(12, Math.ceil(L / 4))), a0 = g.globalAlpha, a = 1 - Math.pow(0.04, 1 / n);
+  for (let i = 0; i < n; i++) { const k = i / (n - 1) - 0.5; g.globalAlpha = a0 * a; draw(dx * k, dy * k); }
+  g.globalAlpha = a0;
+}
+const glyph = (ch, x, y, px, c) => { g.font = FONT(px); g.fillStyle = c; g.textBaseline = 'alphabetic'; g.textAlign = 'center'; g.fillText(ch, x, y); };
+// letter layout: centres and widths for a word, tracked tight
+function layout(word, px, cx, track = -0.035) {
+  g.font = FONT(px); const ws = [...word].map(ch => g.measureText(ch).width), tr = px * track;
+  const total = ws.reduce((a, b) => a + b, 0) + tr * (ws.length - 1); let x = cx - total / 2;
+  return [...word].map((ch, i) => { const o = { ch, x: x + ws[i] / 2, w: ws[i] }; x += ws[i] + tr; return o; });
+}
+const CAP = 0.727;   // Inter cap height / em
+
+// ================= A · KINETIC TYPE (0–3 s) =================
+const BASE = 660, PX = 300;
+// one word: letters slide vertically through the baseline slot (clipped above the line)
+function slotWord(t, word, tin, tout, x0 = CX, col = WH) {
+  const L = layout(word, PX, x0);
+  g.save(); g.beginPath(); g.rect(0, 0, W, BASE + 6); g.clip();
+  L.forEach((l, i) => {
+    const ki = tin == null ? 1 : E(t, tin + i * 0.035, 0.32), ko = tout == null ? 0 : E(t, tout + i * 0.03, 0.28);
+    const y = BASE + (1 - ki) * PX * 0.95 + ko * PX * 0.95;
+    const yp = BASE + (1 - (tin == null ? 1 : E(t - 1 / 60, tin + i * 0.035, 0.32))) * PX * 0.95 + (tout == null ? 0 : E(t - 1 / 60, tout + i * 0.03, 0.28)) * PX * 0.95;
+    smear(0, y - yp, (dx, dy) => glyph(l.ch, l.x + dx, y + dy, PX, col));
+  });
+  g.restore();
+}
+function underline(w, x = CX, col = OR) { rect(x - w / 2, BASE + 18, w, 16, col); }
+function sceneA(t) {
+  // beat 1: the square snaps flat into the baseline
+  if (t < B(2)) {
+    const k = E(t, 0, 0.34), w = lerp(200, 1300, k), h = lerp(200, 16, k), y = lerp(CY, BASE + 26, k);
+    const kp = E(t - 1 / 60, 0, 0.34);
+    smear(0, (y - lerp(CY, BASE + 26, kp)), (dx, dy) => rect(CX - w / 2, y - h / 2 + dy, w, h, OR));
+    return;
+  }
+  const wEvery = layout('EVERY', PX, CX), span = L => L[L.length - 1].x + L[L.length - 1].w / 2 - (L[0].x - L[0].w / 2);
+  if (t < B(4)) {                                    // beats 2–3: EVERY → IDEA (slot)
+    slotWord(t, 'EVERY', B(2), B(3)); slotWord(t, 'IDEA', B(3) + 0.06, null);
+    const w = lerp(1300, lerp(span(wEvery), span(layout('IDEA', PX, CX)), E(t, B(3), 0.35)), E(t, B(2), 0.35));
+    underline(w); return;
+  }
+  if (t < B(5)) {                                    // beat 4: IDEA trucks out left, STARTS in from the right
+    const k = EIO(t, B(4), 0.36), kp = EIO(t - 1 / 60, B(4), 0.36);
+    const xa = lerp(CX, CX - 1900, k), xb = lerp(CX + 1900, CX, k), xap = lerp(CX, CX - 1900, kp), xbp = lerp(CX + 1900, CX, kp);
+    smear(xa - xap, 0, dx => { slotWord(1e9, 'IDEA', null, null, xa + dx); });
+    smear(xb - xbp, 0, dx => { slotWord(1e9, 'STARTS', null, null, xb + dx); });
+    underline(lerp(span(layout('IDEA', PX, CX)), span(layout('STARTS', PX, CX)), k), lerp(CX, CX, k)); return;
+  }
+  if (t < B(6)) {                                    // beat 5: STARTS → AS A
+    slotWord(t, 'STARTS', null, B(5)); slotWord(t, 'AS A', B(5) + 0.06, null);
+    underline(lerp(span(layout('STARTS', PX, CX)), span(layout('AS A', PX, CX)), E(t, B(5), 0.35))); return;
+  }
+  // beat 6: AS A out left, SQUARE in; then the orange line floods up into each letter
+  const k = EIO(t, B(6), 0.3), kp = EIO(t - 1 / 60, B(6), 0.3);
+  const xa = lerp(CX, CX - 1900, k), xb = lerp(CX + 1900, CX, k);
+  if (k < 1) smear(xa - lerp(CX, CX - 1900, kp), 0, dx => slotWord(1e9, 'AS A', null, null, xa + dx));
+  const L = layout('SQUARE', PX, CX);
+  smear(xb - lerp(CX + 1900, CX, kp), 0, dx => slotWord(1e9, 'SQUARE', null, null, xb + dx));
+  const ul = lerp(span(layout('AS A', PX, CX)), span(L), k);
+  const tf = B(6) + 0.24;                            // flood
+  if (t < tf) { underline(ul); return; }
+  L.forEach((l, i) => {
+    const kf = E(t, tf + i * 0.025, 0.16), top = BASE + 34 - kf * (PX * CAP + 34);
+    const x0 = l.x - l.w / 2 - 6, x1 = l.x + l.w / 2 + 6;
+    rect(x0, top, x1 - x0, BASE + 34 - top, OR);
+  });
+  // segments of underline not yet flooded stay
+  rect(CX - ul / 2, BASE + 18, ul, 16, OR);
+}
+// the six letter-blocks at the end of A (= start of B), as rects
+function letterBlocks() { return layout('SQUARE', PX, CX).map(l => ({ x: l.x, w: l.w + 12, top: BASE + 34 - (PX * CAP + 34), bot: BASE + 34 })); }
+
+// ================= B · SHAPE MORPH (3–6 s) =================
+const NP = 96;
+function shapePts(kind, cx, cy, r, rot = 0) {
+  const pts = [];
+  for (let i = 0; i < NP; i++) {
+    const u = i / NP, a = rot + u * Math.PI * 2 - Math.PI / 2;
+    if (kind === 'circle') pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]);
+    else {
+      const n = kind === 'tri' ? 3 : kind === 'hex' ? 6 : 4;
+      const seg = Math.floor(u * n), f = u * n - seg, a0 = rot - Math.PI / 2 + seg * Math.PI * 2 / n, a1 = a0 + Math.PI * 2 / n;
+      const p0 = [Math.cos(a0) * r, Math.sin(a0) * r], p1 = [Math.cos(a1) * r, Math.sin(a1) * r];
+      pts.push([cx + lerp(p0[0], p1[0], f), cy + lerp(p0[1], p1[1], f)]);
+    }
+  }
+  return pts;
+}
+const mixPts = (A, Bp, k) => A.map((p, i) => [lerp(p[0], Bp[i][0], k), lerp(p[1], Bp[i][1], k)]);
+function rectPts(x0, y0, x1, y1) { // rect as a 4-gon sampled like shapePts('sq') (starting at top-centre going clockwise)
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, hw = (x1 - x0) / 2, hh = (y1 - y0) / 2;
+  return shapePts('sq', 0, 0, 1, Math.PI / 4).map(([x, y]) => [cx + x / Math.SQRT1_2 * hw, cy + y / Math.SQRT1_2 * hh]);
+}
+function sceneB(t) {
+  const LB = letterBlocks(), S0 = 85;
+  if (t < B(9)) {
+    // beat 7: blocks → squares → circles ; beat 8: circles converge into one
+    const k1 = E(t, B(7), 0.3), k2 = E(t, B(7) + 0.12, 0.3), k3 = EIO(t, B(8), 0.42);
+    LB.forEach((b, i) => {
+      const sq = rectPts(b.x - S0, CY - S0, b.x + S0, CY + S0), blk = rectPts(b.x - b.w / 2, b.top, b.x + b.w / 2, b.bot);
+      let P = mixPts(blk, sq, k1);
+      P = mixPts(P, shapePts('circle', b.x, CY, S0), k2);
+      const cx = lerp(b.x, CX, k3), r = lerp(S0, 250, k3);
+      const ex = lerp(b.x, CX, EIO(t - 1 / 60, B(8), 0.42));
+      P = P.map(([x, y]) => [cx + (x - b.x) * r / S0, CY + (y - CY) * r / S0]);
+      smear(cx - ex, 0, dx => poly(P.map(([x, y]) => [x + dx, y]), OR));
+    });
+    return;
+  }
+  if (t < B(11)) {   // beat 9: circle → triangle; beat 10: triangle → hexagon with a twist
+    const C = shapePts('circle', CX, CY, 250), T = shapePts('tri', CX, CY + 30, 300, 0);
+    let P = mixPts(C, T, E(t, B(9), 0.32));
+    const k = E(t, B(10), 0.36), Hx = shapePts('hex', CX, CY, 270, Math.PI / 6 * k + Math.PI / 3 * 0);
+    const Tr = shapePts('tri', CX, CY + 30, 300, Math.PI * 2 / 3 * k);
+    P = t < B(10) ? P : mixPts(Tr, Hx, k);
+    poly(P, OR); return;
+  }
+  // beat 11: hexagon → square, cracks into a 4×4 grid ; beat 12: grid spreads into the city plan (top view)
+  const HX = shapePts('hex', CX, CY, 270, Math.PI / 6), SQ = rectPts(CX - 240, CY - 240, CX + 240, CY + 240);
+  if (t < B(11) + 0.24) { poly(mixPts(HX, SQ, E(t, B(11), 0.24)), OR); return; }
+  const gap = E(t, B(11) + 0.24, 0.24) * 16;
+  const tiles = city2DTiles(t);
+  tiles.forEach(T => poly(T.pts, T.col));
+}
+// ---------- city: 8 × 5 blocks, shared by B (top view), C (3D) and D (front) ----------
+const U = 150, COLS = 8, ROWS = 5, TS = 0.8;
+const CITY = [];
+for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+  const i = CITY.length, front = r === ROWS - 1;
+  const col = front ? OR : ((c * 7 + r * 3) % 5 === 0 ? CO : (c * 5 + r * 11) % 7 === 0 ? WH : OR);
+  CITY.push({ c, r, x: (c - (COLS - 1) / 2) * U, z: (r - (ROWS - 1) / 2) * U, col, front,
+    h1: 40 + ((c * 37 + r * 91) % 7) * 38, h2: 40 + ((c * 53 + r * 29 + 3) % 8) * 34 });
+}
+const V1 = [140, 220, 180, 310, 270, 380, 350, 470], V2 = [180, 160, 280, 250, 370, 330, 450, 520];
+function camAt(t) {
+  let pitch = Math.PI / 2, yaw = 0, cy0 = CY;
+  pitch = lerp(Math.PI / 2, 0.92, EIO(t, B(13), 0.5));
+  yaw = lerp(0, -0.32, EIO(t, B(13), 0.5)); yaw = lerp(yaw, 0.42, EIO(t, B(16), 0.5));
+  const kf = EIO(t, B(18), 0.48); pitch = lerp(pitch, 0, kf); yaw = lerp(yaw, 0, kf); cy0 = lerp(CY, 860, kf);
+  return { pitch, yaw, cy0: cy0 - (1 - kf) * 110 * EIO(t, B(13), 0.5), D: 1800 };
+}
+function proj(x, y, z, cam) {
+  const ca = Math.cos(cam.yaw), sa = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const xr = x * ca - z * sa, zr = x * sa + z * ca;
+  const depth = cam.D - (y * sp + zr * cp), up = y * cp - zr * sp, f = cam.D / depth;
+  return [CX + xr * f, cam.cy0 - up * f, depth];
+}
+function tileTop(b, cam, h = 0) { const s = U * TS / 2; return [[b.x - s, h, b.z - s], [b.x + s, h, b.z - s], [b.x + s, h, b.z + s], [b.x - s, h, b.z + s]].map(p => proj(p[0], p[1], p[2], cam)); }
+// B's 4×4 crack → city top view
+function city2DTiles(t) {
+  const cam = camAt(B(13) - 1e-3), gap = E(t, B(11) + 0.24, 0.24) * 16, kS = EIO(t, B(12), 0.42);
+  return CITY.map((b, i) => {
+    const inGrid = b.c >= 2 && b.c <= 5 && b.r <= 3, gc = b.c - 2, gr = b.r;
+    const top = tileTop(b, cam).map(p => [p[0], p[1]]);
+    let pts;
+    if (inGrid) {
+      const s = 480 / 4, x0 = CX - 240 + gc * s + gap / 2, y0 = CY - 240 + gr * s + gap / 2;
+      const src = [[x0, y0], [x0 + s - gap, y0], [x0 + s - gap, y0 + s - gap], [x0, y0 + s - gap]];
+      pts = src.map((p, j) => [lerp(p[0], top[j][0], kS), lerp(p[1], top[j][1], kS)]);
+      return { pts, col: kS > 0.5 ? b.col : OR };
+    }
+    const ks = EIO(t, B(12) + 0.04 + ((b.c + b.r) % 6) * 0.025, 0.36), off = (1 - ks) * 1500;
+    return { pts: top.map(p => [p[0] + off, p[1]]), col: b.col };
+  });
+}
+
+// ================= C · 2D → 3D (6–9 s) =================
+function heightAt(b, t) {
+  const d = Math.hypot(b.c - 3.5, b.r - 2);
+  let h = b.h1 * E(t, B(14) + d * 0.04, 0.38);
+  h = lerp(h, b.h2, spring(t, B(15), 14));
+  const tgt8 = b.front ? V1[b.c] : 30; h = lerp(h, tgt8, spring(t, B(17), 13));
+  if (!b.front) h = lerp(h, 0, E(t, B(18), 0.4));
+  return h;
+}
+function drawCity(t, cam, hfn, colfn) {
+  const faces = [];
+  CITY.forEach((b, i) => {
+    const h = hfn(b, t); if (!b.front && h < 2 && cam.pitch < 0.6) return;
+    const s = U * TS / 2, P = (x, y, z) => proj(b.x + x, y, b.z + z, cam);
+    const c = colfn ? colfn(b, i) : b.col;
+    const top = [P(-s, h, -s), P(s, h, -s), P(s, h, s), P(-s, h, s)];
+    faces.push({ pts: top, col: c, kind: 'top' });
+    if (h > 0.5) {
+      const sides = [[P(-s, 0, s), P(s, 0, s), P(s, h, s), P(-s, h, s)], [P(s, 0, s), P(s, 0, -s), P(s, h, -s), P(s, h, s)],
+        [P(s, 0, -s), P(-s, 0, -s), P(-s, h, -s), P(s, h, -s)], [P(-s, 0, -s), P(-s, 0, s), P(-s, h, s), P(-s, h, -s)]];
+      sides.forEach((q, k) => faces.push({ pts: q, col: c, kind: k === 0 ? 'front' : 'side' }));
+    }
+  });
+  faces.forEach(f => f.d = f.pts.reduce((a, p) => a + p[2], 0) / 4);
+  faces.sort((a, b2) => b2.d - a.d);
+  faces.forEach(f => {
+    const p = f.pts, area = (p[1][0] - p[0][0]) * (p[2][1] - p[0][1]) - (p[2][0] - p[0][0]) * (p[1][1] - p[0][1]);
+    if (f.kind !== 'top' && area >= 0) return;
+    if (f.kind === 'top' && area <= 0 && cam.pitch > 0.02) return;
+    poly(p, f.kind === 'side' ? BK : f.col);
+    g.strokeStyle = BK; g.lineWidth = 5; g.lineJoin = 'round'; g.stroke();
+  });
+}
+function sceneC(t) { drawCity(t, camAt(t), heightAt); }
+
+// ================= D · DATA / UI (9–12 s) =================
+const CAMF = { pitch: 0, yaw: 0, cy0: 860, D: 1800 };
+function barRect(c, h) { const b = CITY[(ROWS - 1) * COLS + c], s = U * TS / 2; const a = proj(b.x - s, h, b.z + s, CAMF), z = proj(b.x + s, 0, b.z + s, CAMF); return { x0: a[0], x1: z[0], y0: a[1], y1: z[1] }; }
+function valAt(c, t) { return lerp(V1[c], V2[c], E(t, B(20), 0.36)); }
+function chartPoints(t) { return V1.map((_, c) => { const r = barRect(c, valAt(c, t)); return [(r.x0 + r.x1) / 2, r.y0]; }); }
+function card(x, y, w, h, col) { g.beginPath(); g.roundRect(x - w / 2, y - h / 2, w, h, 28); g.fillStyle = col; g.fill(); }
+function sceneD(t) {
+  const base = barRect(0, 0).y1;
+  if (t < B(23)) {
+    // beats 19–22: bars, baseline, counting labels, highlight + tooltip, collapse into a line chart
+    const kl = E(t, B(19), 0.34), x0 = barRect(0, 0).x0 - 40, x1 = barRect(7, 0).x1 + 40;
+    rect(lerp(x1, x0, kl), base, (x1 - x0) * kl, 4, WH);
+    const kc = E(t, B(22), 0.34);
+    V1.forEach((_, c) => {
+      const r = barRect(c, valAt(c, t)), cx = (r.x0 + r.x1) / 2, w = (r.x1 - r.x0) * (1 - kc);
+      const col = c === 5 && t >= B(21) ? CO : OR;
+      if (w > 0.5) rect(cx - w / 2, r.y0, w, r.y1 - r.y0, col);
+      const n = Math.round(valAt(c, t) * E(t, B(19), 0.4) / 10);
+      g.font = '600 30px IT'; g.textAlign = 'center'; g.fillStyle = WH; g.globalAlpha = 1;
+      if (kc < 0.5) g.fillText(String(n), cx, r.y0 - 22);
+    });
+    if (t >= B(22)) {   // line chart draws through the tops
+      const P = chartPoints(t), u = E(t, B(22) + 0.08, 0.36) * (P.length - 1);
+      g.strokeStyle = WH; g.lineWidth = 8; g.lineJoin = 'round'; g.lineCap = 'round'; g.beginPath();
+      P.forEach(([x, y], i) => { if (i <= u) i ? g.lineTo(x, y) : g.moveTo(x, y); else if (i - 1 < u) { const f = u - (i - 1); g.lineTo(lerp(P[i - 1][0], x, f), lerp(P[i - 1][1], y, f)); } });
+      g.stroke();
+      P.forEach(([x, y], i) => { if (i <= u + 0.01) { g.beginPath(); g.arc(x, y, i === 5 ? 16 : 11, 0, 7); g.fillStyle = i === 5 ? CO : WH; g.fill(); } });
+    }
+    if (t >= B(21)) {   // tooltip pops out of the highlighted bar (critically damped, no bounce)
+      const r = barRect(5, valAt(5, t)), s = spring(t, B(21), 18), cx = (r.x0 + r.x1) / 2, cy = r.y0 - 120;
+      g.save(); g.translate(cx, cy + 50); g.scale(s, s); g.translate(-cx, -(cy + 50));
+      card(cx, cy, 250, 96, WH); poly([[cx - 18, cy + 46], [cx + 18, cy + 46], [cx, cy + 66]], WH);
+      g.font = '900 54px IT'; g.fillStyle = BK; g.textAlign = 'center'; g.fillText('+248%', cx, cy + 19); g.restore();
+    }
+    return;
+  }
+  // beat 23: the chart shrinks into a cobalt card ; beat 24: toggle flips, two more cards truck in from the right
+  const k = EIO(t, B(23), 0.42), P0 = chartPoints(1e9);
+  const bx = (P0[0][0] + P0[7][0]) / 2, by = (Math.min(...P0.map(p => p[1])) + base) / 2;
+  const kt = EIO(t, B(24), 0.4), kpt = EIO(t - 1 / 60, B(24), 0.4);
+  const c1x = lerp(CX, 420, kt), sh = c1x - lerp(CX, 420, kpt);
+  const cw = 500, chh = 330;
+  smear(sh, 0, dx => {
+    const cx = c1x + dx;
+    const w = lerp(P0[7][0] - P0[0][0] + 160, cw, k), hh = lerp(base - Math.min(...P0.map(p => p[1])) + 180, chh, k);
+    const ccx = lerp(bx, cx, k), ccy = lerp(by, CY, k);
+    card(ccx, ccy, w, hh, CO);
+    // the line chart inside the card
+    const sc = lerp(1, 0.42, k), ox = ccx, oy = ccy + lerp(0, 10, k);
+    g.strokeStyle = WH; g.lineWidth = lerp(8, 6, k); g.lineJoin = 'round'; g.beginPath();
+    P0.forEach(([x, y], i) => { const X = ox + (x - bx) * sc, Y = oy + (y - by) * sc; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke();
+    if (k > 0.6) {
+      g.font = '900 46px IT'; g.textAlign = 'left'; g.fillStyle = WH; g.fillText('+248%', ccx - cw / 2 + 36, ccy - chh / 2 + 66);
+      // toggle
+      const tx = ccx + cw / 2 - 110, ty = ccy - chh / 2 + 50, on = E(t, B(24), 0.22);
+      g.beginPath(); g.roundRect(tx, ty, 76, 40, 20); g.fillStyle = on > 0.5 ? OR : BK; g.fill();
+      g.beginPath(); g.arc(tx + 20 + on * 36, ty + 20, 14, 0, 7); g.fillStyle = WH; g.fill();
+    }
+  });
+  if (t >= B(24)) {
+    const xs = [CX, 1500], from = [CX + 1300, 1500 + 1300];
+    [0, 1].forEach(i => {
+      const kk = EIO(t, B(24) + 0.05 * i, 0.4), kp = EIO(t - 1 / 60, B(24) + 0.05 * i, 0.4);
+      const x = lerp(from[i], xs[i], kk), xp = lerp(from[i], xs[i], kp);
+      smear(x - xp, 0, dx => drawCard(i + 1, x + dx, CY, t));
+    });
+  }
+}
+function drawCard(i, x, y, t) {
+  const cw = 500, chh = 330;
+  if (i === 1) { card(x, y, cw, chh, WH); g.font = '900 96px IT'; g.textAlign = 'left'; g.fillStyle = BK; g.fillText('18.4k', x - cw / 2 + 36, y + 10);
+    [0.9, 0.6, 0.75].forEach((f, j) => rect(x - cw / 2 + 36, y + 50 + j * 30, (cw - 72) * f, 16, j === 0 ? OR : BK)); }
+  else { card(x, y, cw, chh, OR); g.lineWidth = 26; g.strokeStyle = BK; g.beginPath(); g.arc(x, y, 100, 0, 7); g.stroke();
+    g.strokeStyle = WH; g.beginPath(); g.arc(x, y, 100, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.72); g.stroke();
+    g.font = '900 54px IT'; g.textAlign = 'center'; g.fillStyle = WH; g.fillText('72%', x, y + 19); }
+}
+
+// ================= E · END TITLE (12–15 s) =================
+const TPX = 280, TB1 = 600, TB2 = 470, OB = 830;
+function sceneE(t) {
+  const push = lerp(1, 1.07, EIO(t, B(25), 2.2)) * 1; const pull = EIO(t, B(30), 0.42);
+  const scale = lerp(push, 1, pull);
+  g.save(); g.translate(CX, CY); g.scale(scale, scale); g.translate(-CX, -CY);
+  const L = layout('SQUARE', TPX, CX), cardX = [420, CX, 1500], cardCol = [CO, WH, OR];
+  const ly = lerp(TB1, TB2, EIO(t, B(27), 0.4));
+  // beat 25: cards flip about the vertical axis; past 90° their backs are two white slabs each
+  const kf = EIO(t, B(25), 0.42);
+  const slabs = L.map(l => ({ x0: l.x - l.w / 2, x1: l.x + l.w / 2, y0: ly - TPX * CAP, y1: ly }));
+  if (kf < 0.5) {
+    const ang = kf * Math.PI, c = Math.cos(ang);
+    [0, 1, 2].forEach(i => { const w = 500 * c, hh = 330, persp = Math.sin(ang) * 40;
+      const x = cardX[i]; poly([[x - w / 2, CY - hh / 2 - persp], [x + w / 2, CY - hh / 2 + persp], [x + w / 2, CY + hh / 2 - persp], [x - w / 2, CY + hh / 2 + persp]], cardCol[i]); });
+  } else {
+    const kk = (kf - 0.5) * 2, ko = E(t, B(26), 0.34);
+    slabs.forEach((s, j) => {
+      const ci = Math.floor(j / 2), half = j % 2, cx = cardX[ci], w0 = 250 * Math.cos(Math.PI * (1 - kk)) * -1;
+      const sx0 = cx - 250 + half * 250, sx1 = sx0 + 250;
+      const k2 = EIO(t, B(25) + 0.21, 0.3);
+      const x0 = lerp(lerp(cx, sx0, kk), s.x0, k2), x1 = lerp(lerp(cx, sx1, kk), s.x1, k2);
+      const y0 = lerp(CY - 165, s.y0, k2), y1 = lerp(CY + 165, s.y1, k2);
+      // beat 26: slab opens from its centre line into the letter
+      const my = (y0 + y1) / 2, half2 = (y1 - y0) / 2 * (1 - ko);
+      if (half2 > 0.5) rect(x0, my - half2, x1 - x0, half2 * 2, WH);
+      if (ko > 0) { g.save(); g.beginPath(); g.rect(x0 - 30, my - (y1 - y0) / 2 * ko - 10, x1 - x0 + 60, (y1 - y0) * ko + 20); g.clip();
+        glyph(L[j].ch, L[j].x, ly, TPX, WH); g.restore(); }
+    });
+  }
+  // beat 27: ONE trucks in from the right in orange ; beat 28: its O becomes a solid square
+  if (t >= B(27)) {
+    const k = EIO(t, B(27), 0.36), kp = EIO(t - 1 / 60, B(27), 0.36);
+    const Lo = layout('ONE', TPX, CX), off = (1 - k) * 1500, offp = (1 - kp) * 1500;
+    const ks = E(t, B(28), 0.28);
+    const sqS = TPX * CAP;                        // the square the O becomes (cap-height square)
+    const sq = oSquare(t);
+    smear(off - offp, 0, dx => Lo.forEach((l, i) => {
+      if (i === 0 && ks > 0) return;
+      const sq2 = squeeze(t, l.x + off + dx, OB);
+      if (sq2.sx > 0.01) { g.save(); g.translate(sq2.x, OB); g.scale(sq2.sx, 1); glyph(l.ch, 0, 0, TPX, OR); g.restore(); }
+    }));
+    if (ks > 0) { // O → square
+      const o = Lo[0], cx0 = o.x + off, cy0 = OB - sqS / 2;
+      const w = lerp(o.w * 0.9, sqS, ks);
+      rect(lerp(cx0, sq.x, 0) - w / 2 + 0 * 0, cy0 - lerp(sqS * 1.02, sqS, ks) / 2, w, lerp(sqS * 1.02, sqS, ks), OR);
+    }
+  }
+  // beat 29: subtitle wipes in ; beat 30: it wipes out and everything squeezes into the square
+  if (t >= B(29)) {
+    const ki = E(t, B(29), 0.3), ko = E(t, B(30), 0.25);
+    g.font = '600 34px IT'; g.textAlign = 'center'; g.fillStyle = WH; g.letterSpacing = '12px';
+    const tw = g.measureText('MOTION DESIGN SHOWREEL  2026').width + 40;
+    g.save(); g.beginPath(); g.rect(CX + tw / 2 - tw * ki, 0, tw * (ki - ko), H); g.clip(); g.fillText('MOTION DESIGN SHOWREEL  2026', CX + 6, OB + 92); g.restore();
+    g.letterSpacing = '0px';
+  }
+  g.restore();
+}
+// the end collapse: letters squeeze to zero width toward the O-square, then the square slides to the centre at 200 px
+function squeeze(t, x, y) { const k = EIO(t, B(30), 0.36); const s = oSquare(t); return { x: lerp(x, s.x, k), sx: 1 - k }; }
+function oSquare(t) { const Lo = layout('ONE', TPX, CX); return { x: Lo[0].x, y: OB - TPX * CAP / 2 }; }
+// SQUARE letters also squeeze on beat 30 (drawn inside sceneE via glyph clip) — handled by a wrapper
+function finale(t) {
+  // overlay pass for beat 30: redraw from scratch as squeeze shapes
+  const k = EIO(t, B(30), 0.4), kp = EIO(t - 1 / 60, B(30), 0.4);
+  const sqS = TPX * CAP, Lo = layout('ONE', TPX, CX), o = Lo[0];
+  const scale = 1.07;
+  const tx = (x, y) => [CX + (x - CX) * lerp(scale, 1, k), CY + (y - CY) * lerp(scale, 1, k)];
+  const L = layout('SQUARE', TPX, CX);
+  const sx = lerp(o.x, CX, k), sy = lerp(OB - sqS / 2, CY, k), S = lerp(sqS, 200, k);
+  const [px, py] = tx(lerp(o.x, CX, k), lerp(OB - sqS / 2, CY, k));
+  const sxp = tx(lerp(o.x, CX, kp), lerp(OB - sqS / 2, CY, kp));
+  const ks = cl(k * 1.6);
+  L.forEach(l => { const [x, y] = tx(lerp(l.x, o.x, ks), TB2); const s = 1 - ks; if (s > 0.01) { g.save(); g.translate(x, y + (1 - lerp(scale, 1, k)) * 0); g.scale(s * lerp(scale, 1, k), lerp(scale, 1, k)); glyph(l.ch, 0, 0, TPX, WH); g.restore(); } });
+  Lo.slice(1).forEach(l => { const [x, y] = tx(lerp(l.x, o.x, ks), OB); const s = 1 - ks; if (s > 0.01) { g.save(); g.translate(x, y); g.scale(s * lerp(scale, 1, k), lerp(scale, 1, k)); glyph(l.ch, 0, 0, TPX, OR); g.restore(); } });
+  { const ko = E(t, B(30), 0.25); g.font = '600 34px IT'; g.textAlign = 'center'; g.fillStyle = WH; g.letterSpacing = '12px';
+    const tw = g.measureText('MOTION DESIGN SHOWREEL  2026').width + 40, [sx0, sy0] = tx(CX, OB + 92);
+    if (ko < 1) { g.save(); g.beginPath(); g.rect(sx0 - tw / 2, 0, tw * (1 - ko), H); g.clip(); g.translate(sx0, sy0); g.scale(lerp(scale, 1, k), lerp(scale, 1, k)); g.fillText('MOTION DESIGN SHOWREEL  2026', 6, 0); g.restore(); }
+    g.letterSpacing = '0px'; }
+  const Sc = S * (k >= 1 ? 1 : lerp(scale, 1, k));
+  smear(px - sxp[0], py - sxp[1], (dx, dy) => rect(px - Sc / 2 + dx, py - Sc / 2 + dy, Sc, Sc, OR));
+}
+
+// ================= master =================
+window.seek = function (t) {
+  t = Math.max(0, Math.min(DUR - 1e-4, t));
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; rect(0, 0, W, H, BK);
+  if (t < B(7)) sceneA(t);
+  else if (t < B(13)) sceneB(t);
+  else if (t < B(19)) sceneC(t);
+  else if (t < B(25)) sceneD(t);
+  else if (t < B(30)) sceneE(t);
+  else finale(t);
+};
+window.DUR = DUR;
+
+// ================= soundtrack (OfflineAudioContext) =================
+window.renderAudio = async function () {
+  const SR = 48000, ac = new OfflineAudioContext(2, SR * DUR, SR);
+  const master = ac.createDynamicsCompressor(); master.threshold.value = -10; master.ratio.value = 4; master.connect(ac.destination);
+  const noiseBuf = (() => { const b = ac.createBuffer(1, SR * 2, SR), d = b.getChannelData(0); let s = 1; for (let i = 0; i < d.length; i++) { s = (s * 16807) % 2147483647; d[i] = s / 1073741823.5 - 1; } return b; })();
+  const kick = (t, v = 1) => { const o = ac.createOscillator(), gn = ac.createGain(); o.frequency.setValueAtTime(155, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.13);
+    gn.gain.setValueAtTime(0.0001, t); gn.gain.exponentialRampToValueAtTime(0.95 * v, t + 0.004); gn.gain.exponentialRampToValueAtTime(0.0001, t + 0.42); o.connect(gn).connect(master); o.start(t); o.stop(t + 0.45);
+    const n = ac.createBufferSource(), f = ac.createBiquadFilter(), ng = ac.createGain(); n.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = 3000;
+    ng.gain.setValueAtTime(0.18 * v, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.02); n.connect(f).connect(ng).connect(master); n.start(t, 0.1, 0.03); };
+  const hat = t => { const n = ac.createBufferSource(), f = ac.createBiquadFilter(), ng = ac.createGain(); n.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = 8000;
+    ng.gain.setValueAtTime(0.11, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.05); n.connect(f).connect(ng).connect(master); n.start(t, Math.random() * 1, 0.06); };
+  const hit = (t, v = 1) => { // scene-change hit: low boom + bright metallic crack
+    const o = ac.createOscillator(), gn = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(80, t); o.frequency.exponentialRampToValueAtTime(30, t + 0.8);
+    gn.gain.setValueAtTime(0.7 * v, t); gn.gain.exponentialRampToValueAtTime(0.0001, t + 1.1); o.connect(gn).connect(master); o.start(t); o.stop(t + 1.2);
+    const n = ac.createBufferSource(), f = ac.createBiquadFilter(), ng = ac.createGain(); n.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.value = 2400; f.Q.value = 0.8;
+    ng.gain.setValueAtTime(0.55 * v, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.35); n.connect(f).connect(ng).connect(master); n.start(t, 0.3, 0.4);
+    [523.25, 784, 1046.5].forEach((fr, i) => { const s = ac.createOscillator(), sg = ac.createGain(); s.type = 'triangle'; s.frequency.value = fr;
+      sg.gain.setValueAtTime(0.06 * v, t); sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.6 - i * 0.1); s.connect(sg).connect(master); s.start(t); s.stop(t + 0.7); }); };
+  const bass = (t, f, d) => { const o = ac.createOscillator(), lp = ac.createBiquadFilter(), gn = ac.createGain(); o.type = 'sawtooth'; o.frequency.value = f; lp.type = 'lowpass'; lp.frequency.setValueAtTime(900, t); lp.frequency.exponentialRampToValueAtTime(160, t + d);
+    gn.gain.setValueAtTime(0.0001, t); gn.gain.exponentialRampToValueAtTime(0.22, t + 0.01); gn.gain.exponentialRampToValueAtTime(0.0001, t + d); o.connect(lp).connect(gn).connect(master); o.start(t); o.stop(t + d + 0.02); };
+  for (let i = 0; i < 30; i++) { const t = i * BEAT; kick(t, i % 4 === 0 ? 1 : 0.85); hat(t + 0.25); }
+  // off-beat bass on the sections' roots: A, F, C, G, D
+  const roots = [55, 43.65, 65.41, 49, 73.42];
+  for (let i = 0; i < 30; i++) bass(i * BEAT + 0.25, roots[Math.floor(i / 6)], 0.22);
+  [3, 6, 9].forEach(t => hit(t, 0.8)); hit(12, 1.25);
+  // riser into the last full bar (9.5 → 12): filtered noise sweep + rising saw, cut dead at 12
+  { const t0 = 9.5, t1 = 12, n = ac.createBufferSource(), f = ac.createBiquadFilter(), ng = ac.createGain(); n.buffer = noiseBuf; n.loop = true;
+    f.type = 'bandpass'; f.Q.value = 2.5; f.frequency.setValueAtTime(300, t0); f.frequency.exponentialRampToValueAtTime(9000, t1);
+    ng.gain.setValueAtTime(0.0001, t0); ng.gain.exponentialRampToValueAtTime(0.5, t1 - 0.02); ng.gain.linearRampToValueAtTime(0, t1);
+    n.connect(f).connect(ng).connect(master); n.start(t0); n.stop(t1);
+    const o = ac.createOscillator(), og = ac.createGain(), ol = ac.createBiquadFilter(); o.type = 'sawtooth'; o.frequency.setValueAtTime(110, t0); o.frequency.exponentialRampToValueAtTime(880, t1);
+    ol.type = 'lowpass'; ol.frequency.setValueAtTime(500, t0); ol.frequency.exponentialRampToValueAtTime(6000, t1);
+    og.gain.setValueAtTime(0.0001, t0); og.gain.exponentialRampToValueAtTime(0.14, t1 - 0.02); og.gain.linearRampToValueAtTime(0, t1); o.connect(ol).connect(og).connect(master); o.start(t0); o.stop(t1); }
+  // end title: a soft tick on 14.0, and a whoosh into the loop point
+  hit(14, 0.45);
+  const buf = await ac.startRendering();
+  // encode 16-bit PCM WAV → base64
+  const L = buf.getChannelData(0), R = buf.getChannelData(1), n = L.length, out = new DataView(new ArrayBuffer(44 + n * 4));
+  const ws = (o, s) => [...s].forEach((c, i) => out.setUint8(o + i, c.charCodeAt(0)));
+  ws(0, 'RIFF'); out.setUint32(4, 36 + n * 4, true); ws(8, 'WAVE'); ws(12, 'fmt '); out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, 2, true);
+  out.setUint32(24, SR, true); out.setUint32(28, SR * 4, true); out.setUint16(32, 4, true); out.setUint16(34, 16, true); ws(36, 'data'); out.setUint32(40, n * 4, true);
+  for (let i = 0; i < n; i++) { out.setInt16(44 + i * 4, cl(L[i], -1, 1) * 32767, true); out.setInt16(46 + i * 4, cl(R[i], -1, 1) * 32767, true); }
+  const bytes = new Uint8Array(out.buffer); let s = ''; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+Promise.all([document.fonts.load('900 100px IT'), document.fonts.load('600 40px IT')]).then(() => { window.seek(0); window.READY = true; });
+</script></body></html>
