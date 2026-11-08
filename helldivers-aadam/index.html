@@ -1,0 +1,342 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Call It In</title>
+<style>
+@font-face{font-family:"IT";font-weight:900;src:url(fonts/inter-tight-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:"IT";font-weight:600;src:url(fonts/inter-tight-latin-600-normal.woff2) format("woff2")}
+html,body{margin:0;background:#0B0B0B;overflow:hidden}canvas{display:block}
+</style></head><body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// CALL IT IN — a fan edit: why Helldivers 2 is the best game, and why Aadam has great taste.
+// 20 s, 120 BPM, 1920×1080. Every style is a pure function of t inside seek(t).
+const W = 1920, H = 1080, CX = 960, CY = 540, BEAT = 0.5, DUR = 20;
+const BK = '#0B0B0B', WH = '#F2F0EB', AM = '#FFC21A', RD = '#FF3B2F';
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const B = n => (n - 1) * BEAT, BAR = n => (n - 1) * 2;
+
+// ---------- easing ----------
+const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const expo = x => x <= 0 ? 0 : x >= 1 ? 1 : (1 - Math.pow(2, -10 * x)) / (1 - Math.pow(2, -10));
+const expoIO = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
+const E = (t, a, d) => expo((t - a) / d), EIO = (t, a, d) => expoIO((t - a) / d);
+const spring = (t, a, w = 18) => { const x = t - a; return x <= 0 ? 0 : 1 - (1 + w * x) * Math.exp(-w * x); };   // critically damped
+const D1 = 1 / 60;   // for velocity (motion blur)
+
+// ---------- drawing ----------
+function rect(x, y, w, h, c) { g.fillStyle = c; g.fillRect(x, y, w, h); }
+function poly(pts, c) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fillStyle = c; g.fill(); }
+function rr(x, y, w, h, r, fill, stroke, lw = 6) { g.beginPath(); g.roundRect(x, y, w, h, r); if (fill) { g.fillStyle = fill; g.fill(); } if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); } }
+function smear(dx, dy, draw) {
+  const L = Math.hypot(dx, dy); if (L < 3) { draw(0, 0); return; }
+  const n = Math.max(2, Math.min(12, Math.ceil(L / 4))), a0 = g.globalAlpha, a = 1 - Math.pow(0.04, 1 / n);
+  for (let i = 0; i < n; i++) { const k = i / (n - 1) - 0.5; g.globalAlpha = a0 * a; draw(dx * k, dy * k); }
+  g.globalAlpha = a0;
+}
+function txt(s, x, y, px, c, o = {}) {
+  g.font = `${o.w || 900} ${px}px IT`; g.textAlign = o.align || 'left'; g.textBaseline = 'alphabetic'; g.fillStyle = c;
+  g.letterSpacing = (o.track || (o.w === 600 ? 0.12 * px : -0.03 * px)) + 'px'; g.fillText(s, x, y); g.letterSpacing = '0px';
+}
+function tw(s, px, w = 900) { g.font = `${w} ${px}px IT`; g.letterSpacing = (w === 600 ? 0.12 * px : -0.03 * px) + 'px'; const m = g.measureText(s).width; g.letterSpacing = '0px'; return m; }
+// a word that slides in from the right (and out to the left) with velocity blur — the film's one camera move
+function truck(t, s, x, y, px, c, tin, tout, o = {}) {
+  const off = tt => (tin == null ? 0 : (1 - EIO(tt, tin, o.d || 0.36)) * 1800) - (tout == null ? 0 : EIO(tt, tout, o.d || 0.36) * 2200);
+  const X = x + off(t), Xp = x + off(t - D1);
+  if (X > W + 50 || X + tw(s, px, o.w) < -50) return;
+  smear(X - Xp, 0, dx => txt(s, X + dx, y, px, c, o));
+}
+// a word that drops from orbit and lands on its baseline
+function drop(t, s, x, y, px, c, t0, o = {}) {
+  if (t < t0) return; const Y = lerp(-200, y, E(t, t0, 0.2)), Yp = lerp(-200, y, E(t - D1, t0, 0.2));
+  smear(0, Y - Yp, (dx, dy) => txt(s, x, Y + dy, px, c, o));
+}
+// arrow glyph inside a key cap
+function arrowPts(cx, cy, s, dir) {
+  const a = { up: -Math.PI / 2, down: Math.PI / 2, left: Math.PI, right: 0 }[dir];
+  const P = [[0.42, 0], [0, -0.38], [0, -0.15], [-0.4, -0.15], [-0.4, 0.15], [0, 0.15], [0, 0.38]];
+  return P.map(([x, y]) => [cx + (x * Math.cos(a) - y * Math.sin(a)) * s, cy + (x * Math.sin(a) + y * Math.cos(a)) * s]);
+}
+function keycap(x, y, s, dir, k) {   // k: 0 empty slot → 1 filled
+  rr(x - s / 2, y - s / 2, s, s, s * 0.18, null, WH, Math.max(3, s * 0.04));
+  if (k > 0.001) { const f = s * k * 0.86; rr(x - f / 2, y - f / 2, f, f, f * 0.16, AM); poly(arrowPts(x, y, s * 0.62 * k, dir), BK); }
+}
+function chevron(x, y, s, c, rot = 0) { g.save(); g.translate(x, y); g.rotate(rot); poly([[0, -s], [s * 0.9, s * 0.55], [0, s * 0.18], [-s * 0.9, s * 0.55]], c); g.restore(); }
+function check(x, y, s, k, c = AM) { if (k <= 0) return; g.strokeStyle = c; g.lineWidth = s * 0.18; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath();
+  const P = [[x - s * 0.45, y], [x - s * 0.1, y + s * 0.35], [x + s * 0.5, y - s * 0.4]]; const u = k * 2;
+  g.moveTo(...P[0]); if (u <= 1) g.lineTo(lerp(P[0][0], P[1][0], u), lerp(P[0][1], P[1][1], u)); else { g.lineTo(...P[1]); g.lineTo(lerp(P[1][0], P[2][0], u - 1), lerp(P[1][1], P[2][1], u - 1)); } g.stroke(); }
+
+// ---------- shared pieces ----------
+const SLOT = { y: 560, s: 150, gap: 190 };
+const slotX = i => CX + (i - 1.5) * SLOT.gap;
+// four key slots that fill on the given times, then squeeze into a vertical beam at tq
+function codeSlots(t, dirs, times, tq) {
+  const kq = tq == null ? 0 : EIO(t, tq, 0.24);
+  for (let i = 0; i < 4; i++) {
+    const k = spring(t, times[i], 22);
+    const x = lerp(slotX(i), CX, kq), s = SLOT.s * (1 - kq) + 14 * kq;
+    if (kq < 0.98) { g.save(); g.translate(x, SLOT.y); g.scale(lerp(1, 14 / SLOT.s, kq), lerp(1, 1.2, kq)); g.translate(-x, -SLOT.y); keycap(x, SLOT.y, SLOT.s, dirs[i], k); g.restore(); }
+    else rect(CX - 7, SLOT.y - SLOT.s * 0.6, 14, SLOT.s * 1.2, AM);
+  }
+}
+// beam strike from orbit at tb; returns nothing, draws beam + ground line
+const GROUND = 640;
+function beam(t, tb, dur = 0.42) {
+  if (t < tb || t > tb + dur) return;
+  const k = E(t, tb, 0.12), w = lerp(14, 0, E(t, tb + 0.12, dur - 0.12));
+  rect(CX - w / 2, 0, w, lerp(SLOT.y + 90, GROUND, k), AM);
+}
+function groundLine(t, tb, w1 = 1500, y = GROUND) { const w = w1 * E(t, tb + 0.08, 0.32); rect(CX - w / 2, y, w, 10, AM); }
+// progress rail: five reasons
+function rail(t) {
+  if (t < BAR(3) - 0.25 || t >= BAR(8) + 0.36) return;
+  const kin = EIO(t, BAR(3) - 0.25, 0.3), kout = EIO(t, BAR(8), 0.36);
+  const cur = Math.floor((t - BAR(3)) / 2), x0 = 200 - kout * 2200 + (1 - kin) * 1800, w = 1520 / 5;
+  for (let i = 0; i < 5; i++) {
+    const on = i < cur ? 1 : i === cur ? E(t, BAR(3 + i), 0.3) : 0;
+    rect(x0 + i * w, 96, w - 16, 8, '#2A2A2A'); rect(x0 + i * w, 96, (w - 16) * on, 8, AM);
+    txt('0' + (i + 1), x0 + i * w, 80, 22, i <= cur ? WH : '#555', { w: 600 });
+  }
+}
+// big reason number that slot-changes on each new reason
+function reasonNum(t) {
+  if (t < BAR(3) - 0.25 || t >= BAR(8) + 0.36) return;
+  const idx = Math.min(4, Math.floor((t - BAR(3) + 0.25) / 2)), base = BAR(3 + idx) - 0.25;
+  const kin = EIO(t, BAR(3) - 0.25, 0.36), kout = EIO(t, BAR(8), 0.36), x = 150 + (idx === 0 ? (1 - kin) * 1800 : 0) - kout * 2200;
+  g.save(); g.beginPath(); g.rect(0, 200, W, 334); g.clip();
+  const k = idx === 0 ? 1 : E(t, base, 0.3);
+  if (idx > 0) txt('0' + idx, x, 520 + k * 380, 300, AM);
+  txt('0' + (idx + 1), x, 520 + (1 - k) * -380, 300, AM);
+  g.restore();
+}
+
+// ================= BAR 1 · hook: the code =================
+const HOOK = ['up', 'right', 'down', 'down'];
+function bar1(t) { codeSlots(t, HOOK, [B(1), B(2), B(3), B(4)], B(4) + 0.25); }
+// ================= BAR 2 · title drop =================
+function bar2(t) {
+  beam(t, BAR(2));
+  const tout = BAR(3) - 0.3;
+  // title slams down on the beat, then everything trucks out left on beat 4
+  const off = -EIO(t, tout, 0.36) * 2200, offp = -EIO(t - D1, tout, 0.36) * 2200;
+  smear(off - offp, 0, dx => {
+    g.save(); g.translate(off + dx, 0);
+    const Y = lerp(-250, 600, E(t, BAR(2) + 0.04, 0.2)), Yp = lerp(-250, 600, E(t - D1, BAR(2) + 0.04, 0.2));
+    smear(0, Y - Yp, (_, dy) => txt('HELLDIVERS 2', CX, Y + dy - 20, 210, WH, { align: 'center' }));
+    groundLine(t, BAR(2) + 0.12, 1400, 630);
+    const sub = 'THE BEST GAME. HERE’S WHY.', n = Math.floor(cl((t - B(6)) / 0.32) * sub.length);
+    if (n > 0) txt(sub.slice(0, n), CX - tw(sub, 46, 600) / 2, 740, 46, WH, { w: 600 });
+    // beat 7: the line splits into five segments — the five reasons
+    const ks = E(t, B(7), 0.3);
+    if (ks > 0) for (let i = 1; i < 5; i++) rect(CX - 700 + i * 280 - 12 * ks, 625, 24 * ks, 20, BK);
+    g.restore();
+  });
+}
+// ================= BAR 3 · 01 four-player co-op =================
+const CHX = i => 700 + i * 240, CHY = 880;
+function bar3to4(t) {
+  // heading
+  truck(t, 'FOUR-PLAYER', 640, 360, 130, WH, BAR(3) - 0.25, BAR(4) - 0.3);
+  truck(t, 'CO-OP', 640, 490, 130, AM, BAR(3) - 0.15, BAR(4) - 0.25);
+  truck(t, 'FRIENDLY FIRE', 640, 360, 130, WH, BAR(4) - 0.2, BAR(5) - 0.3);
+  truck(t, 'ALWAYS ON', 640, 490, 130, RD, BAR(4) - 0.1, BAR(5) - 0.25);
+  // squad chevrons: land one per beat (bar 3), tip over one per beat as friendly fire lands (bar 4), truck out on bar 5
+  const out = EIO(t, BAR(5), 0.36) * -2200, outp = EIO(t - D1, BAR(5), 0.36) * -2200;
+  for (let i = 0; i < 4; i++) {
+    const tl = BAR(3) + i * BEAT; if (t < tl) continue;
+    const y = lerp(-120, CHY, E(t, tl, 0.2)), yp = lerp(-120, CHY, E(t - D1, tl, 0.2));
+    const hitT = i === 0 ? null : BAR(4) + i * BEAT, kh = hitT == null ? 0 : E(t, hitT, 0.24);
+    const col = kh > 0 ? RD : AM;
+    smear(out - outp, y - yp, (dx, dy) => {
+      chevron(CHX(i) + out + dx, y + dy + kh * 40, 62, col, kh * Math.PI / 2 * (i % 2 ? 1 : -1));
+      txt('P' + (i + 1), CHX(i) + out + dx, y + dy + 120, 28, kh > 0 ? RD : WH, { w: 600, align: 'center' });
+    });
+  }
+  // bar 4: toggle that cannot be switched off + teamkill counter
+  if (t >= BAR(4) - 0.2 && t < BAR(5) + 0.4) {
+    const kin = EIO(t, BAR(4) - 0.2, 0.36), ko = EIO(t, BAR(5) - 0.2, 0.36), x = 640 + (1 - kin) * 1800 - ko * 2200;
+    // the cursor tries on beats 2 and 3 of bar 4; the switch snaps straight back (critically damped)
+    let push = 0; [BAR(4) + 0.5, BAR(4) + 1.0].forEach(tc => { if (t >= tc) push = Math.max(push, Math.min(1, (t - tc) / 0.08) * (1 - spring(t, tc + 0.08, 20))); });
+    rr(x, 560, 260, 130, 65, AM);
+    const kx = x + 195 - push * 90; g.beginPath(); g.arc(kx, 625, 50, 0, 7); g.fillStyle = BK; g.fill();
+    txt('ON', x + 34, 645, 54, BK);
+    const cx = lerp(x + 460, kx + 10, E(t, BAR(4) + 0.25, 0.2)), cy = lerp(780, 640, E(t, BAR(4) + 0.25, 0.2));
+    poly([[cx, cy], [cx, cy + 56], [cx + 14, cy + 42], [cx + 26, cy + 66], [cx + 36, cy + 60], [cx + 24, cy + 38], [cx + 42, cy + 38]], WH);
+    const kills = [1, 2, 3].filter(i => t >= BAR(4) + i * BEAT).length;
+    txt('TEAMKILLS', x + 380, 588, 28, WH, { w: 600 });
+    g.save(); g.beginPath(); g.rect(x + 370, 595, 300, 110); g.clip();
+    const kk = E(t, BAR(4) + kills * BEAT, 0.22);
+    txt(String(kills), x + 380, 690 + (1 - kk) * 110, 100, RD); if (kills > 0) txt(String(kills - 1), x + 380, 690 - kk * 110, 100, RD);
+    g.restore();
+  }
+}
+// ================= BAR 5 · 03 stratagems =================
+const CODES = [['up', 'down', 'right', 'left', 'up'], ['down', 'down', 'up', 'right', 'right'], ['right', 'down', 'left', 'up', 'up']];
+function codeRowXY(r, i) { return [700 + i * 100, 590 + r * 110]; }
+function bar5(t) {
+  truck(t, 'CALL IN', 640, 360, 130, WH, BAR(5) - 0.2, BAR(6) - 0.3);
+  truck(t, 'STRATAGEMS', 640, 490, 130, AM, BAR(5) - 0.1, BAR(6) - 0.25);
+  const kd = EIO(t, BAR(6) - 0.25, 0.3);   // rows collapse into dots → the planets
+  CODES.forEach((code, r) => code.forEach((d, i) => {
+    const ti = BAR(5) + r * BEAT + i * 0.07, [x, y] = codeRowXY(r, i), kin = EIO(t, BAR(5) - 0.15 + r * 0.04, 0.3);
+    const X = x + (1 - kin) * 1800;
+    if (kd > 0) { const P = PLANETS[(r * 5 + i) % PLANETS.length]; const px = lerp(X, P[0], kd), py = lerp(y, P[1], kd), s = lerp(80, 18, kd);
+      rr(px - s / 2, py - s / 2, s, s, s / 2 * kd + s * 0.18 * (1 - kd), t >= ti ? AM : null, WH, 4); return; }
+    keycap(X, y, 80, d, spring(t, ti, 26));
+  }));
+  CODES.forEach((_, r) => { const [x, y] = codeRowXY(r, 5); check(x + 10, y, 50, E(t, BAR(5) + r * BEAT + 0.36, 0.14) * (1 - kd)); });
+  // beat 4: a drop pod slams in from orbit
+  if (t >= B(20) && t < BAR(6) + 0.36) {
+    const ko = EIO(t, BAR(6), 0.36) * -2200, y = lerp(-500, 470, E(t, B(20), 0.18)), yp = lerp(-500, 470, E(t - D1, B(20), 0.18));
+    smear(0, y - yp, (dx, dy) => { g.save(); g.translate(1700 + ko, y + dy); rr(-70, -260, 140, 300, 30, AM); poly([[-70, 40], [70, 40], [0, 120]], AM); rect(-40, -200, 80, 16, BK); g.restore(); });
+    const w = 420 * E(t, B(20) + 0.17, 0.25); rect(1700 + ko - w / 2, 600, w, 10, WH);
+  }
+}
+// ================= BAR 6 · 04 one war =================
+const PLANETS = [[880, 640], [1040, 560], [1200, 660], [1080, 780], [1340, 540], [1460, 720], [1640, 600], [1300, 880], [1680, 840]];
+const LINKS = [[0, 1], [1, 2], [2, 3], [0, 3], [1, 4], [2, 5], [4, 6], [5, 6], [3, 7], [5, 7], [6, 8], [7, 8]];
+function bar6(t) {
+  truck(t, 'ONE WAR.', 640, 360, 130, WH, BAR(6) - 0.2, BAR(7) - 0.3);
+  truck(t, 'EVERY PLAYER.', 640, 490, 130, AM, BAR(6) - 0.1, BAR(7) - 0.25);
+  if (t < BAR(6)) return;
+  const ko = EIO(t, BAR(7) - 0.25, 0.36) * -2200, kp = EIO(t - D1, BAR(7) - 0.25, 0.36) * -2200;
+  const lib = i => t >= BAR(6) + Math.floor(i / 2) * BEAT + 0.05 * (i % 2);
+  smear(ko - kp, 0, dx => {
+    g.save(); g.translate(ko + dx, 0);
+    LINKS.forEach(([a, b]) => { g.strokeStyle = lib(a) && lib(b) ? AM : '#3A3A3A'; g.lineWidth = 5; g.beginPath(); g.moveTo(...PLANETS[a]); g.lineTo(...PLANETS[b]); g.stroke(); });
+    PLANETS.forEach(([x, y], i) => { const r = 18 + (i % 3) * 8, k = lib(i) ? spring(t, BAR(6) + Math.floor(i / 2) * BEAT + 0.05 * (i % 2), 24) : 0;
+      g.beginPath(); g.arc(x, y, r, 0, 7); g.fillStyle = BK; g.fill(); g.lineWidth = 5; g.strokeStyle = WH; g.stroke();
+      if (k > 0) { g.beginPath(); g.arc(x, y, r * k, 0, 7); g.fillStyle = AM; g.fill(); } });
+    // liberation ring on the capital
+    const [cx, cy] = PLANETS[6], u = E(t, BAR(6) + 0.1, 1.6);
+    g.lineWidth = 10; g.strokeStyle = '#3A3A3A'; g.beginPath(); g.arc(cx, cy, 70, 0, 7); g.stroke();
+    g.strokeStyle = AM; g.beginPath(); g.arc(cx, cy, 70, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * u); g.stroke();
+    txt('LIBERATION', 1200, 990, 26, WH, { w: 600 }); txt(Math.round(u * 100) + '%', 1470, 1000, 64, AM);
+    g.restore();
+  });
+}
+// ================= BAR 7 · 05 bugs bots squids =================
+function enemy(kind, x, y, s) {
+  if (kind === 0) { const P = []; for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; P.push([x + Math.cos(a) * s, y + Math.sin(a) * s * 0.8]); } poly(P, AM);
+    g.strokeStyle = AM; g.lineWidth = 8; for (let i = -1; i <= 1; i++) { g.beginPath(); g.moveTo(x - s * 0.8, y + i * s * 0.35); g.lineTo(x - s * 1.4, y + i * s * 0.6); g.moveTo(x + s * 0.8, y + i * s * 0.35); g.lineTo(x + s * 1.4, y + i * s * 0.6); g.stroke(); } }
+  else if (kind === 1) { rr(x - s, y - s, s * 2, s * 2, 10, WH); rect(x - s * 0.6, y - s * 0.2, s * 1.2, s * 0.28, RD); }
+  else { g.beginPath(); g.arc(x, y - s * 0.3, s * 0.8, Math.PI, 0); g.lineTo(x + s * 0.8, y + s * 0.1); g.lineTo(x - s * 0.8, y + s * 0.1); g.fillStyle = WH; g.fill();
+    g.strokeStyle = WH; g.lineWidth = 8; for (let i = 0; i < 4; i++) { const xx = x - s * 0.6 + i * s * 0.4; g.beginPath(); g.moveTo(xx, y + s * 0.1); g.quadraticCurveTo(xx + 14, y + s * 0.6, xx - 6, y + s); g.stroke(); } }
+}
+function bar7(t) {
+  const words = ['BUGS.', 'BOTS.', 'SQUIDS.'];
+  words.forEach((w, i) => {
+    const t0 = BAR(7) + i * BEAT - (i === 0 ? 0.2 : 0);
+    truck(t, w, 640, 340 + i * 150, 140, i === 0 ? AM : WH, t0, BAR(8));
+    // icon slams down next to its word on the beat
+    if (t >= BAR(7) + i * BEAT) { const ko = EIO(t, BAR(8), 0.36) * -2200, y = lerp(-150, 290 + i * 150, E(t, BAR(7) + i * BEAT, 0.18)), yp = lerp(-150, 290 + i * 150, E(t - D1, BAR(7) + i * BEAT, 0.18));
+      smear(0, y - yp, (dx, dy) => enemy(i, 1500 + ko, y + dy, 52)); }
+  });
+  truck(t, 'PICK A FRONT.', 640, 900, 70, RD, B(28), BAR(8), { d: 0.3 });
+}
+// ================= BAR 8 · who picked it =================
+const CODE2 = ['left', 'right', 'up', 'down'];
+function bar8(t) {
+  truck(t, 'SO WHO', CX - tw('SO WHO', 120) / 2, 260, 120, WH, BAR(8) - 0.05, null, { d: 0.32 });
+  truck(t, 'PICKED IT?', CX - tw('PICKED IT?', 120) / 2, 390, 120, AM, BAR(8) + 0.1, null, { d: 0.32 });
+  codeSlots(t, CODE2, [B(30), B(31), B(31) + 0.25, B(32)], B(32) + 0.25);
+}
+// ================= BAR 9 · AADAM (the strongest bar) =================
+function bar9(t, out = 0) {
+  beam(t, BAR(9));
+  const Y = lerp(-300, 560, E(t, BAR(9) + 0.03, 0.18)), Yp = lerp(-300, 560, E(t - D1, BAR(9) + 0.03, 0.18));
+  if (out < 1) {
+    smear(0, Y - Yp, (_, dy) => txt('AADAM', CX, Y + dy, 330, AM, { align: 'center' }));
+    groundLine(t, BAR(9) + 0.1, 1500, 600);
+    // the stamp lands on beat 2 (scales down hard, no bounce)
+    if (t >= B(34)) { const k = E(t, B(34), 0.16), s = lerp(2.2, 1, k);
+      g.save(); g.translate(1420, 250); g.rotate(-0.12); g.scale(s, s); rr(-250, -62, 500, 124, 14, null, RD, 10); txt('GREAT TASTE', 0, 26, 74, RD, { align: 'center' }); g.restore(); }
+    const lines = [['CO-OP WITH THE BOYS', B(35)], ['CHAOS ON PURPOSE', B(36)]];
+    lines.forEach(([s, t0], i) => { truck(t, s, 620, 730 + i * 90, 56, WH, t0 - 0.12, null, { d: 0.26, w: 900 }); check(1340, 712 + i * 90, 56, E(t, t0 + 0.12, 0.16)); });
+  }
+}
+// ================= BAR 10 · end title, then fold back into the four empty slots =================
+function bar10(t) {
+  const kf = EIO(t, B(39), 0.4);           // fold: lockup squeezes into a line, the line splits into the four slots
+  const ks = EIO(t, B(40), 0.36);
+  if (kf < 1) {
+    g.save(); g.translate(0, CY); g.scale(1, 1 - kf * 0.985); g.translate(0, -CY);
+    // AADAM rises into the lockup; the rest trucks out
+    const y = lerp(560, 640, EIO(t, BAR(10), 0.36));
+    truck(t, 'HELLDIVERS 2', CX - tw('HELLDIVERS 2', 150) / 2, 460, 150, WH, BAR(10) - 0.06, null, { d: 0.34 });
+    const full = 'AADAM’S PICK', wA = tw('AADAM', 150), wF = tw(full, 150);
+    const ax = lerp(CX - tw('AADAM', 330) / 2, CX - wF / 2, EIO(t, BAR(10), 0.36)), px = lerp(330, 150, EIO(t, BAR(10), 0.36));
+    txt('AADAM', ax, y, px, AM);
+    truck(t, '’S PICK', CX - wF / 2 + wA + 4, y, 150, AM, BAR(10) + 0.04, null, { d: 0.34 });
+    const ki = E(t, B(38), 0.3), sub = 'A FAN EDIT  ·  2026';
+    g.save(); g.beginPath(); g.rect(CX - 400, 0, 800 * ki, H); g.clip(); txt(sub, CX - tw(sub, 30, 600) / 2, 760, 30, WH, { w: 600 }); g.restore();
+    g.restore();
+  }
+  if (kf > 0) {
+    // a single amber line → four empty slots (exactly the hook's first frame)
+    if (ks <= 0) { const w = 1200 * kf; rect(CX - w / 2, CY - 5, w, 10, AM); }
+    else for (let i = 0; i < 4; i++) {
+      const x = lerp(CX + (i - 1.5) * 300, slotX(i), ks), s = lerp(10, SLOT.s, ks), y = lerp(CY, SLOT.y, ks);
+      if (ks < 1) rr(x - lerp(150, s, ks) / 2, y - s / 2, lerp(150, s, ks), s, s * 0.18, ks < 0.3 ? AM : null, WH, Math.max(3, SLOT.s * 0.04));
+      else keycap(x, y, SLOT.s, 'up', 0);
+    }
+  }
+}
+
+// ================= master =================
+window.seek = function (t) {
+  t = Math.max(0, Math.min(DUR - 1e-4, t));
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; rect(0, 0, W, H, BK);
+  if (t < BAR(2)) bar1(t);
+  else if (t < BAR(3) - 0.25) bar2(t);
+  else if (t < BAR(8)) {
+    if (t < BAR(3) + 0.2) bar2(t);
+    rail(t); reasonNum(t);
+    if (t < BAR(5) + 0.4) bar3to4(t);
+    if (t >= BAR(5) - 0.3 && t < BAR(6) + 0.4) bar5(t);
+    if (t >= BAR(6) - 0.3 && t < BAR(7) + 0.4) bar6(t);
+    if (t >= BAR(7) - 0.3) bar7(t);
+  }
+  else if (t < BAR(9)) { rail(t); reasonNum(t); bar7(t); bar8(t); }
+  else if (t < BAR(10)) bar9(t);
+  else bar10(t);
+};
+window.DUR = DUR;
+
+// ================= soundtrack =================
+window.renderAudio = async function () {
+  const SR = 48000, ac = new OfflineAudioContext(2, SR * DUR, SR);
+  const master = ac.createDynamicsCompressor(); master.threshold.value = -12; master.ratio.value = 4; master.connect(ac.destination);
+  const nb = (() => { const b = ac.createBuffer(1, SR * 2, SR), d = b.getChannelData(0); let s = 7; for (let i = 0; i < d.length; i++) { s = (s * 16807) % 2147483647; d[i] = s / 1073741823.5 - 1; } return b; })();
+  const env = (node, t, a, peak, d) => { node.gain.setValueAtTime(0.0001, t); node.gain.exponentialRampToValueAtTime(peak, t + a); node.gain.exponentialRampToValueAtTime(0.0001, t + d); };
+  const noise = (t, d, type, f, peak, q = 1, off = 0) => { const n = ac.createBufferSource(), fl = ac.createBiquadFilter(), gn = ac.createGain(); n.buffer = nb; fl.type = type; fl.frequency.value = f; fl.Q.value = q; env(gn, t, 0.003, peak, d); n.connect(fl).connect(gn).connect(master); n.start(t, off, d + 0.05); };
+  const tone = (t, f0, f1, d, peak, type = 'sine') => { const o = ac.createOscillator(), gn = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d * 0.6); env(gn, t, 0.004, peak, d); o.connect(gn).connect(master); o.start(t); o.stop(t + d + 0.05); };
+  const kick = (t, v) => { tone(t, 160, 40, 0.42, 0.95 * v); noise(t, 0.02, 'highpass', 3000, 0.16 * v); };
+  const blip = (t, f) => tone(t, f, f, 0.09, 0.16, 'square');
+  const hit = (t, v) => { tone(t, 90, 32, 1.1, 0.7 * v); noise(t, 0.4, 'bandpass', 1800, 0.5 * v, 0.7, 0.3); [440, 659.25, 880].forEach((f, i) => tone(t, f, f, 0.5 - i * 0.1, 0.05 * v, 'sawtooth')); };
+  const bass = (t, f, d) => { const o = ac.createOscillator(), lp = ac.createBiquadFilter(), gn = ac.createGain(); o.type = 'sawtooth'; o.frequency.value = f; lp.type = 'lowpass'; lp.frequency.setValueAtTime(1000, t); lp.frequency.exponentialRampToValueAtTime(140, t + d); env(gn, t, 0.008, 0.2, d); o.connect(lp).connect(gn).connect(master); o.start(t); o.stop(t + d + 0.03); };
+  for (let i = 0; i < 40; i++) { const t = i * BEAT; kick(t, i % 4 === 0 ? 1 : 0.85); noise(t + 0.25, 0.05, 'highpass', 8000, 0.1); }
+  const roots = [46.25, 46.25, 55, 55, 41.2, 41.2, 49, 49, 46.25, 46.25];   // F#, A, E, G per bar
+  for (let i = 0; i < 40; i++) bass(i * BEAT + 0.25, roots[Math.floor(i / 4)], 0.2);
+  // inputs: each arrow is a blip
+  [[0, 880], [0.5, 988], [1, 1175], [1.5, 1175], [14.5, 880], [15, 988], [15.25, 1175], [15.5, 1319]].forEach(([t, f]) => blip(t, f));
+  CODES.forEach((c, r) => c.forEach((_, i) => blip(8 + r * 0.5 + i * 0.07, 880 + i * 110)));
+  [2, 4, 6, 8, 10, 12, 14, 18].forEach(t => hit(t, 0.75)); hit(16, 1.3);
+  tone(9.5, 120, 35, 0.6, 0.8); noise(9.5, 0.3, 'lowpass', 900, 0.6);        // drop pod
+  [6.5, 7, 7.5].forEach(t => { noise(t, 0.08, 'bandpass', 2500, 0.45, 3); tone(t, 1400, 300, 0.12, 0.12, 'square'); });   // friendly fire
+  tone(17, 2000, 2000, 0.12, 0.08, 'triangle'); tone(17.5, 2400, 2400, 0.12, 0.08, 'triangle');   // checks
+  noise(16.5, 0.18, 'lowpass', 600, 0.7); tone(16.5, 110, 50, 0.3, 0.6);    // stamp
+  { const t0 = 14, t1 = 16, n = ac.createBufferSource(), f = ac.createBiquadFilter(), gn = ac.createGain(); n.buffer = nb; n.loop = true; f.type = 'bandpass'; f.Q.value = 2.5;
+    f.frequency.setValueAtTime(300, t0); f.frequency.exponentialRampToValueAtTime(9000, t1); gn.gain.setValueAtTime(0.0001, t0); gn.gain.exponentialRampToValueAtTime(0.5, t1 - 0.02); gn.gain.linearRampToValueAtTime(0, t1);
+    n.connect(f).connect(gn).connect(master); n.start(t0); n.stop(t1);
+    const o = ac.createOscillator(), og = ac.createGain(); o.type = 'sawtooth'; o.frequency.setValueAtTime(110, t0); o.frequency.exponentialRampToValueAtTime(880, t1);
+    og.gain.setValueAtTime(0.0001, t0); og.gain.exponentialRampToValueAtTime(0.12, t1 - 0.02); og.gain.linearRampToValueAtTime(0, t1); o.connect(og).connect(master); o.start(t0); o.stop(t1); }
+  const buf = await ac.startRendering();
+  const L = buf.getChannelData(0), R = buf.getChannelData(1), n = L.length, out = new DataView(new ArrayBuffer(44 + n * 4));
+  const ws = (o, s) => [...s].forEach((c, i) => out.setUint8(o + i, c.charCodeAt(0)));
+  ws(0, 'RIFF'); out.setUint32(4, 36 + n * 4, true); ws(8, 'WAVE'); ws(12, 'fmt '); out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, 2, true);
+  out.setUint32(24, SR, true); out.setUint32(28, SR * 4, true); out.setUint16(32, 4, true); out.setUint16(34, 16, true); ws(36, 'data'); out.setUint32(40, n * 4, true);
+  for (let i = 0; i < n; i++) { out.setInt16(44 + i * 4, cl(L[i], -1, 1) * 32767, true); out.setInt16(46 + i * 4, cl(R[i], -1, 1) * 32767, true); }
+  const bytes = new Uint8Array(out.buffer); let s = ''; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+Promise.all([document.fonts.load('900 100px IT'), document.fonts.load('600 40px IT')]).then(() => { window.seek(0); window.READY = true; });
+</script></body></html>
