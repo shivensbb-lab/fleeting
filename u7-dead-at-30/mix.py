@@ -40,6 +40,7 @@ while t0 < DUR - BAR * 0.5:
 n(cuts[-1][0], 'contrabass_pizz', prog[0] + '2', .3, .8, 0, 1.0); n(cuts[-1][0], 'violins_pizz', prog[0] + '5', .3, .8, .2, 1.0)
 music = S.render(ev, N / SR, master=False)
 music = S.room(music, size=.3, mix=.15)
+music = np.pad(music, ((0, max(0, N - len(music))), (0, 0)))[:N]
 
 # ---------- foley: a soft swish on every cut, a thump on the title card ----------
 fx = np.zeros((N, 2), np.float32)
