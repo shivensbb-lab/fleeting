@@ -1,0 +1,130 @@
+[
+ {
+  "id": "i01",
+  "text": "The Middle Ages. The iron maiden.",
+  "sub": "The Middle Ages. The *iron maiden.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i02",
+  "text": "Except... it's probably fake.",
+  "sub": "Except... it's probably *fake.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i03",
+  "text": "The iron maiden myth.",
+  "sub": "*The iron maiden* myth.",
+  "voice": "bm_george",
+  "asr": "The Iron Maiden Myths"
+ },
+ {
+  "id": "i04",
+  "text": "No medieval record describes one.",
+  "sub": "No medieval record *describes one.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i05",
+  "text": "The story starts in seventeen ninety-three.",
+  "sub": "The story starts in *1793.*",
+  "voice": "bm_george",
+  "asr": "The story starts in 1793."
+ },
+ {
+  "id": "i06",
+  "text": "A German writer makes a claim.",
+  "sub": "A German writer makes a *claim.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i07",
+  "text": "A forger was killed in one, in fifteen fifteen.",
+  "sub": "A forger was killed in one, in *1515.*",
+  "voice": "bm_george",
+  "asr": "A forger was killed in 1 in 1515."
+ },
+ {
+  "id": "i08",
+  "text": "His sources? None.",
+  "sub": "His sources? *None.*",
+  "voice": "bm_george",
+  "asr": "His source is none."
+ },
+ {
+  "id": "i09",
+  "text": "Then museums wanted one.",
+  "sub": "Then museums *wanted one.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i10",
+  "text": "So in the eighteen hundreds, people built them.",
+  "sub": "So in the 1800s, people *built them.*",
+  "voice": "bm_george",
+  "asr": "So in the 1800s, people built them."
+ },
+ {
+  "id": "i11",
+  "text": "From old armour, and spare parts.",
+  "sub": "From old armour and *spare parts.*",
+  "voice": "bm_george",
+  "asr": "from old armor and spare parts."
+ },
+ {
+  "id": "i12",
+  "text": "The famous one in Nuremberg? Assembled.",
+  "sub": "The famous one in Nuremberg? *Assembled.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i13",
+  "text": "It drew huge crowds.",
+  "sub": "It drew huge *crowds.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i14",
+  "text": "It was destroyed in a bombing raid in nineteen forty-four.",
+  "sub": "It was destroyed in a bombing raid in *1944.*",
+  "voice": "bm_george",
+  "asr": "It was destroyed in a bombing raid in 1944."
+ },
+ {
+  "id": "i15",
+  "text": "Copies still sit in museums.",
+  "sub": "Copies still sit in *museums.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i16",
+  "text": "Real medieval punishments were bad enough.",
+  "sub": "Real medieval punishments were *bad enough.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i17",
+  "text": "No spiky cabinet required.",
+  "sub": "No spiky cabinet *required.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i18",
+  "text": "Medieval iron maidens found: zero.",
+  "sub": "Medieval iron maidens found: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "i19",
+  "text": "Built in the eighteen hundreds: several.",
+  "sub": "Built in the 1800s: *several.*",
+  "voice": "bm_george",
+  "asr": "Built in the 1800s, several."
+ },
+ {
+  "id": "i20",
+  "text": "Anyway, here's a medieval iron maiden.",
+  "sub": "Anyway, here's a medieval *iron maiden.*",
+  "voice": "bm_george"
+ }
+]

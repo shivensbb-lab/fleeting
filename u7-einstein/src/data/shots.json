@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "e01",
+   "text": "Einstein. Genius. Failed *maths.*",
+   "frames": 101
+  },
+  {
+   "id": "e02",
+   "text": "Except... he *didn't.*",
+   "frames": 66
+  },
+  {
+   "id": "e03",
+   "text": "Einstein: *the maths myth.*",
+   "frames": 85
+  },
+  {
+   "id": "e04",
+   "text": "By 15, he'd taught himself *calculus.*",
+   "frames": 104
+  },
+  {
+   "id": "e05",
+   "text": "His words: \"I never failed in *mathematics.*\"",
+   "frames": 112
+  },
+  {
+   "id": "e06",
+   "text": "So where did it *come from?*",
+   "frames": 66
+  },
+  {
+   "id": "e07",
+   "text": "In 1935, a newspaper column said he *flunked.*",
+   "frames": 143
+  },
+  {
+   "id": "e08",
+   "text": "Einstein saw it and *laughed.*",
+   "frames": 85
+  },
+  {
+   "id": "e09",
+   "text": "One theory: his Swiss school *flipped* its grades.",
+   "frames": 114
+  },
+  {
+   "id": "e10",
+   "text": "*6* was the top mark.",
+   "frames": 70
+  },
+  {
+   "id": "e11",
+   "text": "He got *6s* in maths.",
+   "frames": 84
+  },
+  {
+   "id": "e12",
+   "text": "He did fail one exam, at *16.*",
+   "frames": 100
+  },
+  {
+   "id": "e13",
+   "text": "A university entrance exam. *Two years early.*",
+   "frames": 125
+  },
+  {
+   "id": "e14",
+   "text": "He aced maths and physics. *Not the rest.*",
+   "frames": 108
+  },
+  {
+   "id": "e15",
+   "text": "A year later, he *got in.*",
+   "frames": 79
+  },
+  {
+   "id": "e16",
+   "text": "But \"genius fails maths\" is a better *story.*",
+   "frames": 114
+  },
+  {
+   "id": "e17",
+   "text": "So the story *stuck.*",
+   "frames": 67
+  },
+  {
+   "id": "e18",
+   "text": "Einstein's maths grades: *top marks.*",
+   "frames": 105
+  },
+  {
+   "id": "e19",
+   "text": "Times he failed maths: *zero.*",
+   "frames": 93
+  },
+  {
+   "id": "e20",
+   "text": "Anyway, here's Einstein failing *maths.*",
+   "frames": 117
+  }
+ ]
+}

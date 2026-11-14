@@ -1,0 +1,125 @@
+[
+ {
+  "id": "e01",
+  "text": "Einstein. Genius. Failed maths.",
+  "sub": "Einstein. Genius. Failed *maths.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e02",
+  "text": "Except... he didn't.",
+  "sub": "Except... he *didn't.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e03",
+  "text": "Einstein, and the maths myth.",
+  "sub": "Einstein: *the maths myth.*",
+  "voice": "bm_george",
+  "asr": "Einstein and the Maths Myths."
+ },
+ {
+  "id": "e04",
+  "text": "By fifteen, he'd taught himself calculus.",
+  "sub": "By 15, he'd taught himself *calculus.*",
+  "voice": "bm_george",
+  "asr": "By 15, he taught himself calculus."
+ },
+ {
+  "id": "e05",
+  "text": "His words: I never failed in mathematics.",
+  "sub": "His words: \"I never failed in *mathematics.*\"",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e06",
+  "text": "So where did it come from?",
+  "sub": "So where did it *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e07",
+  "text": "In nineteen thirty-five, a newspaper column said he flunked.",
+  "sub": "In 1935, a newspaper column said he *flunked.*",
+  "voice": "bm_george",
+  "asr": "In 1935, a newspaper column said he flunked."
+ },
+ {
+  "id": "e08",
+  "text": "Einstein saw it, and laughed.",
+  "sub": "Einstein saw it and *laughed.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e09",
+  "text": "One theory: his Swiss school flipped its grades.",
+  "sub": "One theory: his Swiss school *flipped* its grades.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e10",
+  "text": "Six was the top mark.",
+  "sub": "*6* was the top mark.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e11",
+  "text": "He got sixes in maths.",
+  "sub": "He got *6s* in maths.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e12",
+  "text": "He did fail one exam, at sixteen.",
+  "sub": "He did fail one exam, at *16.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e13",
+  "text": "A university entrance exam. Two years early.",
+  "sub": "A university entrance exam. *Two years early.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e14",
+  "text": "He aced maths and physics. Not the rest.",
+  "sub": "He aced maths and physics. *Not the rest.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e15",
+  "text": "A year later, he got in.",
+  "sub": "A year later, he *got in.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e16",
+  "text": "But genius fails maths is a better story.",
+  "sub": "But \"genius fails maths\" is a better *story.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e17",
+  "text": "So, the story stuck.",
+  "sub": "So the story *stuck.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e18",
+  "text": "Einstein's maths grades: top marks.",
+  "sub": "Einstein's maths grades: *top marks.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e19",
+  "text": "Times he failed maths: zero.",
+  "sub": "Times he failed maths: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "e20",
+  "text": "Anyway, here's Einstein, failing maths.",
+  "sub": "Anyway, here's Einstein failing *maths.*",
+  "voice": "bm_george"
+ }
+]

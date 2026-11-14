@@ -1,0 +1,123 @@
+[
+ {
+  "id": "m01",
+  "text": "Medieval life. Old at thirty.",
+  "sub": "Medieval life: old at *30.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m02",
+  "text": "Except, no. Not really.",
+  "sub": "Except... *not really.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m03",
+  "text": "The life expectancy myth.",
+  "sub": "*Dead at 30?* The average trick.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m04",
+  "text": "Life expectancy was around thirty.",
+  "sub": "Life expectancy was around *30.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m05",
+  "text": "But that's an average.",
+  "sub": "But that's an *average.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m06",
+  "text": "And many babies didn't make it to five.",
+  "sub": "And many babies didn't make it to *5.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m07",
+  "text": "That drags the average way down.",
+  "sub": "That drags the average *way down.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m08",
+  "text": "One baby. One sixty-year-old.",
+  "sub": "One baby. One *60-year-old.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m09",
+  "text": "Average age: thirty.",
+  "sub": "Average age: *30.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m10",
+  "text": "Neither died at thirty.",
+  "sub": "Neither died *at 30.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m11",
+  "text": "Make it to adulthood, and you'd often see fifty.",
+  "sub": "Make it to adulthood, and you'd often see *50.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m12",
+  "text": "Or sixty. Or seventy.",
+  "sub": "Or 60. Or *70.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m13",
+  "text": "Plenty of grandparents.",
+  "sub": "Plenty of *grandparents.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m14",
+  "text": "Queen Ella-nor of Aquitaine lived to about eighty.",
+  "sub": "Queen Eleanor of Aquitaine lived to about *80.*",
+  "voice": "bm_george",
+  "asr": "Queen Eleanor of Aquitaine lived to about 80."
+ },
+ {
+  "id": "m15",
+  "text": "So why the myth?",
+  "sub": "So why the *myth?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m16",
+  "text": "People read the average as a lifespan.",
+  "sub": "People read the average as a *lifespan.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m17",
+  "text": "Two different numbers.",
+  "sub": "Two *different* numbers.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m18",
+  "text": "Average: thirty. Adults: much older.",
+  "sub": "Average: 30. Adults: *much older.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m19",
+  "text": "Dead at thirty: not the rule.",
+  "sub": "Dead at 30: *not the rule.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "m20",
+  "text": "Anyway, here's a medieval peasant, at thirty.",
+  "sub": "Anyway, here's a medieval peasant at *30.*",
+  "voice": "bm_george"
+ }
+]

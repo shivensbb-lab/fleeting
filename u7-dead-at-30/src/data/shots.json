@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "m01",
+   "text": "Medieval life: old at *30.*",
+   "frames": 94
+  },
+  {
+   "id": "m02",
+   "text": "Except... *not really.*",
+   "frames": 77
+  },
+  {
+   "id": "m03",
+   "text": "*Dead at 30?* The average trick.",
+   "frames": 80
+  },
+  {
+   "id": "m04",
+   "text": "Life expectancy was around *30.*",
+   "frames": 104
+  },
+  {
+   "id": "m05",
+   "text": "But that's an *average.*",
+   "frames": 66
+  },
+  {
+   "id": "m06",
+   "text": "And many babies didn't make it to *5.*",
+   "frames": 104
+  },
+  {
+   "id": "m07",
+   "text": "That drags the average *way down.*",
+   "frames": 90
+  },
+  {
+   "id": "m08",
+   "text": "One baby. One *60-year-old.*",
+   "frames": 98
+  },
+  {
+   "id": "m09",
+   "text": "Average age: *30.*",
+   "frames": 76
+  },
+  {
+   "id": "m10",
+   "text": "Neither died *at 30.*",
+   "frames": 76
+  },
+  {
+   "id": "m11",
+   "text": "Make it to adulthood, and you'd often see *50.*",
+   "frames": 116
+  },
+  {
+   "id": "m12",
+   "text": "Or 60. Or *70.*",
+   "frames": 81
+  },
+  {
+   "id": "m13",
+   "text": "Plenty of *grandparents.*",
+   "frames": 75
+  },
+  {
+   "id": "m14",
+   "text": "Queen Eleanor of Aquitaine lived to about *80.*",
+   "frames": 128
+  },
+  {
+   "id": "m15",
+   "text": "So why the *myth?*",
+   "frames": 66
+  },
+  {
+   "id": "m16",
+   "text": "People read the average as a *lifespan.*",
+   "frames": 101
+  },
+  {
+   "id": "m17",
+   "text": "Two *different* numbers.",
+   "frames": 66
+  },
+  {
+   "id": "m18",
+   "text": "Average: 30. Adults: *much older.*",
+   "frames": 110
+  },
+  {
+   "id": "m19",
+   "text": "Dead at 30: *not the rule.*",
+   "frames": 83
+  },
+  {
+   "id": "m20",
+   "text": "Anyway, here's a medieval peasant at *30.*",
+   "frames": 124
+  }
+ ]
+}

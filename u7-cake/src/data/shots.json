@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "c01",
+   "text": "1789. Paris is *starving.*",
+   "frames": 120
+  },
+  {
+   "id": "c02",
+   "text": "The queen says: let them eat *cake.*",
+   "frames": 90
+  },
+  {
+   "id": "c03",
+   "text": "Except... she *never said it.*",
+   "frames": 72
+  },
+  {
+   "id": "c04",
+   "text": "Marie Antoinette: *the cake myth.*",
+   "frames": 66
+  },
+  {
+   "id": "c05",
+   "text": "The line comes from a book by *Rousseau.*",
+   "frames": 98
+  },
+  {
+   "id": "c06",
+   "text": "He wrote that around *1765.*",
+   "frames": 115
+  },
+  {
+   "id": "c07",
+   "text": "About \"a great princess.\" *No name.*",
+   "frames": 104
+  },
+  {
+   "id": "c08",
+   "text": "In 1765, Marie Antoinette was *nine.*",
+   "frames": 137
+  },
+  {
+   "id": "c09",
+   "text": "And living in *Austria.*",
+   "frames": 74
+  },
+  {
+   "id": "c10",
+   "text": "Also, he wrote *brioche.* Not cake.",
+   "frames": 103
+  },
+  {
+   "id": "c11",
+   "text": "Wrong age. Wrong country. *Wrong pastry.*",
+   "frames": 114
+  },
+  {
+   "id": "c12",
+   "text": "During a bread riot, she wrote they must help the *people.*",
+   "frames": 130
+  },
+  {
+   "id": "c13",
+   "text": "But the revolution needed a *villain.*",
+   "frames": 94
+  },
+  {
+   "id": "c14",
+   "text": "Nasty pamphlets made her the *bad guy.*",
+   "frames": 107
+  },
+  {
+   "id": "c15",
+   "text": "The quote got pinned on her, and it *stuck.*",
+   "frames": 101
+  },
+  {
+   "id": "c16",
+   "text": "Today it's on mugs and *t-shirts.*",
+   "frames": 100
+  },
+  {
+   "id": "c17",
+   "text": "Who really said it? *Nobody knows.*",
+   "frames": 94
+  },
+  {
+   "id": "c18",
+   "text": "Cakes offered by Marie Antoinette: *zero.*",
+   "frames": 113
+  },
+  {
+   "id": "c19",
+   "text": "History: complicated. The quote: *fake.*",
+   "frames": 110
+  },
+  {
+   "id": "c20",
+   "text": "Anyway, here's the queen with her *cake.*",
+   "frames": 109
+  }
+ ]
+}

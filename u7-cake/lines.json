@@ -1,0 +1,128 @@
+[
+ {
+  "id": "c01",
+  "text": "Paris, seventeen eighty-nine. People are starving.",
+  "sub": "1789. Paris is *starving.*",
+  "voice": "bm_george",
+  "asr": "Paris 1789, people are starving."
+ },
+ {
+  "id": "c02",
+  "text": "The queen says: let them eat cake.",
+  "sub": "The queen says: let them eat *cake.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c03",
+  "text": "Except... she never said it.",
+  "sub": "Except... she *never said it.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c04",
+  "text": "The cake myth.",
+  "sub": "Marie Antoinette: *the cake myth.*",
+  "voice": "bm_george",
+  "asr": "The Cake Myths"
+ },
+ {
+  "id": "c05",
+  "text": "The line comes from a book by Rousseau.",
+  "sub": "The line comes from a book by *Rousseau.*",
+  "voice": "bm_george",
+  "asr": "The line comes from a book by Rousso."
+ },
+ {
+  "id": "c06",
+  "text": "He wrote that around seventeen sixty-five.",
+  "sub": "He wrote that around *1765.*",
+  "voice": "bm_george",
+  "asr": "He wrote that around 1765."
+ },
+ {
+  "id": "c07",
+  "text": "About a great princess. No name given.",
+  "sub": "About \"a great princess.\" *No name.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c08",
+  "text": "In seventeen sixty-five, Marie Antoinette was nine.",
+  "sub": "In 1765, Marie Antoinette was *nine.*",
+  "voice": "bm_george",
+  "asr": "In 1765, Marie Antoinette was 9."
+ },
+ {
+  "id": "c09",
+  "text": "And living in Austria.",
+  "sub": "And living in *Austria.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c10",
+  "text": "Also, he wrote brioche. Not cake.",
+  "sub": "Also, he wrote *brioche.* Not cake.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c11",
+  "text": "Wrong age. Wrong country. Wrong pastry.",
+  "sub": "Wrong age. Wrong country. *Wrong pastry.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c12",
+  "text": "During a bread riot, she wrote that they must help the people.",
+  "sub": "During a bread riot, she wrote they must help the *people.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c13",
+  "text": "But the revolution needed a villain.",
+  "sub": "But the revolution needed a *villain.*",
+  "voice": "bm_george",
+  "asr": "But the revolution needed a villain's."
+ },
+ {
+  "id": "c14",
+  "text": "Nasty pamphlets made her the bad guy.",
+  "sub": "Nasty pamphlets made her the *bad guy.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c15",
+  "text": "The quote got pinned on her, and it stuck.",
+  "sub": "The quote got pinned on her, and it *stuck.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c16",
+  "text": "Today it is on mugs and t-shirts.",
+  "sub": "Today it's on mugs and *t-shirts.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c17",
+  "text": "Who really said it? Nobody knows.",
+  "sub": "Who really said it? *Nobody knows.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c18",
+  "text": "Cakes offered by Marie Antoinette: zero.",
+  "sub": "Cakes offered by Marie Antoinette: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c19",
+  "text": "History: complicated. The quote: fake.",
+  "sub": "History: complicated. The quote: *fake.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c20",
+  "text": "Anyway, here's the queen, with her cake.",
+  "sub": "Anyway, here's the queen with her *cake.*",
+  "voice": "bm_george"
+ }
+]
