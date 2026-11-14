@@ -133,9 +133,9 @@ export const i12: React.FC<ShotProps> = ({ f }) => (
 export const i13: React.FC<ShotProps> = ({ f }) => (
   <Scene f={f}>
     <Museum />
-    <Maiden x={540} y={FEET - 180} s={0.75} />
+    <Maiden x={540} y={760} s={0.55} />
     {Array.from({ length: 2 }, (_, row) => Array.from({ length: 5 }, (_, k) => (
-      <Bean key={`${row}-${k}`} x={110 + k * 215 + (row % 2) * 60} y={FEET + 120 + row * 200 - Math.abs(wob(f + k * 5 + row * 7, 2.2, 10))} s={0.7}
+      <Bean key={`${row}-${k}`} x={110 + k * 215 + (row % 2) * 60} y={1010 + row * 170 - Math.abs(wob(f + k * 5 + row * 7, 2.2, 10))} s={0.62}
         coat={[C.navy, "#7E4A8C", C.slate, C.red, "#3D6E8C"][(k + row) % 5]} hat={(k + row) % 2 ? "tophat" : "none"} face="happy" armL={30} armR={30} />
     )))}
   </Scene>
