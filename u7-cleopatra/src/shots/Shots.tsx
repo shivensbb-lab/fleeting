@@ -55,7 +55,7 @@ export const k01: React.FC<ShotProps> = ({ f }) => <Scene f={f}>{cleoPose(f)}</S
 export const k02: React.FC<ShotProps> = ({ f }) => (
   <Scene f={f}>
     {cleoPose(f)}
-    <Stamp f={f} a={12} x={540} y={420} text="NOT EVEN CLOSE" size={86} />
+    <Stamp f={f} a={12} x={540} y={420} text="NOPE" size={130} />
   </Scene>
 );
 export const k03: React.FC<ShotProps> = ({ f }) => (

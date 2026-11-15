@@ -178,7 +178,7 @@ export const g17: React.FC<ShotProps> = ({ f }) => (
   </Scene>
 );
 export const g18: React.FC<ShotProps> = ({ f }) => <Scene f={f}><ZeroCard f={f} label="THUMB DIRECTION" value="???" /></Scene>;
-export const g19: React.FC<ShotProps> = ({ f }) => <Scene f={f}><ZeroCard f={f} label={'SOURCES SAYING "DOWN"'} /></Scene>;
+export const g19: React.FC<ShotProps> = ({ f }) => <Scene f={f}><ZeroCard f={f} label={'SAYS "DOWN"'} /></Scene>;
 /** The loop: back to the opening (wrong) version. */
 export const g20: React.FC<ShotProps> = ({ f }) => <Scene f={f + 5}>{emperorPose(f, ramp(f, 8, 20, move))}</Scene>;
 
