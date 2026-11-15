@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "p01",
+   "text": "Pirates. The plank. *Walk!*",
+   "frames": 79
+  },
+  {
+   "id": "p02",
+   "text": "Nope. It *almost never happened.*",
+   "frames": 82
+  },
+  {
+   "id": "p03",
+   "text": "Pirates: *the plank myth.*",
+   "frames": 66
+  },
+  {
+   "id": "p04",
+   "text": "Pirates wanted *ships* and *cargo.*",
+   "frames": 94
+  },
+  {
+   "id": "p05",
+   "text": "Most crews just *surrendered.*",
+   "frames": 81
+  },
+  {
+   "id": "p06",
+   "text": "A plank ceremony? *Too much work.*",
+   "frames": 87
+  },
+  {
+   "id": "p07",
+   "text": "If a pirate wanted someone *gone...*",
+   "frames": 90
+  },
+  {
+   "id": "p08",
+   "text": "...they'd just throw them *overboard.*",
+   "frames": 82
+  },
+  {
+   "id": "p09",
+   "text": "Or leave them on an island. *Marooning.*",
+   "frames": 103
+  },
+  {
+   "id": "p10",
+   "text": "So is the plank totally *fake?*",
+   "frames": 86
+  },
+  {
+   "id": "p11",
+   "text": "Not totally. There are a *few* reports.",
+   "frames": 94
+  },
+  {
+   "id": "p12",
+   "text": "Mostly from the *1800s.*",
+   "frames": 89
+  },
+  {
+   "id": "p13",
+   "text": "After the *golden age* of piracy had ended.",
+   "frames": 119
+  },
+  {
+   "id": "p14",
+   "text": "So where did the plank *come from?*",
+   "frames": 78
+  },
+  {
+   "id": "p15",
+   "text": "*Stories* and pictures.",
+   "frames": 69
+  },
+  {
+   "id": "p16",
+   "text": "Then *Peter Pan.* Captain Hook loves a plank.",
+   "frames": 116
+  },
+  {
+   "id": "p17",
+   "text": "Now every pirate movie *has one.*",
+   "frames": 96
+  },
+  {
+   "id": "p18",
+   "text": "Golden age plank walks on record: *basically zero.*",
+   "frames": 137
+  },
+  {
+   "id": "p19",
+   "text": "On screen? Plank walks *everywhere.*",
+   "frames": 87
+  },
+  {
+   "id": "p20",
+   "text": "Anyway, here's a pirate with his *plank.*",
+   "frames": 109
+  }
+ ]
+}

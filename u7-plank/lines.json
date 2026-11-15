@@ -1,0 +1,127 @@
+[
+ {
+  "id": "p01",
+  "text": "Pirates. The plank. Walk!",
+  "sub": "Pirates. The plank. *Walk!*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p02",
+  "text": "Nope. It almost never happened.",
+  "sub": "Nope. It *almost never happened.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p03",
+  "text": "The plank myth.",
+  "sub": "Pirates: *the plank myth.*",
+  "voice": "bm_george",
+  "asr": "The Plank Myths"
+ },
+ {
+  "id": "p04",
+  "text": "Pirates wanted ships, and cargo.",
+  "sub": "Pirates wanted *ships* and *cargo.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p05",
+  "text": "Most crews just surrendered.",
+  "sub": "Most crews just *surrendered.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p06",
+  "text": "A plank ceremony? Too much work.",
+  "sub": "A plank ceremony? *Too much work.*",
+  "voice": "bm_george",
+  "asr": "A Planck ceremony, too much work."
+ },
+ {
+  "id": "p07",
+  "text": "If a pirate wanted someone gone,",
+  "sub": "If a pirate wanted someone *gone...*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p08",
+  "text": "they'd just throw them overboard.",
+  "sub": "...they'd just throw them *overboard.*",
+  "voice": "bm_george",
+  "asr": "They just throw them overboard."
+ },
+ {
+  "id": "p09",
+  "text": "Or leave them on an island. Marooning.",
+  "sub": "Or leave them on an island. *Marooning.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p10",
+  "text": "So is the plank totally fake?",
+  "sub": "So is the plank totally *fake?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p11",
+  "text": "Not totally. There are a few reports.",
+  "sub": "Not totally. There are a *few* reports.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p12",
+  "text": "Mostly from the eighteen hundreds.",
+  "sub": "Mostly from the *1800s.*",
+  "voice": "bm_george",
+  "asr": "Mostly from the 1800s."
+ },
+ {
+  "id": "p13",
+  "text": "After the golden age of piracy had ended.",
+  "sub": "After the *golden age* of piracy had ended.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p14",
+  "text": "So where did the plank come from?",
+  "sub": "So where did the plank *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p15",
+  "text": "Stories, and pictures.",
+  "sub": "*Stories* and pictures.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p16",
+  "text": "Then Peter Pan. Captain Hook loves a plank.",
+  "sub": "Then *Peter Pan.* Captain Hook loves a plank.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p17",
+  "text": "Now every pirate movie has one.",
+  "sub": "Now every pirate movie *has one.*",
+  "voice": "bm_george",
+  "asr": "Now every pirate movie has won."
+ },
+ {
+  "id": "p18",
+  "text": "Golden age plank walks on record: basically zero.",
+  "sub": "Golden age plank walks on record: *basically zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p19",
+  "text": "On screen? Plank walks everywhere.",
+  "sub": "On screen? Plank walks *everywhere.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "p20",
+  "text": "Anyway, here's a pirate, with his plank.",
+  "sub": "Anyway, here's a pirate with his *plank.*",
+  "voice": "bm_george"
+ }
+]

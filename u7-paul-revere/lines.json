@@ -1,0 +1,126 @@
+[
+ {
+  "id": "r01",
+  "text": "Seventeen seventy-five. Paul Revere rides. The British are coming!",
+  "sub": "1775. Paul Revere rides. *\"The British are coming!\"*",
+  "voice": "bm_george",
+  "asr": "1775, Paul Revere rides, the British are coming."
+ },
+ {
+  "id": "r02",
+  "text": "Nope. He never shouted that.",
+  "sub": "Nope. He *never shouted that.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r03",
+  "text": "The midnight ride myth.",
+  "sub": "Paul Revere: *the midnight ride myth.*",
+  "voice": "bm_george",
+  "asr": "The Midnight Ride Myths"
+ },
+ {
+  "id": "r04",
+  "text": "The ride was a secret mission.",
+  "sub": "The ride was a *secret* mission.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r05",
+  "text": "British patrols were everywhere.",
+  "sub": "British patrols were *everywhere.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r06",
+  "text": "Shouting would get him caught.",
+  "sub": "Shouting would get him *caught.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r07",
+  "text": "Also, everyone there was British.",
+  "sub": "Also, everyone there *was* British.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r08",
+  "text": "So yelling, the British, made no sense.",
+  "sub": "So yelling \"the British\" made *no sense.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r09",
+  "text": "He reportedly said: the Regulars are coming out.",
+  "sub": "He reportedly said: *\"The Regulars are coming out.\"*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r10",
+  "text": "Regulars meant British soldiers.",
+  "sub": "Regulars meant *British soldiers.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r11",
+  "text": "And he wasn't alone.",
+  "sub": "And he wasn't *alone.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r12",
+  "text": "William Dawes rode too.",
+  "sub": "*William Dawes* rode too.",
+  "voice": "bm_george",
+  "asr": "William Dawes Road 2"
+ },
+ {
+  "id": "r13",
+  "text": "Revere got captured on the way to Concord.",
+  "sub": "Revere got *captured* on the way to Concord.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r14",
+  "text": "A third rider, Samuel Prescott, made it.",
+  "sub": "A third rider, *Samuel Prescott,* made it.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r15",
+  "text": "So why is Revere the famous one?",
+  "sub": "So why is Revere the *famous one?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r16",
+  "text": "A poem. Eighteen sixty-one.",
+  "sub": "A poem. *1861.*",
+  "voice": "bm_george",
+  "asr": "A Poem 1861"
+ },
+ {
+  "id": "r17",
+  "text": "The poet Longfellow made Revere the hero.",
+  "sub": "The poet Longfellow made Revere *the hero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r18",
+  "text": "The other two riders? Left out.",
+  "sub": "The other two riders? *Left out.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r19",
+  "text": "Times he shouted the British are coming: zero.",
+  "sub": "Times he shouted \"The British are coming\": *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "r20",
+  "text": "Anyway, here's Paul Revere, shouting.",
+  "sub": "Anyway, here's Paul Revere *shouting.*",
+  "voice": "bm_george"
+ }
+]

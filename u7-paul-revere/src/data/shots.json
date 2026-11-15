@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "r01",
+   "text": "1775. Paul Revere rides. *\"The British are coming!\"*",
+   "frames": 165
+  },
+  {
+   "id": "r02",
+   "text": "Nope. He *never shouted that.*",
+   "frames": 75
+  },
+  {
+   "id": "r03",
+   "text": "Paul Revere: *the midnight ride myth.*",
+   "frames": 74
+  },
+  {
+   "id": "r04",
+   "text": "The ride was a *secret* mission.",
+   "frames": 87
+  },
+  {
+   "id": "r05",
+   "text": "British patrols were *everywhere.*",
+   "frames": 87
+  },
+  {
+   "id": "r06",
+   "text": "Shouting would get him *caught.*",
+   "frames": 76
+  },
+  {
+   "id": "r07",
+   "text": "Also, everyone there *was* British.",
+   "frames": 93
+  },
+  {
+   "id": "r08",
+   "text": "So yelling \"the British\" made *no sense.*",
+   "frames": 103
+  },
+  {
+   "id": "r09",
+   "text": "He reportedly said: *\"The Regulars are coming out.\"*",
+   "frames": 119
+  },
+  {
+   "id": "r10",
+   "text": "Regulars meant *British soldiers.*",
+   "frames": 97
+  },
+  {
+   "id": "r11",
+   "text": "And he wasn't *alone.*",
+   "frames": 66
+  },
+  {
+   "id": "r12",
+   "text": "*William Dawes* rode too.",
+   "frames": 84
+  },
+  {
+   "id": "r13",
+   "text": "Revere got *captured* on the way to Concord.",
+   "frames": 119
+  },
+  {
+   "id": "r14",
+   "text": "A third rider, *Samuel Prescott,* made it.",
+   "frames": 107
+  },
+  {
+   "id": "r15",
+   "text": "So why is Revere the *famous one?*",
+   "frames": 97
+  },
+  {
+   "id": "r16",
+   "text": "A poem. *1861.*",
+   "frames": 85
+  },
+  {
+   "id": "r17",
+   "text": "The poet Longfellow made Revere *the hero.*",
+   "frames": 113
+  },
+  {
+   "id": "r18",
+   "text": "The other two riders? *Left out.*",
+   "frames": 93
+  },
+  {
+   "id": "r19",
+   "text": "Times he shouted \"The British are coming\": *zero.*",
+   "frames": 117
+  },
+  {
+   "id": "r20",
+   "text": "Anyway, here's Paul Revere *shouting.*",
+   "frames": 104
+  }
+ ]
+}
