@@ -1,0 +1,123 @@
+[
+ {
+  "id": "g01",
+  "text": "Rome. The arena. The emperor gives a thumbs down.",
+  "sub": "The emperor gives a *thumbs down.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g02",
+  "text": "Except... nobody knows that.",
+  "sub": "Except... *nobody knows that.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g03",
+  "text": "The thumbs down myth.",
+  "sub": "Gladiators: *the thumbs down myth.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g04",
+  "text": "Roman writers say the crowd turned their thumbs.",
+  "sub": "Roman writers say the crowd *turned* their thumbs.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g05",
+  "text": "Turned which way? They never said.",
+  "sub": "Turned which way? *They never said.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g06",
+  "text": "It might have been up. Or sideways.",
+  "sub": "It might have been *up.* Or *sideways.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g07",
+  "text": "Some think a hidden thumb meant mercy.",
+  "sub": "Some think a *hidden* thumb meant mercy.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g08",
+  "text": "So where did thumbs down come from?",
+  "sub": "So where did thumbs down *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g09",
+  "text": "A painting. Eighteen seventy-two.",
+  "sub": "A painting. *1872.*",
+  "voice": "bm_george",
+  "asr": "a painting 1872"
+ },
+ {
+  "id": "g10",
+  "text": "A French artist painted the crowd, thumbs down.",
+  "sub": "A French artist painted the crowd, *thumbs down.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g11",
+  "text": "It was a huge hit.",
+  "sub": "It was a *huge hit.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g12",
+  "text": "Then the movies borrowed it.",
+  "sub": "Then the movies *borrowed it.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g13",
+  "text": "Also, most fights didn't end in death.",
+  "sub": "Also, most fights didn't end in *death.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g14",
+  "text": "Gladiators were expensive to train.",
+  "sub": "Gladiators were *expensive* to train.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g15",
+  "text": "Losing one was like wrecking a sports car.",
+  "sub": "Losing one was like wrecking a *sports car.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g16",
+  "text": "Many walked out alive, to fight again.",
+  "sub": "Many walked out *alive,* to fight again.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g17",
+  "text": "Some even became celebrities.",
+  "sub": "Some even became *celebrities.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g18",
+  "text": "Which way the thumb went: unknown.",
+  "sub": "Which way the thumb went: *unknown.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g19",
+  "text": "Roman sources saying thumbs down: zero.",
+  "sub": "Roman sources saying \"thumbs down\": *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "g20",
+  "text": "Anyway, here's the emperor. Thumbs down.",
+  "sub": "Anyway, here's the emperor. *Thumbs down.*",
+  "voice": "bm_george"
+ }
+]

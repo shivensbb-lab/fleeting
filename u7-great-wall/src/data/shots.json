@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "w01",
+   "text": "The Great Wall. *Visible from space.*",
+   "frames": 115
+  },
+  {
+   "id": "w02",
+   "text": "Except... *it isn't.*",
+   "frames": 66
+  },
+  {
+   "id": "w03",
+   "text": "*The Great Wall* myth.",
+   "frames": 66
+  },
+  {
+   "id": "w04",
+   "text": "The wall is long. *Thousands* of miles.",
+   "frames": 106
+  },
+  {
+   "id": "w05",
+   "text": "But it's only a few *metres* wide.",
+   "frames": 80
+  },
+  {
+   "id": "w06",
+   "text": "From orbit, that's like spotting a *hair* from miles away.",
+   "frames": 123
+  },
+  {
+   "id": "w07",
+   "text": "It's also the same colour as the *ground.*",
+   "frames": 119
+  },
+  {
+   "id": "w08",
+   "text": "In 2003, China's first astronaut *looked.*",
+   "frames": 130
+  },
+  {
+   "id": "w09",
+   "text": "He couldn't *see it.*",
+   "frames": 66
+  },
+  {
+   "id": "w10",
+   "text": "So where did the myth *come from?*",
+   "frames": 81
+  },
+  {
+   "id": "w11",
+   "text": "People claimed it *before* anyone went to space.",
+   "frames": 113
+  },
+  {
+   "id": "w12",
+   "text": "A 1932 cartoon said you could see it from *the Moon.*",
+   "frames": 144
+  },
+  {
+   "id": "w13",
+   "text": "From the Moon, you can barely make out *continents.*",
+   "frames": 112
+  },
+  {
+   "id": "w14",
+   "text": "School books repeated it for *decades.*",
+   "frames": 95
+  },
+  {
+   "id": "w15",
+   "text": "What can you see from orbit? *Cities at night.*",
+   "frames": 105
+  },
+  {
+   "id": "w16",
+   "text": "With a zoom lens? *Maybe* the wall too.",
+   "frames": 103
+  },
+  {
+   "id": "w17",
+   "text": "But not with your *eyes.*",
+   "frames": 68
+  },
+  {
+   "id": "w18",
+   "text": "Still an *amazing* wall.",
+   "frames": 75
+  },
+  {
+   "id": "w19",
+   "text": "Walls visible from the Moon: *zero.*",
+   "frames": 98
+  },
+  {
+   "id": "w20",
+   "text": "Anyway, here's the wall from *space.*",
+   "frames": 103
+  }
+ ]
+}

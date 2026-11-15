@@ -1,0 +1,128 @@
+[
+ {
+  "id": "s01",
+  "text": "Salem, sixteen ninety-two. Witches burned at the stake.",
+  "sub": "Salem, 1692. Witches *burned at the stake.*",
+  "voice": "bm_george",
+  "asr": "Salem 1692 which is burned at the stake."
+ },
+ {
+  "id": "s02",
+  "text": "Except... nobody was burned.",
+  "sub": "Except... *nobody was burned.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s03",
+  "text": "The Salem myth.",
+  "sub": "Salem: *the burning myth.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s04",
+  "text": "It started with two girls having strange fits.",
+  "sub": "It started with two girls having strange *fits.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s05",
+  "text": "Soon, over two hundred people were accused.",
+  "sub": "Soon, over *200* people were accused.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s06",
+  "text": "Courts accepted spectral evidence. Basically, dreams.",
+  "sub": "Courts accepted *spectral evidence.* Basically, dreams.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s07",
+  "text": "Nineteen people were executed.",
+  "sub": "*19* people were executed.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s08",
+  "text": "By hanging. Not fire.",
+  "sub": "By *hanging.* Not fire.",
+  "voice": "bm_george",
+  "asr": "By hanging, not fires."
+ },
+ {
+  "id": "s09",
+  "text": "In English law, witchcraft was a felony.",
+  "sub": "In English law, witchcraft was a *felony.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s10",
+  "text": "And felons were hanged.",
+  "sub": "And felons were *hanged.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s11",
+  "text": "Burning was more of a European thing.",
+  "sub": "Burning was more of a *European* thing.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s12",
+  "text": "One man, Giles Corey, refused to plead.",
+  "sub": "One man, Giles Corey, *refused to plead.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s13",
+  "text": "Others died in jail.",
+  "sub": "Others died in *jail.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s14",
+  "text": "By sixteen ninety-three, it was over.",
+  "sub": "By *1693,* it was over.",
+  "voice": "bm_george",
+  "asr": "By 1693, it was over."
+ },
+ {
+  "id": "s15",
+  "text": "Later, jurors apologised.",
+  "sub": "Later, jurors *apologised.*",
+  "voice": "bm_george",
+  "asr": "Later, jurors apologized."
+ },
+ {
+  "id": "s16",
+  "text": "In twenty twenty-two, the last accused was finally cleared.",
+  "sub": "In *2022,* the last accused was finally cleared.",
+  "voice": "bm_george",
+  "asr": "In 2022, the last accused was finally cleared."
+ },
+ {
+  "id": "s17",
+  "text": "So where did the fire come from?",
+  "sub": "So where did the fire *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s18",
+  "text": "Movies, and European witch trials, mixed together.",
+  "sub": "Movies and European witch trials, *mixed together.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "s19",
+  "text": "Witches burned at Salem: zero.",
+  "sub": "Witches burned at Salem: *zero.*",
+  "voice": "bm_george",
+  "asr": "Which is burned at Salem, zero."
+ },
+ {
+  "id": "s20",
+  "text": "Anyway, here's Salem, with its bonfire.",
+  "sub": "Anyway, here's Salem with its *bonfire.*",
+  "voice": "bm_george"
+ }
+]

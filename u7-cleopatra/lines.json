@@ -1,0 +1,130 @@
+[
+ {
+  "id": "k01",
+  "text": "Cleopatra. Ancient Egypt. The pyramid days.",
+  "sub": "Cleopatra. Ancient Egypt. *The pyramid days.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k02",
+  "text": "Except, no. Not even close.",
+  "sub": "Except... *not even close.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k03",
+  "text": "The Cleopatra timeline.",
+  "sub": "*The Cleopatra* timeline.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k04",
+  "text": "The Great Pyramid was built around twenty-five sixty B C.",
+  "sub": "The Great Pyramid: around *2560 BC.*",
+  "voice": "bm_george",
+  "asr": "The Great Pyramid was built around 2560 BC."
+ },
+ {
+  "id": "k05",
+  "text": "Cleopatra died in thirty B C.",
+  "sub": "Cleopatra died in *30 BC.*",
+  "voice": "bm_george",
+  "asr": "Cleopatra died in 30 BC."
+ },
+ {
+  "id": "k06",
+  "text": "That's over two thousand five hundred years later.",
+  "sub": "That's over *2,500 years* later.",
+  "voice": "bm_george",
+  "asr": "That's over 2,500 years later."
+ },
+ {
+  "id": "k07",
+  "text": "The pyramids were already ancient to her.",
+  "sub": "The pyramids were already *ancient* to her.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k08",
+  "text": "Now, the Moon landing. Nineteen sixty-nine.",
+  "sub": "Now, the Moon landing. *1969.*",
+  "voice": "bm_george",
+  "asr": "Now, the moon landing, 1969."
+ },
+ {
+  "id": "k09",
+  "text": "From Klee-oh-pat-ra to the Moon landing: about two thousand years.",
+  "sub": "From Cleopatra to the Moon landing: about *2,000 years.*",
+  "voice": "bm_george",
+  "asr": "From Cleopatra to the moon landing, about 2,000 years."
+ },
+ {
+  "id": "k10",
+  "text": "So she lived closer to the Moon landing...",
+  "sub": "So she lived closer to the *Moon landing...*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k11",
+  "text": "than to the building of the Great Pyramid.",
+  "sub": "...than to the building of the *Great Pyramid.*",
+  "voice": "bm_george",
+  "asr": "than to the building of the Great Pyramids."
+ },
+ {
+  "id": "k12",
+  "text": "Also, her family was Greek.",
+  "sub": "Also, her family was *Greek.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k13",
+  "text": "They'd ruled Egypt for nearly three hundred years.",
+  "sub": "They'd ruled Egypt for nearly *300 years.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k14",
+  "text": "She was reportedly the first of them to learn Egyptian.",
+  "sub": "She was reportedly the first of them to learn *Egyptian.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k15",
+  "text": "Ancient writers say she spoke about nine languages.",
+  "sub": "Ancient writers say she spoke about *nine* languages.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k16",
+  "text": "Ancient Egypt lasted a very long time.",
+  "sub": "Ancient Egypt lasted a *very* long time.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k17",
+  "text": "Cleopatra was near the very end.",
+  "sub": "Cleopatra was near the *very end.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "k18",
+  "text": "Pyramid to Cleopatra: two thousand five hundred years.",
+  "sub": "Pyramid to Cleopatra: *2,500 years.*",
+  "voice": "bm_george",
+  "asr": "Pyramid to Cleopatra, 2,500 years."
+ },
+ {
+  "id": "k19",
+  "text": "And from Klee-oh-pat-ra to you: about two thousand.",
+  "sub": "And from Cleopatra to you: about *2,000.*",
+  "voice": "bm_george",
+  "asr": "And from Cleopatra to you, about 2000."
+ },
+ {
+  "id": "k20",
+  "text": "Anyway, here's Cleopatra, building a pyramid.",
+  "sub": "Anyway, here's Cleopatra building a *pyramid.*",
+  "voice": "bm_george"
+ }
+]

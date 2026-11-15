@@ -1,0 +1,127 @@
+[
+ {
+  "id": "w01",
+  "text": "The Great Wall of China. Visible from space.",
+  "sub": "The Great Wall. *Visible from space.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w02",
+  "text": "Except... it isn't.",
+  "sub": "Except... *it isn't.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w03",
+  "text": "The Great Wall myth.",
+  "sub": "*The Great Wall* myth.",
+  "voice": "bm_george",
+  "asr": "The Great Wall Myths"
+ },
+ {
+  "id": "w04",
+  "text": "The wall is long. Thousands of miles.",
+  "sub": "The wall is long. *Thousands* of miles.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w05",
+  "text": "But it's only a few metres wide.",
+  "sub": "But it's only a few *metres* wide.",
+  "voice": "bm_george",
+  "asr": "But it's only a few meters wide."
+ },
+ {
+  "id": "w06",
+  "text": "From orbit, that's like spotting a hair from miles away.",
+  "sub": "From orbit, that's like spotting a *hair* from miles away.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w07",
+  "text": "It's also the same colour as the ground around it.",
+  "sub": "It's also the same colour as the *ground.*",
+  "voice": "bm_george",
+  "asr": "It's also the same color as the ground around it."
+ },
+ {
+  "id": "w08",
+  "text": "In two thousand three, China's first astronaut looked.",
+  "sub": "In 2003, China's first astronaut *looked.*",
+  "voice": "bm_george",
+  "asr": "In 2003, China's first astronaut looked."
+ },
+ {
+  "id": "w09",
+  "text": "He couldn't see it.",
+  "sub": "He couldn't *see it.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w10",
+  "text": "So where did the myth come from?",
+  "sub": "So where did the myth *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w11",
+  "text": "People claimed it before anyone went to space.",
+  "sub": "People claimed it *before* anyone went to space.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w12",
+  "text": "A nineteen thirty-two cartoon said you could see it from the Moon.",
+  "sub": "A 1932 cartoon said you could see it from *the Moon.*",
+  "voice": "bm_george",
+  "asr": "A 1932 cartoon said you could see it from the moon."
+ },
+ {
+  "id": "w13",
+  "text": "From the Moon, you can barely make out continents.",
+  "sub": "From the Moon, you can barely make out *continents.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w14",
+  "text": "School books repeated it for decades.",
+  "sub": "School books repeated it for *decades.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w15",
+  "text": "What can you see from orbit? Cities at night.",
+  "sub": "What can you see from orbit? *Cities at night.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w16",
+  "text": "With a zoom lens? Maybe the wall too.",
+  "sub": "With a zoom lens? *Maybe* the wall too.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w17",
+  "text": "But not with your eyes.",
+  "sub": "But not with your *eyes.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w18",
+  "text": "Still an amazing wall.",
+  "sub": "Still an *amazing* wall.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w19",
+  "text": "Walls visible from the Moon: zero.",
+  "sub": "Walls visible from the Moon: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "w20",
+  "text": "Anyway, here's the wall, from space.",
+  "sub": "Anyway, here's the wall from *space.*",
+  "voice": "bm_george"
+ }
+]
