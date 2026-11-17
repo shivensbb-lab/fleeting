@@ -86,7 +86,7 @@ export const p08: React.FC<ShotProps> = ({ f }) => {
       <Deck f={f} plank={false} />
       <Bean x={300} y={1100} s={1.1} {...PIRATE} face="smug" armR={150} armL={20} />
       <g transform={`translate(${mix(600, 820, k)} ${mix(1080, 1400, k * k)}) rotate(${k * 60})`}><Bean x={0} y={0} s={0.9} {...SAILOR} face="panic" armL={150} armR={150} /></g>
-      {k > 0.9 ? <g transform={`translate(820 1340) scale(${pop(f, 26)})`}><Big x={0} y={0} size={110} color={C.white}>SPLASH</Big></g> : null}
+      {k > 0.9 ? <g transform={`translate(780 980) scale(${pop(f, 26)})`}><Big x={0} y={0} size={110} color={C.white}>SPLASH</Big></g> : null}
     </Scene>
   );
 };

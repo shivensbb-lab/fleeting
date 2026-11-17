@@ -23,7 +23,7 @@ const Stage: React.FC<{ f: number }> = ({ f }) => (
     {[0, 1, 2, 3, 4, 5].map((k) => <path key={k} d={`M${60 + k * 160} 260 L${60 + k * 160} ${HORIZON}`} stroke="#A9834E" strokeWidth={6} />)}
     <path d={`M60 260 Q540 380 1020 260 L1020 320 Q540 440 60 320 Z`} fill={C.red} stroke={C.line} strokeWidth={LW} />
     <rect x={0} y={HORIZON} width={1080} height={770} fill="#6E4C2E" stroke={C.line} strokeWidth={LW} />
-    {[0, 1, 2, 3, 4, 5].map((k) => <circle key={k} cx={120 + k * 168} cy={HORIZON + 280 - Math.abs(wob(f + k * 5, 2.4, 6))} r={56} fill="#4A4250" stroke={C.line} strokeWidth={8} />)}
+    {[0, 1, 2, 3, 4, 5].map((k) => <circle key={k} cx={120 + k * 168} cy={HORIZON + 470 - Math.abs(wob(f + k * 5, 2.4, 6))} r={56} fill="#4A4250" stroke={C.line} strokeWidth={8} />)}
   </g>
 );
 const Katana: React.FC = () => <g><path d="M0 0 L0 -200" stroke={C.line} strokeWidth={20} strokeLinecap="round" /><path d="M0 -20 L0 -200" stroke="#D8DCE0" strokeWidth={9} strokeLinecap="round" /><path d="M-20 -20 L20 -20" stroke={C.yellow} strokeWidth={10} strokeLinecap="round" /></g>;

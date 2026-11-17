@@ -57,7 +57,7 @@ export const r03: React.FC<ShotProps> = ({ f }) => (
 export const r04: React.FC<ShotProps> = ({ f }) => (
   <Scene f={f}>
     {ridePose(f, false)}
-    <Stamp f={f} a={14} x={540} y={420} text="TOP SECRET" size={110} />
+    <Stamp f={f} a={14} x={540} y={440} text="TOP SECRET" size={84} />
   </Scene>
 );
 export const r05: React.FC<ShotProps> = ({ f }) => (
