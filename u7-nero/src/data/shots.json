@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "x01",
+   "text": "AD 64. Rome burns. Nero plays the *fiddle.*",
+   "frames": 164
+  },
+  {
+   "id": "x02",
+   "text": "Nope. Wrong instrument. *Wrong place.*",
+   "frames": 96
+  },
+  {
+   "id": "x03",
+   "text": "Nero: *the fiddling myth.*",
+   "frames": 66
+  },
+  {
+   "id": "x04",
+   "text": "First: fiddles didn't *exist* yet.",
+   "frames": 89
+  },
+  {
+   "id": "x05",
+   "text": "The violin came along *1,500 years* later.",
+   "frames": 123
+  },
+  {
+   "id": "x06",
+   "text": "Romans had the *lyre.*",
+   "frames": 75
+  },
+  {
+   "id": "x07",
+   "text": "Second: Nero wasn't even *in Rome.*",
+   "frames": 95
+  },
+  {
+   "id": "x08",
+   "text": "He was at his villa in *Antium,* miles away.",
+   "frames": 121
+  },
+  {
+   "id": "x09",
+   "text": "When he heard, he *rushed back.*",
+   "frames": 75
+  },
+  {
+   "id": "x10",
+   "text": "He opened his gardens to the *homeless.*",
+   "frames": 99
+  },
+  {
+   "id": "x11",
+   "text": "And brought in food from *nearby towns.*",
+   "frames": 99
+  },
+  {
+   "id": "x12",
+   "text": "So where did the music *come from?*",
+   "frames": 79
+  },
+  {
+   "id": "x13",
+   "text": "It was *a rumour.*",
+   "frames": 66
+  },
+  {
+   "id": "x14",
+   "text": "People said he sang about *the fall of Troy.*",
+   "frames": 146
+  },
+  {
+   "id": "x15",
+   "text": "Even the historian Tacitus called it a *rumour.*",
+   "frames": 115
+  },
+  {
+   "id": "x16",
+   "text": "But Nero was unpopular. So it *stuck.*",
+   "frames": 102
+  },
+  {
+   "id": "x17",
+   "text": "Was Nero a good emperor? *Not really.*",
+   "frames": 103
+  },
+  {
+   "id": "x18",
+   "text": "But he didn't *fiddle.*",
+   "frames": 66
+  },
+  {
+   "id": "x19",
+   "text": "Fiddles in ancient Rome: *zero.*",
+   "frames": 97
+  },
+  {
+   "id": "x20",
+   "text": "Anyway, here's Nero *fiddling.*",
+   "frames": 100
+  }
+ ]
+}

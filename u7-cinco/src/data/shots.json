@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "c01",
+   "text": "Cinco de Mayo. *Mexican Independence Day.*",
+   "frames": 121
+  },
+  {
+   "id": "c02",
+   "text": "Nope. *Wrong day.*",
+   "frames": 66
+  },
+  {
+   "id": "c03",
+   "text": "*Cinco de Mayo:* the mix-up.",
+   "frames": 91
+  },
+  {
+   "id": "c04",
+   "text": "Mexico's Independence Day is *September 16.*",
+   "frames": 133
+  },
+  {
+   "id": "c05",
+   "text": "It marks *1810,* when the fight against Spain began.",
+   "frames": 131
+  },
+  {
+   "id": "c06",
+   "text": "So what's the *fifth of May?*",
+   "frames": 70
+  },
+  {
+   "id": "c07",
+   "text": "A battle. *1862.*",
+   "frames": 85
+  },
+  {
+   "id": "c08",
+   "text": "*France* invaded Mexico.",
+   "frames": 92
+  },
+  {
+   "id": "c09",
+   "text": "The French army was one of the *best in the world.*",
+   "frames": 114
+  },
+  {
+   "id": "c10",
+   "text": "At Puebla, Mexico's *smaller* army won.",
+   "frames": 131
+  },
+  {
+   "id": "c11",
+   "text": "A huge *upset.*",
+   "frames": 66
+  },
+  {
+   "id": "c12",
+   "text": "France did come back, and took Mexico City *a year later.*",
+   "frames": 140
+  },
+  {
+   "id": "c13",
+   "text": "But the victory at Puebla became a *symbol.*",
+   "frames": 108
+  },
+  {
+   "id": "c14",
+   "text": "In Mexico, it's mostly celebrated in *Puebla.*",
+   "frames": 121
+  },
+  {
+   "id": "c15",
+   "text": "It's much bigger in the *United States.*",
+   "frames": 94
+  },
+  {
+   "id": "c16",
+   "text": "Mexican American activists made it a day of *pride.*",
+   "frames": 133
+  },
+  {
+   "id": "c17",
+   "text": "Then advertisers turned it into a *party.*",
+   "frames": 108
+  },
+  {
+   "id": "c18",
+   "text": "Independence Day: *September 16.*",
+   "frames": 103
+  },
+  {
+   "id": "c19",
+   "text": "Cinco de Mayo: *a battle win.*",
+   "frames": 91
+  },
+  {
+   "id": "c20",
+   "text": "Anyway, happy Independence Day! On *May 5th.*",
+   "frames": 137
+  }
+ ]
+}

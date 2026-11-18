@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "y01",
+   "text": "1863. Lincoln scribbles a speech on an *envelope.*",
+   "frames": 155
+  },
+  {
+   "id": "y02",
+   "text": "Nope. *No envelope.*",
+   "frames": 66
+  },
+  {
+   "id": "y03",
+   "text": "The Gettysburg Address: *the envelope myth.*",
+   "frames": 66
+  },
+  {
+   "id": "y04",
+   "text": "The story says he wrote it on the *train.*",
+   "frames": 110
+  },
+  {
+   "id": "y05",
+   "text": "Last minute, on *scrap paper.*",
+   "frames": 85
+  },
+  {
+   "id": "y06",
+   "text": "In fact, he started it in *Washington.*",
+   "frames": 106
+  },
+  {
+   "id": "y07",
+   "text": "The first page is on *White House* paper.",
+   "frames": 103
+  },
+  {
+   "id": "y08",
+   "text": "He kept *revising* it.",
+   "frames": 66
+  },
+  {
+   "id": "y09",
+   "text": "*Five* handwritten copies survive.",
+   "frames": 95
+  },
+  {
+   "id": "y10",
+   "text": "None of them on an *envelope.*",
+   "frames": 79
+  },
+  {
+   "id": "y11",
+   "text": "The speech was short. About *two minutes.*",
+   "frames": 99
+  },
+  {
+   "id": "y12",
+   "text": "The speaker before him talked for *two hours.*",
+   "frames": 108
+  },
+  {
+   "id": "y13",
+   "text": "Everett later said Lincoln got closer to the point in *two minutes* than he did in *two hours.*",
+   "frames": 205
+  },
+  {
+   "id": "y14",
+   "text": "So where did the envelope *come from?*",
+   "frames": 85
+  },
+  {
+   "id": "y15",
+   "text": "A popular story, written in *1906.*",
+   "frames": 115
+  },
+  {
+   "id": "y16",
+   "text": "It said he wrote on *brown paper,* on the train.",
+   "frames": 118
+  },
+  {
+   "id": "y17",
+   "text": "Readers loved it. It became *legend.*",
+   "frames": 100
+  },
+  {
+   "id": "y18",
+   "text": "Lincoln was careful. *Not a scribbler.*",
+   "frames": 96
+  },
+  {
+   "id": "y19",
+   "text": "Envelopes involved: *zero.*",
+   "frames": 89
+  },
+  {
+   "id": "y20",
+   "text": "Anyway, here's Lincoln with his *envelope.*",
+   "frames": 115
+  }
+ ]
+}

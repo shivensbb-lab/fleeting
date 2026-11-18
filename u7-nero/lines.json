@@ -1,0 +1,126 @@
+[
+ {
+  "id": "x01",
+  "text": "Rome, A D sixty-four. The city burns. Nero plays the fiddle.",
+  "sub": "AD 64. Rome burns. Nero plays the *fiddle.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x02",
+  "text": "Nope. Wrong instrument. Wrong place.",
+  "sub": "Nope. Wrong instrument. *Wrong place.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x03",
+  "text": "The fiddling myth.",
+  "sub": "Nero: *the fiddling myth.*",
+  "voice": "bm_george",
+  "asr": "The Fiddling Myths"
+ },
+ {
+  "id": "x04",
+  "text": "First: fiddles didn't exist yet.",
+  "sub": "First: fiddles didn't *exist* yet.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x05",
+  "text": "The violin came along fifteen hundred years later.",
+  "sub": "The violin came along *1,500 years* later.",
+  "voice": "bm_george",
+  "asr": "The violin came along 1500 years later."
+ },
+ {
+  "id": "x06",
+  "text": "Romans had the lyre.",
+  "sub": "Romans had the *lyre.*",
+  "voice": "bm_george",
+  "asr": "Romans had the liar."
+ },
+ {
+  "id": "x07",
+  "text": "Second: Nero wasn't even in Rome.",
+  "sub": "Second: Nero wasn't even *in Rome.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x08",
+  "text": "He was at his villa in Antium, miles away.",
+  "sub": "He was at his villa in *Antium,* miles away.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x09",
+  "text": "When he heard, he rushed back.",
+  "sub": "When he heard, he *rushed back.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x10",
+  "text": "He opened his gardens to the homeless.",
+  "sub": "He opened his gardens to the *homeless.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x11",
+  "text": "And brought in food from nearby towns.",
+  "sub": "And brought in food from *nearby towns.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x12",
+  "text": "So where did the music come from?",
+  "sub": "So where did the music *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x13",
+  "text": "It was a rumour.",
+  "sub": "It was *a rumour.*",
+  "voice": "bm_george",
+  "asr": "It was a rumor."
+ },
+ {
+  "id": "x14",
+  "text": "People said he sang about the fall of Troy, on a private stage.",
+  "sub": "People said he sang about *the fall of Troy.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x15",
+  "text": "Even the historian Tacitus called it a rumour.",
+  "sub": "Even the historian Tacitus called it a *rumour.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x16",
+  "text": "But Nero was unpopular. So it stuck.",
+  "sub": "But Nero was unpopular. So it *stuck.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x17",
+  "text": "Was Nero a good emperor? Not really.",
+  "sub": "Was Nero a good emperor? *Not really.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x18",
+  "text": "But he didn't fiddle.",
+  "sub": "But he didn't *fiddle.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x19",
+  "text": "Fiddles in ancient Rome: zero.",
+  "sub": "Fiddles in ancient Rome: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "x20",
+  "text": "Anyway, here's Nero, fiddling.",
+  "sub": "Anyway, here's Nero *fiddling.*",
+  "voice": "bm_george"
+ }
+]

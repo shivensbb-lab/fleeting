@@ -1,0 +1,127 @@
+[
+ {
+  "id": "c01",
+  "text": "Cinco de Mayo. Mexican Independence Day.",
+  "sub": "Cinco de Mayo. *Mexican Independence Day.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c02",
+  "text": "Nope. Wrong day.",
+  "sub": "Nope. *Wrong day.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c03",
+  "text": "The Cinco de Mayo mix-up.",
+  "sub": "*Cinco de Mayo:* the mix-up.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c04",
+  "text": "Mexico's Independence Day is September sixteenth.",
+  "sub": "Mexico's Independence Day is *September 16.*",
+  "voice": "bm_george",
+  "asr": "Mexico's Independence Day is September 16th."
+ },
+ {
+  "id": "c05",
+  "text": "It marks eighteen ten, when the fight against Spain began.",
+  "sub": "It marks *1810,* when the fight against Spain began.",
+  "voice": "bm_george",
+  "asr": "It marks 1810 when the fight against Spain began."
+ },
+ {
+  "id": "c06",
+  "text": "So what's the fifth of May?",
+  "sub": "So what's the *fifth of May?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c07",
+  "text": "A battle. Eighteen sixty-two.",
+  "sub": "A battle. *1862.*",
+  "voice": "bm_george",
+  "asr": "A battle, 1862."
+ },
+ {
+  "id": "c08",
+  "text": "France invaded Mexico.",
+  "sub": "*France* invaded Mexico.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c09",
+  "text": "The French army was one of the best in the world.",
+  "sub": "The French army was one of the *best in the world.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c10",
+  "text": "At the city of Puebla, Mexico's smaller army won.",
+  "sub": "At Puebla, Mexico's *smaller* army won.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c11",
+  "text": "A huge upset.",
+  "sub": "A huge *upset.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c12",
+  "text": "France did come back, and took Mexico City a year later.",
+  "sub": "France did come back, and took Mexico City *a year later.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c13",
+  "text": "But the victory at Puebla became a symbol.",
+  "sub": "But the victory at Puebla became a *symbol.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c14",
+  "text": "In Mexico, it's mostly celebrated in Puebla.",
+  "sub": "In Mexico, it's mostly celebrated in *Puebla.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c15",
+  "text": "It's much bigger in the United States.",
+  "sub": "It's much bigger in the *United States.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c16",
+  "text": "Mexican American activists made it a day of pride.",
+  "sub": "Mexican American activists made it a day of *pride.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c17",
+  "text": "Then advertisers turned it into a party.",
+  "sub": "Then advertisers turned it into a *party.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c18",
+  "text": "Independence Day: September sixteenth.",
+  "sub": "Independence Day: *September 16.*",
+  "voice": "bm_george",
+  "asr": "Independence Day September 16th"
+ },
+ {
+  "id": "c19",
+  "text": "Cinco de Mayo: a battle win.",
+  "sub": "Cinco de Mayo: *a battle win.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "c20",
+  "text": "Anyway, happy Independence Day! On May the fifth.",
+  "sub": "Anyway, happy Independence Day! On *May 5th.*",
+  "voice": "bm_george",
+  "asr": "Anyway, happy Independence Day on May 5th."
+ }
+]

@@ -1,0 +1,6 @@
+out/
+stills/
+voice/*.wav
+node_modules
+.browser
+*.mp4

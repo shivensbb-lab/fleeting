@@ -1,0 +1,127 @@
+[
+ {
+  "id": "y01",
+  "text": "Eighteen sixty-three. Lincoln scribbles a speech on an envelope.",
+  "sub": "1863. Lincoln scribbles a speech on an *envelope.*",
+  "voice": "bm_george",
+  "asr": "1863, Lincoln scribbles a speech on an envelope."
+ },
+ {
+  "id": "y02",
+  "text": "Nope. No envelope.",
+  "sub": "Nope. *No envelope.*",
+  "voice": "bm_george",
+  "asr": "Nope, no envelopes."
+ },
+ {
+  "id": "y03",
+  "text": "The envelope myth.",
+  "sub": "The Gettysburg Address: *the envelope myth.*",
+  "voice": "bm_george",
+  "asr": "The Envelope Myths"
+ },
+ {
+  "id": "y04",
+  "text": "The story says he wrote it on the train.",
+  "sub": "The story says he wrote it on the *train.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y05",
+  "text": "Last minute, on scrap paper.",
+  "sub": "Last minute, on *scrap paper.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y06",
+  "text": "In fact, he started it in Washington.",
+  "sub": "In fact, he started it in *Washington.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y07",
+  "text": "The first page is on White House paper.",
+  "sub": "The first page is on *White House* paper.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y08",
+  "text": "He kept revising it.",
+  "sub": "He kept *revising* it.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y09",
+  "text": "Five handwritten copies survive.",
+  "sub": "*Five* handwritten copies survive.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y10",
+  "text": "None of them on an envelope.",
+  "sub": "None of them on an *envelope.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y11",
+  "text": "The speech was short. About two minutes.",
+  "sub": "The speech was short. About *two minutes.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y12",
+  "text": "The speaker before him talked for two hours.",
+  "sub": "The speaker before him talked for *two hours.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y13",
+  "text": "Everett later said Lincoln got closer to the point in two minutes than he did in two hours.",
+  "sub": "Everett later said Lincoln got closer to the point in *two minutes* than he did in *two hours.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y14",
+  "text": "So where did the envelope come from?",
+  "sub": "So where did the envelope *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y15",
+  "text": "A popular story, written in nineteen oh six.",
+  "sub": "A popular story, written in *1906.*",
+  "voice": "bm_george",
+  "asr": "A popular story written in 1906."
+ },
+ {
+  "id": "y16",
+  "text": "It said he wrote on brown paper, on the train.",
+  "sub": "It said he wrote on *brown paper,* on the train.",
+  "voice": "bm_george",
+  "asr": "It's said he wrote on brown paper on the train."
+ },
+ {
+  "id": "y17",
+  "text": "Readers loved it. It became legend.",
+  "sub": "Readers loved it. It became *legend.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y18",
+  "text": "Lincoln was careful. Not a scribbler.",
+  "sub": "Lincoln was careful. *Not a scribbler.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y19",
+  "text": "Envelopes involved: zero.",
+  "sub": "Envelopes involved: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "y20",
+  "text": "Anyway, here's Lincoln, with his envelope.",
+  "sub": "Anyway, here's Lincoln with his *envelope.*",
+  "voice": "bm_george"
+ }
+]

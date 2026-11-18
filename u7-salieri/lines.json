@@ -1,0 +1,128 @@
+[
+ {
+  "id": "z01",
+  "text": "Vienna, seventeen ninety-one. Sal-yair-ee poisons Mozart.",
+  "sub": "Vienna, 1791. Salieri *poisons* Mozart.",
+  "voice": "bm_george",
+  "asr": "Vienna 1791, Salieri poisons Mozart"
+ },
+ {
+  "id": "z02",
+  "text": "Nope. No evidence at all.",
+  "sub": "Nope. *No evidence at all.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z03",
+  "text": "The poison myth.",
+  "sub": "Mozart and Salieri: *the poison myth.*",
+  "voice": "bm_george",
+  "asr": "The poison myths."
+ },
+ {
+  "id": "z04",
+  "text": "Mozart died at thirty-five.",
+  "sub": "Mozart died at *35.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z05",
+  "text": "After weeks of illness.",
+  "sub": "After weeks of *illness.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z06",
+  "text": "Doctors at the time blamed a fever.",
+  "sub": "Doctors at the time blamed a *fever.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z07",
+  "text": "Nobody knows exactly what it was.",
+  "sub": "Nobody knows *exactly* what it was.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z08",
+  "text": "But poison? No sign of it.",
+  "sub": "But poison? *No sign of it.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z09",
+  "text": "And Sal-yair-ee wasn't a jealous loser.",
+  "sub": "And Salieri wasn't a jealous *loser.*",
+  "voice": "bm_george",
+  "asr": "And Salieri wasn't a jealous loser."
+ },
+ {
+  "id": "z10",
+  "text": "He was the emperor's top composer.",
+  "sub": "He was the *emperor's* top composer.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z11",
+  "text": "He taught Beethoven, Schubert, and Liszt.",
+  "sub": "He taught *Beethoven, Schubert* and *Liszt.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z12",
+  "text": "He even taught Mozart's son.",
+  "sub": "He even taught *Mozart's son.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z13",
+  "text": "The two of them wrote a piece together.",
+  "sub": "The two of them wrote a piece *together.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z14",
+  "text": "It was found again in twenty sixteen.",
+  "sub": "It was found again in *2016.*",
+  "voice": "bm_george",
+  "asr": "It was found again in 2016."
+ },
+ {
+  "id": "z15",
+  "text": "So where did the poison come from?",
+  "sub": "So where did the poison *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z16",
+  "text": "Gossip in Vienna, years later.",
+  "sub": "Gossip in Vienna, *years later.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z17",
+  "text": "Then a play by Pushkin. Then the movie Amadeus.",
+  "sub": "Then a play by *Pushkin.* Then the movie *Amadeus.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z18",
+  "text": "A great story. Not history.",
+  "sub": "A great story. *Not history.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "z19",
+  "text": "Proof Sal-yair-ee poisoned Mozart: zero.",
+  "sub": "Proof Salieri poisoned Mozart: *zero.*",
+  "voice": "bm_george",
+  "asr": "Prove Salieri Poisoned Mozart 0"
+ },
+ {
+  "id": "z20",
+  "text": "Anyway, here's Sal-yair-ee, with his poison.",
+  "sub": "Anyway, here's Salieri with his *poison.*",
+  "voice": "bm_george",
+  "asr": "Anyway, here's Salieri with his poison."
+ }
+]
