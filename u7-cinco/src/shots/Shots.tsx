@@ -26,9 +26,9 @@ const partyPose = (f: number) => (
     <Street f={f} />
     {Array.from({ length: 8 }, (_, k) => <path key={k} d={`M${k * 140} 380 L${k * 140 + 70} 460 L${k * 140 + 140} 380 Z`} fill={["#3E8E4E", C.white, C.red][k % 3]} stroke={C.line} strokeWidth={5} />)}
     <path d="M0 380 L1080 380" stroke={C.line} strokeWidth={5} />
-    <Bean x={300} y={FEET} s={1.2} coat="#E07A3C" hat="party" face="happy" armL={150 + wob(f, 3, 10)} armR={150 - wob(f, 3, 10)} />
-    <Bean x={760} y={FEET} s={1.2} coat="#3D6E8C" hat="party" face="happy" armL={150 - wob(f, 3, 10)} armR={150 + wob(f, 3, 10)} />
-    <g transform={`translate(540 640) scale(${pop(f, 6)})`}><Card x={0} y={0} w={560} h={150} fill={C.yellow}><Ink x={0} y={20} size={52}>HAPPY INDEPENDENCE!</Ink></Card></g>
+    <Bean x={300} y={FEET} s={1.2} coat="#E07A3C" hat="none" face="happy" armL={150 + wob(f, 3, 10)} armR={150 - wob(f, 3, 10)} />
+    <Bean x={760} y={FEET} s={1.2} coat="#3D6E8C" hat="none" face="happy" armL={150 - wob(f, 3, 10)} armR={150 + wob(f, 3, 10)} />
+    <g transform={`translate(540 640) scale(${pop(f, 6)})`}><Card x={0} y={0} w={700} h={150} fill={C.yellow}><Ink x={0} y={20} size={50}>HAPPY INDEPENDENCE!</Ink></Card></g>
   </>
 );
 
@@ -135,7 +135,7 @@ export const c14: React.FC<ShotProps> = ({ f }) => (
 export const c15: React.FC<ShotProps> = ({ f }) => (
   <Scene f={f}>
     <Street f={f} />
-    {Array.from({ length: 2 }, (_, r) => Array.from({ length: 5 }, (_, k) => <Bean key={`${r}${k}`} x={120 + k * 210 + r * 60} y={FEET - 40 + r * 160 - Math.abs(wob(f + k * 5 + r * 7, 2.2, 12))} s={0.65} coat={["#E07A3C", "#3D6E8C", "#3E8E4E", C.red, "#7E4A8C"][(k + r) % 5]} hat="party" face="happy" armL={150} armR={150} />))}
+    {Array.from({ length: 2 }, (_, r) => Array.from({ length: 5 }, (_, k) => <Bean key={`${r}${k}`} x={120 + k * 210 + r * 60} y={FEET - 40 + r * 160 - Math.abs(wob(f + k * 5 + r * 7, 2.2, 12))} s={0.65} coat={["#E07A3C", "#3D6E8C", "#3E8E4E", C.red, "#7E4A8C"][(k + r) % 5]} hat="none" face="happy" armL={150} armR={150} />))}
     <g transform={`translate(540 380) scale(${pop(f, 10)})`}><Big x={0} y={0} size={140} color={C.yellow}>USA</Big></g>
   </Scene>
 );
