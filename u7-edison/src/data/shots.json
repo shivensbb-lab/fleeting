@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "b01",
+   "text": "1879. Edison invents the *light bulb.*",
+   "frames": 154
+  },
+  {
+   "id": "b02",
+   "text": "Nope. *Not exactly.*",
+   "frames": 66
+  },
+  {
+   "id": "b03",
+   "text": "Edison: *the light bulb myth.*",
+   "frames": 66
+  },
+  {
+   "id": "b04",
+   "text": "Electric light was *already* around.",
+   "frames": 95
+  },
+  {
+   "id": "b05",
+   "text": "In the early 1800s, Humphry Davy made *arc lights.*",
+   "frames": 137
+  },
+  {
+   "id": "b06",
+   "text": "Blindingly bright. *Not for your living room.*",
+   "frames": 107
+  },
+  {
+   "id": "b07",
+   "text": "*Dozens* of inventors tried to make a bulb.",
+   "frames": 110
+  },
+  {
+   "id": "b08",
+   "text": "In England, *Joseph Swan* showed one before Edison.",
+   "frames": 129
+  },
+  {
+   "id": "b09",
+   "text": "The problem? They *burned out* fast.",
+   "frames": 93
+  },
+  {
+   "id": "b10",
+   "text": "Edison's team tested *thousands* of materials.",
+   "frames": 120
+  },
+  {
+   "id": "b11",
+   "text": "Their carbon filament lasted *much longer.*",
+   "frames": 111
+  },
+  {
+   "id": "b12",
+   "text": "Later, bamboo bulbs lasted over *1,000 hours.*",
+   "frames": 136
+  },
+  {
+   "id": "b13",
+   "text": "Edison also built the *whole system.*",
+   "frames": 95
+  },
+  {
+   "id": "b14",
+   "text": "Power stations. Wires. *Meters.*",
+   "frames": 100
+  },
+  {
+   "id": "b15",
+   "text": "And Swan? Edison *sued* him.",
+   "frames": 83
+  },
+  {
+   "id": "b16",
+   "text": "Then they *teamed up* instead.",
+   "frames": 75
+  },
+  {
+   "id": "b17",
+   "text": "Their company was called *Ediswan.*",
+   "frames": 99
+  },
+  {
+   "id": "b18",
+   "text": "Edison made the bulb *practical.* He didn't invent it.",
+   "frames": 121
+  },
+  {
+   "id": "b19",
+   "text": "Inventors of the light bulb: *way more than one.*",
+   "frames": 119
+  },
+  {
+   "id": "b20",
+   "text": "Anyway, here's Edison inventing the *light bulb.*",
+   "frames": 134
+  }
+ ]
+}

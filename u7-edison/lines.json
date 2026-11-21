@@ -1,0 +1,127 @@
+[
+ {
+  "id": "b01",
+  "text": "Eighteen seventy-nine. Thomas Edison invents the light bulb.",
+  "sub": "1879. Edison invents the *light bulb.*",
+  "voice": "bm_george",
+  "asr": "1879, Thomas Edison invents the light bulb."
+ },
+ {
+  "id": "b02",
+  "text": "Nope. Not exactly.",
+  "sub": "Nope. *Not exactly.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b03",
+  "text": "The light bulb myth.",
+  "sub": "Edison: *the light bulb myth.*",
+  "voice": "bm_george",
+  "asr": "The light bulb myths."
+ },
+ {
+  "id": "b04",
+  "text": "Electric light was already around.",
+  "sub": "Electric light was *already* around.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b05",
+  "text": "In the early eighteen hundreds, Humphry Davy made arc lights.",
+  "sub": "In the early 1800s, Humphry Davy made *arc lights.*",
+  "voice": "bm_george",
+  "asr": "In the early 1800s Humphrey Davey made ark lights."
+ },
+ {
+  "id": "b06",
+  "text": "Blindingly bright. Not for your living room.",
+  "sub": "Blindingly bright. *Not for your living room.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b07",
+  "text": "Dozens of inventors tried to make a bulb.",
+  "sub": "*Dozens* of inventors tried to make a bulb.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b08",
+  "text": "In England, Joseph Swan showed one before Edison.",
+  "sub": "In England, *Joseph Swan* showed one before Edison.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b09",
+  "text": "The problem? They burned out fast.",
+  "sub": "The problem? They *burned out* fast.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b10",
+  "text": "Edison's team tested thousands of materials.",
+  "sub": "Edison's team tested *thousands* of materials.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b11",
+  "text": "Their carbon filament lasted much longer.",
+  "sub": "Their carbon filament lasted *much longer.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b12",
+  "text": "Later, bamboo bulbs lasted over a thousand hours.",
+  "sub": "Later, bamboo bulbs lasted over *1,000 hours.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b13",
+  "text": "Edison also built the whole system.",
+  "sub": "Edison also built the *whole system.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b14",
+  "text": "Power stations. Wires. Meters.",
+  "sub": "Power stations. Wires. *Meters.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b15",
+  "text": "And Swan? Edison sued him.",
+  "sub": "And Swan? Edison *sued* him.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b16",
+  "text": "Then they teamed up instead.",
+  "sub": "Then they *teamed up* instead.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b17",
+  "text": "Their company was called Edi-Swan.",
+  "sub": "Their company was called *Ediswan.*",
+  "voice": "bm_george",
+  "asr": "Their company was called Eddie Swan."
+ },
+ {
+  "id": "b18",
+  "text": "Edison made the bulb practical. He didn't invent it.",
+  "sub": "Edison made the bulb *practical.* He didn't invent it.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b19",
+  "text": "Inventors of the light bulb: way more than one.",
+  "sub": "Inventors of the light bulb: *way more than one.*",
+  "voice": "bm_george",
+  "asr": "Inventors of the light bulb weigh more than one."
+ },
+ {
+  "id": "b20",
+  "text": "Anyway, here's Edison, inventing the light bulb.",
+  "sub": "Anyway, here's Edison inventing the *light bulb.*",
+  "voice": "bm_george"
+ }
+]

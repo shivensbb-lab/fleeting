@@ -1,0 +1,128 @@
+[
+ {
+  "id": "v01",
+  "text": "Ancient Rome. A feast. Then off to the vomitorium.",
+  "sub": "A Roman feast. Then off to the *vomitorium.*",
+  "voice": "bm_george",
+  "asr": "Ancient Rome, a feast, then off to the Vermatorium."
+ },
+ {
+  "id": "v02",
+  "text": "Nope. Wrong room entirely.",
+  "sub": "Nope. *Wrong room entirely.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v03",
+  "text": "The vomitorium myth.",
+  "sub": "Romans: *the vomitorium myth.*",
+  "voice": "bm_george",
+  "asr": "The Vomitorium Myths"
+ },
+ {
+  "id": "v04",
+  "text": "The story says Romans had a room for throwing up.",
+  "sub": "The story says Romans had a room for *throwing up.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v05",
+  "text": "So they could eat even more.",
+  "sub": "So they could eat *even more.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v06",
+  "text": "But a vomitorium was a corridor.",
+  "sub": "But a vomitorium was a *corridor.*",
+  "voice": "bm_george",
+  "asr": "But a vermatorium was a corridors."
+ },
+ {
+  "id": "v07",
+  "text": "In an amphitheatre, or a stadium.",
+  "sub": "In an amphitheatre or a *stadium.*",
+  "voice": "bm_george",
+  "asr": "in an amphitheater or a stadium."
+ },
+ {
+  "id": "v08",
+  "text": "The word means a place that spews out.",
+  "sub": "The word means a place that *spews out.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v09",
+  "text": "It spewed out crowds, not dinner.",
+  "sub": "It spewed out *crowds,* not dinner.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v10",
+  "text": "The Colosseum had dozens of them.",
+  "sub": "The Colosseum had *dozens* of them.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v11",
+  "text": "Tens of thousands of people could leave in minutes.",
+  "sub": "Tens of thousands could leave in *minutes.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v12",
+  "text": "Modern stadiums still use them.",
+  "sub": "Modern stadiums still *use them.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v13",
+  "text": "So where did the myth come from?",
+  "sub": "So where did the myth *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v14",
+  "text": "The word sounds like vomit. That's about it.",
+  "sub": "The word sounds like *vomit.* That's about it.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v15",
+  "text": "Writers in the nineteen hundreds ran with it.",
+  "sub": "Writers in the *1900s* ran with it.",
+  "voice": "bm_george",
+  "asr": "Writers in the 1900s ran with it."
+ },
+ {
+  "id": "v16",
+  "text": "Did some Romans overeat and throw up? A few, apparently.",
+  "sub": "Did some Romans overeat and throw up? *A few, apparently.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v17",
+  "text": "But there was no special room.",
+  "sub": "But there was *no special room.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v18",
+  "text": "Rooms just for throwing up: zero.",
+  "sub": "Rooms just for throwing up: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v19",
+  "text": "Exits for crowds: lots.",
+  "sub": "Crowd exits: *lots.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "v20",
+  "text": "Anyway, here's a Roman, heading to the vomitorium.",
+  "sub": "Anyway, here's a Roman heading to the *vomitorium.*",
+  "voice": "bm_george",
+  "asr": "Anyway, here's a Roman heading to the Vermatorium."
+ }
+]

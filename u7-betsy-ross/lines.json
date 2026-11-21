@@ -1,0 +1,126 @@
+[
+ {
+  "id": "h01",
+  "text": "Seventeen seventy-six. Betsy Ross sews the first American flag.",
+  "sub": "1776. Betsy Ross sews the *first flag.*",
+  "voice": "bm_george",
+  "asr": "1776, Betsy Ross sows the first American flag."
+ },
+ {
+  "id": "h02",
+  "text": "Nope. Probably just a family story.",
+  "sub": "Nope. Probably just a *family story.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h03",
+  "text": "The Betsy Ross myth.",
+  "sub": "Betsy Ross: *the flag myth.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h04",
+  "text": "The story says George Washington visited her shop.",
+  "sub": "The story says *George Washington* visited her shop.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h05",
+  "text": "And asked her to sew the flag.",
+  "sub": "And asked her to *sew the flag.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h06",
+  "text": "But there's no record of that from the time.",
+  "sub": "But there's *no record* of that from the time.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h07",
+  "text": "No letters. No diaries. No receipts.",
+  "sub": "No letters. No diaries. *No receipts.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h08",
+  "text": "The story first went public in eighteen seventy.",
+  "sub": "The story first went public in *1870.*",
+  "voice": "bm_george",
+  "asr": "The story first went public in 1870."
+ },
+ {
+  "id": "h09",
+  "text": "Almost a hundred years later.",
+  "sub": "Almost *100 years* later.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h10",
+  "text": "Told by her grandson.",
+  "sub": "Told by her *grandson.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h11",
+  "text": "Based on family stories.",
+  "sub": "Based on *family stories.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h12",
+  "text": "Betsy Ross was real.",
+  "sub": "Betsy Ross was *real.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h13",
+  "text": "She was an upholsterer, and she did make flags.",
+  "sub": "She was an upholsterer, and she *did* make flags.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h14",
+  "text": "In seventeen seventy-seven, she was paid for ship flags.",
+  "sub": "In 1777, she was paid for *ship flags.*",
+  "voice": "bm_george",
+  "asr": "In 1777, she was paid for ship flags."
+ },
+ {
+  "id": "h15",
+  "text": "But the first design? Unclear.",
+  "sub": "But the first design? *Unclear.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h16",
+  "text": "A politician, Francis Hopkinson, sent the government a bill for designing it.",
+  "sub": "A politician, *Francis Hopkinson,* sent the government a bill for designing it.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h17",
+  "text": "He never got paid.",
+  "sub": "He never got *paid.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h18",
+  "text": "So who made the first flag? Nobody knows for sure.",
+  "sub": "So who made the first flag? *Nobody knows for sure.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h19",
+  "text": "Proof Betsy made the first flag: zero.",
+  "sub": "Proof Betsy made the first flag: *zero.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "h20",
+  "text": "Anyway, here's Betsy Ross, sewing the first flag.",
+  "sub": "Anyway, here's Betsy Ross sewing the *first flag.*",
+  "voice": "bm_george",
+  "asr": "Anyway, here's Betsy Ross sowing the first flag."
+ }
+]

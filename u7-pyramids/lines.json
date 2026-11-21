@@ -1,0 +1,125 @@
+[
+ {
+  "id": "q01",
+  "text": "Ancient Egypt. Slaves build the pyramids.",
+  "sub": "Ancient Egypt. *Slaves* build the pyramids.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q02",
+  "text": "Nope. Probably not.",
+  "sub": "Nope. *Probably not.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q03",
+  "text": "The pyramid builders myth.",
+  "sub": "Pyramids: *the slaves myth.*",
+  "voice": "bm_george",
+  "asr": "The Pyramid Builders Myths"
+ },
+ {
+  "id": "q04",
+  "text": "In nineteen ninety, archaeologists found the workers' tombs.",
+  "sub": "In 1990, archaeologists found the *workers' tombs.*",
+  "voice": "bm_george",
+  "asr": "In 1990, archaeologists found the workers' tombs."
+ },
+ {
+  "id": "q05",
+  "text": "Right next to the pyramids.",
+  "sub": "Right next to the *pyramids.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q06",
+  "text": "Slaves wouldn't be buried that close to the king.",
+  "sub": "Slaves wouldn't be buried that close to the *king.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q07",
+  "text": "Some tombs had bread and beer for the afterlife.",
+  "sub": "Some tombs had *bread and beer* for the afterlife.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q08",
+  "text": "Skeletons show broken bones that healed.",
+  "sub": "Skeletons show broken bones that *healed.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q09",
+  "text": "So they got medical care.",
+  "sub": "So they got *medical care.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q10",
+  "text": "Nearby was a whole workers' town.",
+  "sub": "Nearby was a whole *workers' town.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q11",
+  "text": "Bakeries. Breweries. Lots of meat.",
+  "sub": "Bakeries. Breweries. *Lots of meat.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q12",
+  "text": "Work crews even gave themselves names.",
+  "sub": "Work crews even gave themselves *names.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q13",
+  "text": "Like, Friends of Koo-foo.",
+  "sub": "Like *\"Friends of Khufu.\"*",
+  "voice": "bm_george",
+  "asr": "Like friends of Kufu."
+ },
+ {
+  "id": "q14",
+  "text": "Many workers came in rotating shifts.",
+  "sub": "Many workers came in *rotating shifts.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q15",
+  "text": "Some were probably drafted. But slaves? Unlikely.",
+  "sub": "Some were probably *drafted.* But slaves? *Unlikely.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q16",
+  "text": "So where did the slave idea come from?",
+  "sub": "So where did the slave idea *come from?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q17",
+  "text": "Ancient Greek writers, and Hollywood movies.",
+  "sub": "Ancient Greek writers, and *Hollywood movies.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q18",
+  "text": "Pyramid builders: skilled crews.",
+  "sub": "Pyramid builders: *skilled crews.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q19",
+  "text": "Evidence of slave armies: none found.",
+  "sub": "Evidence of slave armies: *none found.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "q20",
+  "text": "Anyway, here's the movie version.",
+  "sub": "Anyway, here's the *movie version.*",
+  "voice": "bm_george"
+ }
+]

@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "h01",
+   "text": "1776. Betsy Ross sews the *first flag.*",
+   "frames": 170
+  },
+  {
+   "id": "h02",
+   "text": "Nope. Probably just a *family story.*",
+   "frames": 97
+  },
+  {
+   "id": "h03",
+   "text": "Betsy Ross: *the flag myth.*",
+   "frames": 71
+  },
+  {
+   "id": "h04",
+   "text": "The story says *George Washington* visited her shop.",
+   "frames": 127
+  },
+  {
+   "id": "h05",
+   "text": "And asked her to *sew the flag.*",
+   "frames": 85
+  },
+  {
+   "id": "h06",
+   "text": "But there's *no record* of that from the time.",
+   "frames": 99
+  },
+  {
+   "id": "h07",
+   "text": "No letters. No diaries. *No receipts.*",
+   "frames": 110
+  },
+  {
+   "id": "h08",
+   "text": "The story first went public in *1870.*",
+   "frames": 122
+  },
+  {
+   "id": "h09",
+   "text": "Almost *100 years* later.",
+   "frames": 76
+  },
+  {
+   "id": "h10",
+   "text": "Told by her *grandson.*",
+   "frames": 68
+  },
+  {
+   "id": "h11",
+   "text": "Based on *family stories.*",
+   "frames": 73
+  },
+  {
+   "id": "h12",
+   "text": "Betsy Ross was *real.*",
+   "frames": 77
+  },
+  {
+   "id": "h13",
+   "text": "She was an upholsterer, and she *did* make flags.",
+   "frames": 113
+  },
+  {
+   "id": "h14",
+   "text": "In 1777, she was paid for *ship flags.*",
+   "frames": 140
+  },
+  {
+   "id": "h15",
+   "text": "But the first design? *Unclear.*",
+   "frames": 88
+  },
+  {
+   "id": "h16",
+   "text": "A politician, *Francis Hopkinson,* sent the government a bill for designing it.",
+   "frames": 178
+  },
+  {
+   "id": "h17",
+   "text": "He never got *paid.*",
+   "frames": 66
+  },
+  {
+   "id": "h18",
+   "text": "So who made the first flag? *Nobody knows for sure.*",
+   "frames": 121
+  },
+  {
+   "id": "h19",
+   "text": "Proof Betsy made the first flag: *zero.*",
+   "frames": 107
+  },
+  {
+   "id": "h20",
+   "text": "Anyway, here's Betsy Ross sewing the *first flag.*",
+   "frames": 132
+  }
+ ]
+}
