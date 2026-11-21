@@ -70,7 +70,7 @@ export const v06: React.FC<ShotProps> = ({ f }) => (
     <rect x={0} y={0} width={1080} height={1920} fill="#D9C29A" />
     <path d="M200 1500 L380 500 L700 500 L880 1500 Z" fill="#6E5A44" stroke={C.line} strokeWidth={LW} strokeLinejoin="round" />
     <path d="M380 500 L540 300 L700 500" fill="none" stroke={C.line} strokeWidth={LW} />
-    <g transform={`translate(540 380) scale(${pop(f, 10)})`}><Big x={0} y={0} size={120} color={C.yellow}>A HALLWAY</Big></g>
+    <g transform={`translate(540 380) scale(${pop(f, 10)})`}><Big x={0} y={0} size={120} color={C.yellow}>A CORRIDOR</Big></g>
   </Scene>
 );
 export const v07: React.FC<ShotProps> = ({ f }) => <Scene f={f}><Colosseum f={f} /></Scene>;
@@ -84,7 +84,7 @@ export const v08: React.FC<ShotProps> = ({ f }) => (
 export const v09: React.FC<ShotProps> = ({ f }) => (
   <Scene f={f}>
     <Colosseum f={f} />
-    {Array.from({ length: 8 }, (_, k) => { const t = ramp(f, k * 3, k * 3 + 30, move); return <Bean key={k} x={540 + (k % 3 - 1) * 60} y={mix(900, FEET + 300, t) + (k % 2) * 30} s={0.6} coat={["#C9B79A", "#7E4A8C", "#3D6E8C", C.red][k % 4]} face="happy" armL={20} armR={20} />; })}
+    {Array.from({ length: 8 }, (_, k) => { const t = ramp(f, k * 3, k * 3 + 30, move); return <Bean key={k} x={540 + (k % 3 - 1) * 60} y={mix(900, FEET, t) + (k % 2) * 30} s={0.6} coat={["#C9B79A", "#7E4A8C", "#3D6E8C", C.red][k % 4]} face="happy" armL={20} armR={20} />; })}
     <g transform={`translate(540 360) scale(${pop(f, 14)})`}><Big x={0} y={0} size={120} color={C.yellow}>CROWDS</Big></g>
   </Scene>
 );
