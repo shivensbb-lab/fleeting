@@ -194,7 +194,7 @@ export const b16: React.FC<ShotProps> = ({ f }) => {
       <Timber />
       <Bean x={300} y={FEET} s={1.2} {...NEWTON} face="deadpan" armR={110} armL={20} />
       {Array.from({ length: n }, (_, k) => <rect key={k} x={560 + (k % 4) * 100} y={980 - Math.floor(k / 4) * 70} width={90} height={60} fill={k % 2 ? "#F3EFE4" : C.parchment} stroke={C.line} strokeWidth={6} />)}
-      <g transform={`translate(760 320) scale(${pop(f, 6)})`}><Big x={0} y={0} size={110} color={C.yellow}>~20 YEARS</Big></g>
+      <g transform={`translate(540 320) scale(${pop(f, 6)})`}><Big x={0} y={0} size={110} color={C.yellow}>~20 YEARS</Big></g>
     </Scene>
   );
 };

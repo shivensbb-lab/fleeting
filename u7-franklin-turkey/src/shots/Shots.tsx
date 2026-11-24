@@ -165,8 +165,8 @@ export const b12: React.FC<ShotProps> = ({ f }) => {
   return (
     <Scene f={f}>
       <Timber />
-      <g transform="translate(540 700) scale(1.1)">{k < 0.5 ? <Badge x={0} y={0} bird="eagle" /> : <Badge x={0} y={0} bird="turkey" />}</g>
-      <Stamp f={f} a={26} x={540} y={300} text="TURKEY?" size={110} color={C.beam} rot={-4} />
+      <g transform="translate(540 800) scale(1.0)">{k < 0.5 ? <Badge x={0} y={0} bird="eagle" /> : <Badge x={0} y={0} bird="turkey" />}</g>
+      <Stamp f={f} a={26} x={540} y={240} text="TURKEY?" size={110} color={C.beam} rot={-4} />
     </Scene>
   );
 };

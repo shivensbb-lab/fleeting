@@ -63,7 +63,7 @@ export const b01: React.FC<ShotProps> = ({ f }) => (
   </Scene>
 );
 const Turtle: React.FC<{ f: number }> = ({ f }) => (
-  <g transform={`translate(540 ${FEET - 60}) rotate(180)`}>
+  <g transform={`translate(540 ${FEET - 600}) rotate(180)`}>
     <Bean x={0} y={-150} s={1.2} {...KNIGHT} armL={140 + wob(f, 2, 20)} armR={140 - wob(f, 2, 20)} legs={30 + wob(f, 2, 12)} />
   </g>
 );
@@ -113,7 +113,7 @@ export const b06: React.FC<ShotProps> = ({ f }) => (
     <Bean x={300} y={FEET} s={1.2} {...KNIGHT} />
     <g transform={`translate(780 ${FEET}) scale(1.2)`}><g transform="translate(-40 0)"><Pack /></g></g>
     <Bean x={780} y={FEET} s={1.2} {...SOLDIER} face="deadpan" />
-    <g transform={`translate(540 300) scale(${pop(f, 10)})`}><Big x={0} y={0} size={100} color={C.yellow}>KNIGHT &lt; SOLDIER</Big></g>
+    <g transform={`translate(540 300) scale(${pop(f, 10)})`}><Big x={0} y={0} size={100} color={C.yellow}>LIGHTER LOAD</Big></g>
   </Scene>
 );
 export const b07: React.FC<ShotProps> = ({ f }) => (

@@ -169,7 +169,7 @@ export const b13: React.FC<ShotProps> = ({ f }) => {
   return (
     <Scene f={f}>
       <Parchment />
-      {Array.from({ length: n }, (_, k) => <path key={k} d={`M${200 + (k % 6) * 136} ${560 + Math.floor(k / 6) * 120} l0 -70`} stroke={C.line} strokeWidth={14} strokeLinecap="round" transform={(k % 5) === 4 ? `rotate(-50 ${200 + ((k - 2) % 6) * 136} ${560 + Math.floor(k / 6) * 120})` : undefined} />)}
+      {Array.from({ length: n }, (_, k) => <g key={k} transform={`translate(${200 + (k % 6) * 136} ${620 + Math.floor(k / 6) * 150}) scale(0.7)`}><Dagger rot={-20} /></g>)}
       <g transform="translate(540 330)"><Big x={0} y={0} size={160} color={C.red}>{n}</Big></g>
     </Scene>
   );
