@@ -7,7 +7,9 @@ thin (a low pedal only), silence, resolve (harp arpeggios, held chord). Palette 
 usage (from the library root): .venv/bin/python map-engine/mix.py <film>   -> <film>/out/mix.wav
 """
 import json, os, sys
-import numpy as np, soundfile as sf, soxr
+import numpy as np, soundfile as sf, soxr, time
+_T0 = time.time()
+def LOG(m): print(f'[{time.time()-_T0:7.1f}s] {m}', flush=True)
 LIB = os.environ.get('LIB', '/root/lemo-opuscar'); sys.path.insert(0, LIB)
 from core.audio import sampler as S
 from core.audio.sfx import SR, bp, lp, hp, add, compress, limit, click, whoosh, thump
@@ -85,15 +87,18 @@ done = -9
 for t in pillars:
     if t - done < 3: continue
     done = t; ev += [(t, 'horn', PROG[0][1] + 12, 2.6, .36, -.1, .28), (t, 'horn', PROG[0][2] + 12, 2.6, .32, .1, .24)]
+LOG('score events %d' % len(ev))
 S.seed(SC.get('seed', 3))
 sc = S.render(ev, dur=FULL + 1, master=False)[:N]
 f0 = 440 * 2 ** ((root - 12 - 69) / 12)
 drone = np.sin(2 * np.pi * f0 * tt) + .45 * np.sin(4 * np.pi * f0 * tt) + .22 * np.sin(6 * np.pi * f0 * tt)
 drone *= env_lin([(0, 0), (1.0, .02), (FULL - 1, .022), (FULL, 0)])
 sc += st(drone)
+LOG('rendered score')
 sc = np.stack([hp(sc[:, c], 32, 2) for c in range(2)], 1)
 music = S.room(sc, size=.55, mix=.22)
 
+LOG('room done')
 # ---------- ambience ----------
 mix = np.zeros((N, 2))
 air = bp(rng.standard_normal(N), 250, 5200, 2) * .012
@@ -107,6 +112,7 @@ bed('wind', bp(rng.standard_normal(N), 300, 2400, 2) * (1 + .6 * np.sin(2 * np.p
 bed('fire', hp(rng.standard_normal(N) * (rng.random(N) < .004) * 8, 1500) + lp(rng.standard_normal(N), 300) * .4)
 under = np.zeros(N)
 
+LOG('beds done')
 # ---------- foley ----------
 for e in EV:
     k, t = e['type'], e['t']
@@ -130,6 +136,7 @@ if sec and 'section_len' in SC:
     a = sec[0]; under = lp(rng.standard_normal(N), 260, 2) * env_lin([(0, 0), (a, 0), (a + .4, .05), (a + SC['section_len'] - .3, .05), (a + SC['section_len'], 0), (FULL, 0)])
     mix += st(under)
 
+LOG('foley done')
 # ---------- narration, duck, balance ----------
 mid = np.stack([bp(music[:, c], 300, 4000, 2) for c in range(2)], 1)
 music = music - mid * (1 - 10 ** (-4 / 20))
@@ -140,7 +147,8 @@ for c in CUES:
     if sr != SR: x = soxr.resample(x, sr, SR)
     i = int(c['t0'] * SR); j = min(N, i + len(x)); voice[i:j] += x[:j - i]; active[i:j] = 1
 voice = compress(hp(voice, 80, 2), thr=.18, ratio=3.0)
-duck = np.convolve(active, np.ones(int(.25 * SR)) / int(.25 * SR), 'same')
+from scipy.ndimage import uniform_filter1d
+duck = uniform_filter1d(active, int(.25 * SR), mode='constant')
 music = music * (1 - .45 * np.clip(duck * 1.4, 0, 1))[:, None]
 vr = np.sqrt((voice[active > 0] ** 2).mean()); voice *= .16 / vr
 mr = np.sqrt((music[active > 0] ** 2).mean()); music *= (.16 * 10 ** (-10 / 20)) / mr
@@ -149,6 +157,7 @@ out = mix + music + np.stack([voice, voice], 1)
 out = out[:int(FULL * SR)]
 nf = int(1.0 * SR); out[-nf:] *= np.linspace(1, 0, nf)[:, None] ** 1.5
 out = np.stack([limit(compress(out[:, c], thr=.35, ratio=2.0)) for c in range(2)], 1)
+LOG('master done')
 sf.write(os.path.join(F, 'out', 'mix.wav'), out.astype(np.float32), SR)
 used = ['hand_chimes', 'vibraphone_bowed', 'contrabass_pizz', 'cellos_spic', 'contrabass', 'cellos', 'glockenspiel', 'harp', 'frame_drum', 'violins_pizz', 'horn']
 cr = S.credits(used); open(os.path.join(F, 'out', 'instruments.txt'), 'w').write('\n'.join(cr) if isinstance(cr, list) else str(cr))
