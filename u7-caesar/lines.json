@@ -1,0 +1,129 @@
+[
+ {
+  "id": "b01",
+  "text": "March fifteenth, forty-four BC. Julius Caesar is stabbed.",
+  "sub": "March 15th, 44 BC. *Julius Caesar* is stabbed.",
+  "voice": "bm_george",
+  "asr": "March 15, 44 BC. Julius Caesar is stabbed."
+ },
+ {
+  "id": "b02",
+  "text": "He sees his friend Brutus and gasps: Et too, Broo-tay?",
+  "sub": "He sees his friend Brutus and gasps: *\"Et tu, Brute?\"*",
+  "voice": "bm_george",
+  "asr": "He sees his friend Brutus and gasps, et tu Brute."
+ },
+ {
+  "id": "b03",
+  "text": "Nope. Probably not.",
+  "sub": "Nope. *Probably not.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b04",
+  "text": "Caesar's last words: the Shakespeare myth.",
+  "sub": "Caesar's last words: *the Shakespeare myth.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b05",
+  "text": "That line comes from Shakespeare's play.",
+  "sub": "That line comes from *Shakespeare's* play.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b06",
+  "text": "Written in fifteen ninety-nine. Over sixteen hundred years later.",
+  "sub": "Written in 1599. Over *1,600 years* later.",
+  "voice": "bm_george",
+  "asr": "Written in 1599, over 1600 years later."
+ },
+ {
+  "id": "b07",
+  "text": "So what did the Roman writers say?",
+  "sub": "So what did the *Roman writers* say?",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b08",
+  "text": "Suetonius says Caesar said nothing at all. Just a groan.",
+  "sub": "Suetonius says Caesar said *nothing at all.* Just a groan.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b09",
+  "text": "But he adds that some people told a different story.",
+  "sub": "But he adds that some people told a *different story.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b10",
+  "text": "That Caesar spoke in Greek: You too, child?",
+  "sub": "That Caesar spoke in *Greek:* \"You too, child?\"",
+  "voice": "bm_george",
+  "asr": "That Caesar spoke in Greek, you too, child."
+ },
+ {
+  "id": "b11",
+  "text": "Rich Romans often spoke Greek. It was fancy.",
+  "sub": "Rich Romans often spoke Greek. *It was fancy.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b12",
+  "text": "Plutarch says when Caesar saw Brutus, he just covered his head with his toga.",
+  "sub": "Plutarch says when Caesar saw Brutus, he just *covered his head* with his toga.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b13",
+  "text": "He was stabbed twenty-three times.",
+  "sub": "He was stabbed *23 times.*",
+  "voice": "bm_george",
+  "asr": "He was stabbed 23 times."
+ },
+ {
+  "id": "b14",
+  "text": "A doctor said only one wound was deadly.",
+  "sub": "A doctor said only *one wound* was deadly.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b15",
+  "text": "So where does the Latin line come from?",
+  "sub": "So where does the *Latin line* come from?",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b16",
+  "text": "It shows up in English plays before Shakespeare, as well.",
+  "sub": "It shows up in English plays *before Shakespeare,* as well.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b17",
+  "text": "Shakespeare just made it famous.",
+  "sub": "Shakespeare just made it *famous.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b18",
+  "text": "Caesar's real last words? Nobody knows.",
+  "sub": "Caesar's real last words? *Nobody knows.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b19",
+  "text": "Proof Caesar ever said it: zero.",
+  "sub": "Proof Caesar ever said it: *zero.*",
+  "voice": "bm_george",
+  "asr": "Proof Caesar ever said it, zero."
+ },
+ {
+  "id": "b20",
+  "text": "Anyway, here's Caesar. Et too, Broo-tay?",
+  "sub": "Anyway, here's Caesar. *\"Et tu, Brute?\"*",
+  "voice": "bm_george",
+  "asr": "Anyway, here's Caesar. Et tu Brute."
+ }
+]

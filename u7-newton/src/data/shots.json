@@ -1,0 +1,105 @@
+{
+ "fps": 30,
+ "shots": [
+  {
+   "id": "b01",
+   "text": "1666. An apple falls on *Isaac Newton's* head.",
+   "frames": 151
+  },
+  {
+   "id": "b02",
+   "text": "Bonk. *Gravity.*",
+   "frames": 66
+  },
+  {
+   "id": "b03",
+   "text": "Nope. *Not quite.*",
+   "frames": 66
+  },
+  {
+   "id": "b04",
+   "text": "Newton's apple: *the bonk myth.*",
+   "frames": 88
+  },
+  {
+   "id": "b05",
+   "text": "The apple part? That's *probably real.*",
+   "frames": 97
+  },
+  {
+   "id": "b06",
+   "text": "Newton was at his family farm, hiding from *the plague.*",
+   "frames": 126
+  },
+  {
+   "id": "b07",
+   "text": "Years later, he told the story to his friend *William Stukeley.*",
+   "frames": 145
+  },
+  {
+   "id": "b08",
+   "text": "He was sitting in the garden, *thinking.*",
+   "frames": 94
+  },
+  {
+   "id": "b09",
+   "text": "An apple *fell* from a tree.",
+   "frames": 78
+  },
+  {
+   "id": "b10",
+   "text": "And he wondered: why does it always fall *straight down?*",
+   "frames": 116
+  },
+  {
+   "id": "b11",
+   "text": "Why not *sideways?* Or *up?*",
+   "frames": 84
+  },
+  {
+   "id": "b12",
+   "text": "Maybe the same pull reaches all the way to *the Moon.*",
+   "frames": 131
+  },
+  {
+   "id": "b13",
+   "text": "But in Newton's version, *nothing hits his head.*",
+   "frames": 107
+  },
+  {
+   "id": "b14",
+   "text": "The bonk was added later, by *storytellers and cartoons.*",
+   "frames": 139
+  },
+  {
+   "id": "b15",
+   "text": "And gravity didn't arrive *in a flash.*",
+   "frames": 102
+  },
+  {
+   "id": "b16",
+   "text": "He worked on it for about *20 years.*",
+   "frames": 95
+  },
+  {
+   "id": "b17",
+   "text": "His big book, the *Principia,* came out in 1687.",
+   "frames": 149
+  },
+  {
+   "id": "b18",
+   "text": "And the tree? It's *still growing* at his old house.",
+   "frames": 110
+  },
+  {
+   "id": "b19",
+   "text": "Apples that hit Newton on the head: *zero.*",
+   "frames": 108
+  },
+  {
+   "id": "b20",
+   "text": "Anyway, here's Newton, getting *bonked.*",
+   "frames": 109
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+[
+ {
+  "id": "b01",
+  "text": "Sixteen sixty-six. An apple falls on Isaac Newton's head.",
+  "sub": "1666. An apple falls on *Isaac Newton's* head.",
+  "voice": "bm_george",
+  "asr": "1666, an apple falls on Isaac Newton's head."
+ },
+ {
+  "id": "b02",
+  "text": "Bonk. Gravity.",
+  "sub": "Bonk. *Gravity.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b03",
+  "text": "Nope. Not quite.",
+  "sub": "Nope. *Not quite.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b04",
+  "text": "Newton's apple: the bonk myth.",
+  "sub": "Newton's apple: *the bonk myth.*",
+  "voice": "bm_george",
+  "asr": "Newton's apple, the bonk myth."
+ },
+ {
+  "id": "b05",
+  "text": "The apple part? That's probably real.",
+  "sub": "The apple part? That's *probably real.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b06",
+  "text": "Newton was at his family farm, hiding from the plague.",
+  "sub": "Newton was at his family farm, hiding from *the plague.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b07",
+  "text": "Years later, he told the story to his friend, William Stewkly.",
+  "sub": "Years later, he told the story to his friend *William Stukeley.*",
+  "voice": "bm_george",
+  "asr": "Years later, he told the story to his friend William Stukely."
+ },
+ {
+  "id": "b08",
+  "text": "He was sitting in the garden, thinking.",
+  "sub": "He was sitting in the garden, *thinking.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b09",
+  "text": "An apple fell from a tree.",
+  "sub": "An apple *fell* from a tree.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b10",
+  "text": "And he wondered: why does it always fall straight down?",
+  "sub": "And he wondered: why does it always fall *straight down?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b11",
+  "text": "Why not sideways? Or up?",
+  "sub": "Why not *sideways?* Or *up?*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b12",
+  "text": "Maybe the same pull reaches all the way to the Moon.",
+  "sub": "Maybe the same pull reaches all the way to *the Moon.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b13",
+  "text": "But in Newton's version, nothing hits his head.",
+  "sub": "But in Newton's version, *nothing hits his head.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b14",
+  "text": "The bonk was added later, by storytellers and cartoons.",
+  "sub": "The bonk was added later, by *storytellers and cartoons.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b15",
+  "text": "And gravity didn't arrive in a flash.",
+  "sub": "And gravity didn't arrive *in a flash.*",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b16",
+  "text": "He worked on it for about twenty years.",
+  "sub": "He worked on it for about *20 years.*",
+  "voice": "bm_george",
+  "asr": "He worked on it for about 20 years."
+ },
+ {
+  "id": "b17",
+  "text": "His big book, the Principia, came out in sixteen eighty-seven.",
+  "sub": "His big book, the *Principia,* came out in 1687.",
+  "voice": "bm_george",
+  "asr": "His big book, the Principia, came out in 1687."
+ },
+ {
+  "id": "b18",
+  "text": "And the tree? It's still growing at his old house.",
+  "sub": "And the tree? It's *still growing* at his old house.",
+  "voice": "bm_george"
+ },
+ {
+  "id": "b19",
+  "text": "Apples that hit Newton on the head: zero.",
+  "sub": "Apples that hit Newton on the head: *zero.*",
+  "voice": "bm_george",
+  "asr": "Apples that hit Newton on the head, zero."
+ },
+ {
+  "id": "b20",
+  "text": "Anyway, here's Newton, getting bonked.",
+  "sub": "Anyway, here's Newton, getting *bonked.*",
+  "voice": "bm_george"
+ }
+]
