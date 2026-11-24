@@ -1,0 +1,16 @@
+Map data
+- Elevation and bathymetry: AWS Terrain Tiles (Mapzen/Tilezen terrarium; SRTM, GMTED, ETOPO1, GEBCO), free with attribution. Every tile URL is logged in raw/manifest.jsonl.
+- Imagery: Sentinel-2 cloudless 2016 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016), CC BY 4.0.
+- No political borders are drawn. Routes, paths and historic shorelines are schematic and labelled so on screen.
+
+Type
+- Barlow Condensed (Jeremy Tribby), SIL Open Font License 1.1 (fonts/OFL.txt).
+
+Voice
+- Narration: Kokoro TTS (kokoro-onnx, Apache-2.0), voice bm_lewis. Synthetic voice.
+
+Music and sound
+- Original score and procedural foley, written in code; sampled instruments listed in out/instruments.txt (VSCO 2 Community Edition, CC0; VCSL, CC0).
+
+Technique
+- Built with the Lemo-Opuscar library's 3D Map Explainer style (terrain, baked shadows, ribbons, pillars, cross-section techniques adapted from its demo).

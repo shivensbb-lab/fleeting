@@ -1,0 +1,107 @@
+[
+ {
+  "id": "v01",
+  "text": "In two eighteen BC, Hannibal set out from Spain to attack Rome.",
+  "sub": "In 218 BC, Hannibal set out from Spain to attack Rome.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.0,
+  "asr": "In 218 BC, Hannibal set out from Spain to attack Rome."
+ },
+ {
+  "id": "v02",
+  "text": "Rome ruled the sea. So he went by land.",
+  "sub": "Rome ruled the sea. So he went by land.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v03",
+  "text": "Over the Pyrenees, with about fifty-nine thousand men.",
+  "sub": "Over the Pyrenees, with about 59,000 men.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5,
+  "asr": "Over the Pyrenees with about 59,000 men."
+ },
+ {
+  "id": "v04",
+  "text": "He crossed the Rhone, ferrying his elephants over on rafts.",
+  "sub": "He crossed the Rhône, ferrying his elephants over on rafts.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5,
+  "asr": "He crossed the Rhone, ferrying his elephants over on rafts."
+ },
+ {
+  "id": "v05",
+  "text": "Then came the Alps.",
+  "sub": "Then came the Alps.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.9
+ },
+ {
+  "id": "v06",
+  "text": "Snow, landslides, and attacks from mountain tribes.",
+  "sub": "Snow, landslides, and attacks from mountain tribes.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v07",
+  "text": "Which pass he used is still argued over today.",
+  "sub": "Which pass he used is still argued over today.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v08",
+  "text": "The crossing took fifteen days.",
+  "sub": "The crossing took 15 days.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "The crossing took 15 days."
+ },
+ {
+  "id": "v09",
+  "text": "He came down into Italy with about twenty-six thousand men.",
+  "sub": "He came down into Italy with about 26,000 men.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.7,
+  "asr": "He came down into Italy with about 26,000 men."
+ },
+ {
+  "id": "v10",
+  "text": "Fewer than half the men who crossed the Pyrenees.",
+  "sub": "Fewer than half the men who crossed the Pyrenees.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5
+ },
+ {
+  "id": "v11",
+  "text": "And with them, he fought in Italy for fifteen years.",
+  "sub": "And with them, he fought in Italy for 15 years.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "And with them, he fought in Italy for 15 years."
+ }
+]

@@ -1,0 +1,82 @@
+{
+ "dur": 45.49,
+ "cues": [
+  {
+   "id": "v01",
+   "t0": 1.0,
+   "vo_end": 5.808,
+   "text": "In 218 BC, Hannibal set out from Spain to attack Rome.",
+   "t1": 6.408
+  },
+  {
+   "id": "v02",
+   "t0": 6.208,
+   "vo_end": 9.278,
+   "text": "Rome ruled the sea. So he went by land.",
+   "t1": 9.878
+  },
+  {
+   "id": "v03",
+   "t0": 9.778,
+   "vo_end": 13.404,
+   "text": "Over the Pyrenees, with about 59,000 men.",
+   "t1": 14.004
+  },
+  {
+   "id": "v04",
+   "t0": 13.904,
+   "vo_end": 17.68,
+   "text": "He crossed the Rhône, ferrying his elephants over on rafts.",
+   "t1": 18.5
+  },
+  {
+   "id": "v05",
+   "t0": 18.58,
+   "vo_end": 20.088,
+   "text": "Then came the Alps.",
+   "t1": 20.688
+  },
+  {
+   "id": "v06",
+   "t0": 20.488,
+   "vo_end": 24.266,
+   "text": "Snow, landslides, and attacks from mountain tribes.",
+   "t1": 24.866
+  },
+  {
+   "id": "v07",
+   "t0": 24.666,
+   "vo_end": 27.956,
+   "text": "Which pass he used is still argued over today.",
+   "t1": 28.556
+  },
+  {
+   "id": "v08",
+   "t0": 28.356,
+   "vo_end": 30.404,
+   "text": "The crossing took 15 days.",
+   "t1": 31.024
+  },
+  {
+   "id": "v09",
+   "t0": 31.104,
+   "vo_end": 34.979,
+   "text": "He came down into Italy with about 26,000 men.",
+   "t1": 35.579
+  },
+  {
+   "id": "v10",
+   "t0": 35.479,
+   "vo_end": 38.62,
+   "text": "Fewer than half the men who crossed the Pyrenees.",
+   "t1": 39.22
+  },
+  {
+   "id": "v11",
+   "t0": 39.22,
+   "vo_end": 42.487,
+   "text": "And with them, he fought in Italy for 15 years.",
+   "t1": 44.087
+  }
+ ]
+}

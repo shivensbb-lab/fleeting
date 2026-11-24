@@ -1,0 +1,116 @@
+[
+ {
+  "id": "v01",
+  "text": "In four eighty BC, a few thousand Greeks blocked the road into Greece.",
+  "sub": "In 480 BC, a few thousand Greeks blocked the road into Greece.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.0,
+  "asr": "In 480 BC, a few thousand Greeks blocked the road into Greece."
+ },
+ {
+  "id": "v02",
+  "text": "Marching south was the army of Persia, the largest empire of its time.",
+  "sub": "Marching south: the army of Persia, the largest empire of its time.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5
+ },
+ {
+  "id": "v03",
+  "text": "They chose a pass called Thermopylae. The Hot Gates.",
+  "sub": "They chose a pass called Thermopylae. The Hot Gates.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "They chose a pass called Thermopylae, the hot gates."
+ },
+ {
+  "id": "v04",
+  "text": "Mountains on one side. The sea on the other.",
+  "sub": "Mountains on one side. The sea on the other.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v05",
+  "text": "At its narrowest, Herodotus says, there was room for just one cart.",
+  "sub": "At its narrowest, says Herodotus, room for just one cart.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "At its narrowest, Herodotus says there was room for just one cart."
+ },
+ {
+  "id": "v06",
+  "text": "About seven thousand Greeks, with three hundred Spartans, held it for two days.",
+  "sub": "About 7,000 Greeks, with 300 Spartans, held it for two days.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5,
+  "asr": "About 7,000 Greeks with 300 Spartans held it for two days."
+ },
+ {
+  "id": "v07",
+  "text": "Then a local man showed the Persians a path over the mountain.",
+  "sub": "Then a local man showed the Persians a path over the mountain.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.2
+ },
+ {
+  "id": "v08",
+  "text": "It came down behind the Greeks.",
+  "sub": "It came down behind the Greeks.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.3
+ },
+ {
+  "id": "v09",
+  "text": "But look at it today.",
+  "sub": "But look at it today.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.4
+ },
+ {
+  "id": "v10",
+  "text": "For twenty-five centuries, rivers have carried silt into the gulf.",
+  "sub": "For 25 centuries, rivers have carried silt into the gulf.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "For 25 centuries, rivers have carried silt into the gulf."
+ },
+ {
+  "id": "v11",
+  "text": "The sea is now kilometres away.",
+  "sub": "The sea is now kilometres away.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "The sea is now kilometres away."
+ },
+ {
+  "id": "v12",
+  "text": "The narrow road where the Spartans fell is gone.",
+  "sub": "The narrow road where the Spartans fell is gone.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6
+ }
+]

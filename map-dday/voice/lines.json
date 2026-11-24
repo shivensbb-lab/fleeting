@@ -1,0 +1,90 @@
+[
+ {
+  "id": "v01",
+  "text": "Before dawn, on the sixth of June, nineteen forty-four.",
+  "sub": "Before dawn, 6 June 1944.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.0,
+  "asr": "Before dawn on the 6th of June, 1944."
+ },
+ {
+  "id": "v02",
+  "text": "Ships left ports all along the south coast of England.",
+  "sub": "Ships left ports all along the south coast of England.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v03",
+  "text": "They gathered south of the Isle of Wight, in an area sailors called Piccadilly Circus.",
+  "sub": "They gathered south of the Isle of Wight: \"Piccadilly Circus\".",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "They gathered south of the Isle of Wight in an area sailors called Piccadilly Circus."
+ },
+ {
+  "id": "v04",
+  "text": "Nearly seven thousand vessels crossed the Channel.",
+  "sub": "Nearly 7,000 vessels crossed the Channel.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "Nearly 7,000 vessels crossed the Channel."
+ },
+ {
+  "id": "v05",
+  "text": "Their targets: five beaches, along about eighty kilometres of Normandy.",
+  "sub": "Their targets: five beaches along about 80 km of Normandy.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5,
+  "asr": "Their targets, five beaches along about 80 kilometers of Normandy."
+ },
+ {
+  "id": "v06",
+  "text": "Utah. Omaha. Gold. Juno. Sword.",
+  "sub": "Utah. Omaha. Gold. Juno. Sword.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.3,
+  "asr": "Utah, Omaha, Gold, Juno, Sword."
+ },
+ {
+  "id": "v07",
+  "text": "Near Omaha, American Rangers climbed the thirty metre cliffs of Pwant doo Ock.",
+  "sub": "Near Omaha, US Rangers climbed the 30 m cliffs of Pointe du Hoc.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "Near Omaha, American rangers climbed the 30-metre cliffs of Piwant-Duoc."
+ },
+ {
+  "id": "v08",
+  "text": "By nightfall, about a hundred and fifty-six thousand Allied troops had landed, by sea and by air.",
+  "sub": "By nightfall, about 156,000 Allied troops had landed, by sea and air.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "By nightfall, about 156,000 Allied troops had landed by sea and by air."
+ },
+ {
+  "id": "v09",
+  "text": "The way back into Europe was open.",
+  "sub": "The way back into Europe was open.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6
+ }
+]

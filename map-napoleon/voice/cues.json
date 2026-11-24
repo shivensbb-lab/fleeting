@@ -1,0 +1,82 @@
+{
+ "dur": 53.55,
+ "cues": [
+  {
+   "id": "v01",
+   "t0": 1.0,
+   "vo_end": 6.234,
+   "text": "June 1812. Napoleon crosses the River Niemen, into Russia.",
+   "t1": 6.834
+  },
+  {
+   "id": "v02",
+   "t0": 6.634,
+   "vo_end": 11.001,
+   "text": "By one famous count, he has 422,000 men.",
+   "t1": 11.601
+  },
+  {
+   "id": "v03",
+   "t0": 11.501,
+   "vo_end": 15.173,
+   "text": "The Russians fall back, and burn what they leave behind.",
+   "t1": 15.773
+  },
+  {
+   "id": "v04",
+   "t0": 15.573,
+   "vo_end": 20.487,
+   "text": "Napoleon follows them east. Vitebsk. Smolensk. Borodino.",
+   "t1": 21.087
+  },
+  {
+   "id": "v05",
+   "t0": 20.887,
+   "vo_end": 25.373,
+   "text": "Heat, sickness, desertion and battle cost him men at every step.",
+   "t1": 25.973
+  },
+  {
+   "id": "v06",
+   "t0": 25.973,
+   "vo_end": 30.663,
+   "text": "In September he reaches Moscow, with about 100,000 left.",
+   "t1": 31.263
+  },
+  {
+   "id": "v07",
+   "t0": 31.063,
+   "vo_end": 34.644,
+   "text": "The city burns. The Tsar refuses to talk peace.",
+   "t1": 35.364
+  },
+  {
+   "id": "v08",
+   "t0": 35.444,
+   "vo_end": 39.182,
+   "text": "In October, the army turns back. Then winter comes.",
+   "t1": 39.782
+  },
+  {
+   "id": "v09",
+   "t0": 39.582,
+   "vo_end": 43.135,
+   "text": "Snow, hunger and Cossacks, all the way to the river.",
+   "t1": 43.855
+  },
+  {
+   "id": "v10",
+   "t0": 43.935,
+   "vo_end": 47.119,
+   "text": "About 10,000 make it back across the Niemen.",
+   "t1": 47.719
+  },
+  {
+   "id": "v11",
+   "t0": 47.719,
+   "vo_end": 50.555,
+   "text": "Out of 422,000.",
+   "t1": 52.155
+  }
+ ]
+}

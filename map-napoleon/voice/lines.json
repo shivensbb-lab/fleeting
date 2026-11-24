@@ -1,0 +1,108 @@
+[
+ {
+  "id": "v01",
+  "text": "June, eighteen twelve. Napoleon crosses the river Niemen, into Russia.",
+  "sub": "June 1812. Napoleon crosses the River Niemen, into Russia.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 1.0,
+  "asr": "June 1812, Napoleon crosses the river Niemen into Russia."
+ },
+ {
+  "id": "v02",
+  "text": "By one famous count, he has four hundred and twenty-two thousand men.",
+  "sub": "By one famous count, he has 422,000 men.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "By one famous count, he has 422,000 men."
+ },
+ {
+  "id": "v03",
+  "text": "The Russians fall back, and burn what they leave behind.",
+  "sub": "The Russians fall back, and burn what they leave behind.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.5
+ },
+ {
+  "id": "v04",
+  "text": "Napoleon follows them east. Vee-tebsk. Smolensk. Borodino.",
+  "sub": "Napoleon follows them east. Vitebsk. Smolensk. Borodino.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "Napoleon follows them east. Vitebsk, Smolensk, Borodino."
+ },
+ {
+  "id": "v05",
+  "text": "Heat, sickness, desertion and battle cost him men at every step.",
+  "sub": "Heat, sickness, desertion and battle cost him men at every step.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v06",
+  "text": "In September he reaches Moscow, with about a hundred thousand left.",
+  "sub": "In September he reaches Moscow, with about 100,000 left.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "In September he reaches Moscow with about 100,000 left."
+ },
+ {
+  "id": "v07",
+  "text": "The city burns. The Tsar refuses to talk peace.",
+  "sub": "The city burns. The Tsar refuses to talk peace.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4
+ },
+ {
+  "id": "v08",
+  "text": "In October, the army turns back. Then winter comes.",
+  "sub": "In October, the army turns back. Then winter comes.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.8
+ },
+ {
+  "id": "v09",
+  "text": "Snow, hunger and Cossacks, all the way to the river.",
+  "sub": "Snow, hunger and Cossacks, all the way to the river.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.4,
+  "asr": "Snow, hunger and Cossacks all the way to the river."
+ },
+ {
+  "id": "v10",
+  "text": "About ten thousand make it back across the Niemen.",
+  "sub": "About 10,000 make it back across the Niemen.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.8,
+  "asr": "About 10,000 make it back across the Niemen."
+ },
+ {
+  "id": "v11",
+  "text": "Out of four hundred and twenty-two thousand.",
+  "sub": "Out of 422,000.",
+  "voice": "bm_lewis",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "pre": 0.6,
+  "asr": "Out of four hundred and twenty-two thousand."
+ }
+]

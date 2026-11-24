@@ -1,0 +1,433 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>3D map film</title>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+<style>
+@font-face{font-family:Barlow;src:url(fonts/BarlowCondensed-Medium.ttf);font-weight:500}
+@font-face{font-family:Barlow;src:url(fonts/BarlowCondensed-SemiBold.ttf);font-weight:600}
+html,body{margin:0;background:#05080c;overflow:hidden}
+canvas{position:absolute;left:0;top:0}
+</style></head>
+<body>
+<script type="module">
+// Shared 3D map engine (vertical 1080x1920). The film itself is ./film.js: build(T, E) returns the spec; T(id) / E(id) = start / end of a narration line.
+// Techniques adapted from the Lemo-Opuscar 3D Map Explainer demo: terrain with baked low-sun shadows, additive ribbons, slab pillars, the cross-section wall.
+import * as THREE from 'three';
+import { makePost } from '/core/three/post.js';
+import { clamp, lerp, seg, ss, eo, eio, track } from '/core/lib.js';
+import build from './film.js';
+
+const Q = new URLSearchParams(location.search);
+const Wd = innerWidth || 1080, Ht = innerHeight || 1920, SS = +(Q.get('ss') || 1);
+const J = u => fetch(u).then(r => r.json()), B = u => fetch(u).then(r => r.arrayBuffer());
+const [meta, wmeta, hraw, wraw, CJ] = await Promise.all([J('assets/detail_meta.json'), J('assets/wide_meta.json'), B('assets/detail_height.bin'), B('assets/wide_height.bin'), J('voice/cues.json')]);
+const CUES = CJ.cues, byId = Object.fromEntries(CUES.map(c => [c.id, c]));
+const T = id => byId[id].t0, E = id => byId[id].vo_end;
+const F = build(T, E, CJ.dur);
+const FULL = F.dur || CJ.dur, T0 = +(Q.get('t0') || 0), T1 = Q.has('t1') ? +Q.get('t1') : FULL;
+const EX = F.ex || 3, D2R = Math.PI / 180;
+const hbuf = new Float32Array(hraw), wbuf = new Float32Array(wraw);
+const { GW, GH, km_px, width_km: WK, height_km: HK } = meta;
+const [MX0, MY0] = meta.merc;
+function merc(lon, lat) { const n = 2 ** meta.z * 256; return [(lon + 180) / 360 * n, (1 - Math.asinh(Math.tan(lat * D2R)) / Math.PI) / 2 * n]; }
+function xz(lon, lat) { const [mx, my] = merc(lon, lat); return [(mx - MX0) * km_px - WK / 2, (my - MY0) * km_px - HK / 2]; }
+const [WX0, WZ0] = xz(wmeta.bbox[0], wmeta.bbox[3]), [WX1, WZ1] = xz(wmeta.bbox[2], wmeta.bbox[1]);
+function bil(buf, w, h, gx, gz) {
+  const x0 = Math.max(0, Math.min(w - 2, Math.floor(gx))), z0 = Math.max(0, Math.min(h - 2, Math.floor(gz)));
+  const fx = clamp(gx - x0), fz = clamp(gz - z0);
+  const a = buf[z0 * w + x0], b = buf[z0 * w + x0 + 1], c = buf[(z0 + 1) * w + x0], d = buf[(z0 + 1) * w + x0 + 1];
+  return (a * (1 - fx) + b * fx) * (1 - fz) + (c * (1 - fx) + d * fx) * fz;
+}
+function hAt(X, Z) {
+  if (Math.abs(X) < WK / 2 && Math.abs(Z) < HK / 2) return bil(hbuf, GW, GH, (X + WK / 2) / WK * (GW - 1), (Z + HK / 2) / HK * (GH - 1));
+  return bil(wbuf, wmeta.GW, wmeta.GH, (X - WX0) / (WX1 - WX0) * (wmeta.GW - 1), (Z - WZ0) / (WZ1 - WZ0) * (wmeta.GH - 1));
+}
+const yOf = h => Math.max(h, 0) / 1000 * EX;
+function geo(lon, lat, lift = 0) { const [X, Z] = xz(lon, lat); return new THREE.Vector3(X, yOf(hAt(X, Z)) + lift, Z); }
+function unxz(X, Z) { let lo = (meta.bbox[0] + meta.bbox[2]) / 2, la = (meta.bbox[1] + meta.bbox[3]) / 2; for (let i = 0; i < 8; i++) { const [x, z] = xz(lo, la), [x1] = xz(lo + .001, la), [, z1] = xz(lo, la + .001); lo += (X - x) / ((x1 - x) / .001); la += (Z - z) / ((z1 - z) / .001); } return [lo, la]; }
+
+// ---------- renderer and terrain ----------
+const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+renderer.setPixelRatio(SS); renderer.setSize(Wd, Ht);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.25;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const HAZE = new THREE.Color(F.haze ?? 0x5f6872);
+scene.background = HAZE.clone(); scene.fog = new THREE.Fog(HAZE, 300, 900);
+const tl = new THREE.TextureLoader(), load = u => new Promise((r, e) => tl.load(u, r, undefined, e));
+const [albedo, waterTex, shadowTex, walbedo, wwaterTex, wshadowTex] = await Promise.all(
+  ['detail_albedo.jpg', 'detail_water.png', 'detail_shadow.png', 'wide_albedo.jpg', 'wide_water.png', 'wide_shadow.png'].map(f => load('assets/' + f)));
+for (const t of [albedo, walbedo]) { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 16; }
+for (const t of [shadowTex, wshadowTex]) t.anisotropy = 8;
+const CUT = { p: new THREE.Vector4(0, 0, 0, 0), d: { value: 0 } };
+const SNOW = { value: 0 };
+const cutU = { cutP: { value: CUT.p }, cutD: CUT.d };
+const CUT_GLSL = `uniform vec4 cutP; uniform float cutD;
+  bool cutAway(vec3 w){ if (cutD <= 0.) return false; float s = dot(w.xz - cutP.xy, cutP.zw); return s > 0. && s < cutD; }
+`;
+function roughFrom(tex) {
+  const c = document.createElement('canvas'); c.width = tex.image.width; c.height = tex.image.height;
+  const g = c.getContext('2d'); g.drawImage(tex.image, 0, 0); const id = g.getImageData(0, 0, c.width, c.height);
+  for (let i = 0; i < id.data.length; i += 4) { const w = id.data[i] / 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = 245 * (1 - w) + 185 * w; }
+  g.putImageData(id, 0, 0); return new THREE.CanvasTexture(c);
+}
+const LIGHT_CHUNK = THREE.ShaderChunk.lights_fragment_begin.replaceAll('RE_Direct( directLight,', 'directLight.color *= mix( 1.0, texture2D( tShadow, vMapUv ).r, 0.88 );\n\t\tRE_Direct( directLight,');
+function terrainMat(map, water, shadow, clipRect) {
+  const m = new THREE.MeshStandardMaterial({ map, roughnessMap: roughFrom(water), roughness: 1, metalness: 0 });
+  m.onBeforeCompile = sh => {
+    Object.assign(sh.uniforms, cutU, { tShadow: { value: shadow }, tWat: { value: water }, snow: SNOW, clipR: { value: clipRect || new THREE.Vector4(1, 1, -1, -1) } });
+    sh.vertexShader = 'varying vec3 vWp;\n' + sh.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n vWp = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+    sh.fragmentShader = 'uniform sampler2D tShadow; uniform sampler2D tWat; uniform float snow; uniform vec4 clipR; varying vec3 vWp;\n' + CUT_GLSL + sh.fragmentShader
+      .replace('void main() {', 'void main() {\n if (vWp.x > clipR.x && vWp.x < clipR.z && vWp.z > clipR.y && vWp.z < clipR.w) discard;\n if (cutAway(vWp)) discard;')
+      .replace('#include <map_fragment>', `#include <map_fragment>
+        { float land = 1. - texture2D(tWat, vMapUv).r; float l = dot(diffuseColor.rgb, vec3(.3,.59,.11));
+          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.80, .84, .90) * (.75 + .5 * l), snow * land); }`)
+      .replace('#include <lights_fragment_begin>', LIGHT_CHUNK);
+  };
+  return m;
+}
+function terrainMesh(w, h, gw, gh, buf, mat) {
+  const g = new THREE.PlaneGeometry(w, h, gw - 1, gh - 1); g.rotateX(-Math.PI / 2);
+  const p = g.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, yOf(buf[i]));
+  g.computeVertexNormals(); return new THREE.Mesh(g, mat);
+}
+scene.add(terrainMesh(WK, HK, GW, GH, hbuf, terrainMat(albedo, waterTex, shadowTex)));
+{
+  const inset = Math.min(WK, HK) * .01, clip = new THREE.Vector4(-WK / 2 + inset, -HK / 2 + inset, WK / 2 - inset, HK / 2 - inset);
+  const wm = terrainMesh(WX1 - WX0, WZ1 - WZ0, wmeta.GW, wmeta.GH, wbuf, terrainMat(walbedo, wwaterTex, wshadowTex, clip));
+  wm.position.set((WX0 + WX1) / 2, -.03, (WZ0 + WZ1) / 2); scene.add(wm);
+}
+const SUNV = F.sun || [-150, 62, -70];
+const sun = new THREE.DirectionalLight(0xffe2b8, 3.1); sun.position.set(...SUNV); sun.target.position.set(0, 0, 0);
+scene.add(sun, sun.target, new THREE.HemisphereLight(0x9fb6c8, 0x4a3420, 0.55));
+
+// ---------- ribbons ----------
+const FOV = F.fov || 38;
+const camera = new THREE.PerspectiveCamera(FOV, Wd / Ht, 1, 900);
+const PIXK = 2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2)) / Ht;
+const RIB_V = `attribute float aSide; attribute vec3 aNorm; attribute float aAlong;
+  uniform float wW, pxW, pixK; varying float vSide, vAlong; varying vec3 vW;
+  void main(){ vec4 wp = modelMatrix * vec4(position, 1.); float pw = length(cameraPosition - wp.xyz) * pixK;
+    float hw = max(wW * .5, pxW * .5 * pw); wp.xyz += aNorm * aSide * hw; vSide = aSide; vAlong = aAlong; vW = wp.xyz;
+    gl_Position = projectionMatrix * viewMatrix * wp; }`;
+const RIB_F = `varying float vSide, vAlong; varying vec3 vW; uniform vec3 col; uniform float k, inten, revA, revB, soft, head, headAmt, dash, duty,
+  flowSp, flowLen, flowAmt, flowPh, base, L, endFade, normalA;
+  ${CUT_GLSL}
+  void main(){
+    if (cutAway(vW)) discard;
+    float d = vSide; float g = exp(-d * d * k);
+    float vis = smoothstep(revA - soft, revA, vAlong) * (1. - smoothstep(revB, revB + soft, vAlong));
+    if (vis <= 0.) discard;
+    float e = smoothstep(0., endFade, vAlong) * smoothstep(L, L - endFade, vAlong);
+    float a = base;
+    if (dash > 0.) a *= step(fract(vAlong / dash), duty);
+    if (flowAmt > 0.) { float f = fract((vAlong - flowPh) / flowSp); a += flowAmt * smoothstep(1. - flowLen / flowSp, 1., f) * smoothstep(1., .985, f); }
+    a += headAmt * exp(-pow((vAlong - head) / (2.5 * max(1., soft / 2.)), 2.));
+    if (normalA > 0.) { gl_FragColor = vec4(col, normalA * g * vis * e * inten); return; }
+    gl_FragColor = vec4(col * g * a * inten * vis * e, 1.); }`;
+function ribbon(pts, o) {
+  const pos = [], side = [], nrm = [], al = [], idx = []; let L = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)];
+    const t = new THREE.Vector3().subVectors(b, a); t.y = 0;
+    const n = new THREE.Vector3().crossVectors(t, new THREE.Vector3(0, 1, 0)).normalize();
+    if (i) L += pts[i].distanceTo(pts[i - 1]);
+    const p = pts[i];
+    for (const s of [1, -1]) { pos.push(p.x, p.y, p.z); side.push(s); nrm.push(n.x, n.y, n.z); al.push(L); }
+    if (i) { const q = 2 * i; idx.push(q - 2, q - 1, q, q - 1, q + 1, q); }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aSide', new THREE.Float32BufferAttribute(side, 1));
+  g.setAttribute('aNorm', new THREE.Float32BufferAttribute(nrm, 3)); g.setAttribute('aAlong', new THREE.Float32BufferAttribute(al, 1)); g.setIndex(idx);
+  const U = { col: new THREE.Color(o.col ?? 0xffa63d), k: o.k ?? 3, inten: 0, wW: o.wW ?? 0, pxW: o.pxW ?? 2, pixK: PIXK, revA: 0, revB: 1e9, soft: o.soft ?? 2,
+    head: -1e6, headAmt: 0, dash: o.dash ?? 0, duty: o.duty ?? .55, flowSp: o.flowSp ?? 30, flowLen: o.flowLen ?? 6, flowAmt: o.flowAmt ?? 0, flowPh: 0,
+    base: o.base ?? 1, L, endFade: o.endFade ?? .01, normalA: o.normalA ?? 0 };
+  const uniforms = { ...cutU }; for (const k in U) uniforms[k] = { value: U[k] };
+  const normal = (o.normalA ?? 0) > 0;
+  const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ uniforms, vertexShader: RIB_V, fragmentShader: RIB_F, side: THREE.DoubleSide, transparent: true, depthWrite: false,
+    depthTest: o.depthTest ?? true, blending: normal ? THREE.NormalBlending : THREE.AdditiveBlending, toneMapped: false }));
+  m.renderOrder = o.order ?? 2; m.frustumCulled = false; scene.add(m);
+  m.L = L; m.u = uniforms; return m;
+}
+const rv = (r, a) => { for (const k in a) r.u[k].value = a[k]; };
+function arc(pts) { const s = [0]; for (let i = 1; i < pts.length; i++) s.push(s[i - 1] + pts[i].distanceTo(pts[i - 1])); return s; }
+function along(pts, S, s) {
+  s = clamp(s, 0, S[S.length - 1]); let lo = 0, hi = S.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (S[mid] <= s) lo = mid; else hi = mid; }
+  const f = (s - S[lo]) / ((S[hi] - S[lo]) || 1), p = pts[lo].clone().lerp(pts[hi], f);
+  return { p, dir: new THREE.Vector3().subVectors(pts[hi], pts[lo]).normalize() };
+}
+// a path through lon/lat control points, densified (centripetal Catmull-Rom in the map plane), draped on the terrain
+function drape(ll, o = {}) {
+  const ctrl = ll.map(([lo, la]) => { const [X, Z] = xz(lo, la); return new THREE.Vector3(X, 0, Z); });
+  const curve = ctrl.length > 2 ? new THREE.CatmullRomCurve3(ctrl, false, 'centripetal') : new THREE.LineCurve3(ctrl[0], ctrl[1]);
+  const len = curve.getLength(), n = Math.max(40, Math.min(3000, Math.round(len / (o.step || .25))));
+  return curve.getSpacedPoints(n).map(p => { const h = hAt(p.x, p.z); return new THREE.Vector3(p.x, o.sea ? .06 : yOf(h) + (o.lift ?? .05), p.z); });
+}
+const COL = { amber: [0xffa63d, 0xffc36b], teal: [0x2fa3b0, 0x8fd6de], ice: [0xd9e6ee, 0xeef4f8], red: [0xe0563a, 0xff8a66], white: [0xf4e6cf, 0xfff4e0] };
+
+// ---------- the film's data layer ----------
+const LINES = {};
+for (const l of F.lines || []) {
+  const pts = drape(l.ll, l), S = arc(pts), [c0, c1] = COL[l.col || 'amber'];
+  const o = { pts, S, l };
+  if (l.cased) o.case = ribbon(pts, { pxW: (l.w || 2.6) + 5, k: 1, base: 1, normalA: .75, col: 0x1a1410, order: 1 });
+  if (l.dash) o.core = ribbon(pts, { pxW: l.w || 2, k: 1, base: .9, dash: l.dash, col: c1, order: 3 });
+  else {
+    o.glow = ribbon(pts, { pxW: (l.w || 2.6) * 4.5, k: 3, base: .24, col: c0 });
+    o.core = ribbon(pts, { pxW: l.w || 2.6, k: 1.2, base: 1, col: c1, flowAmt: l.flow ? 2.2 : 0, flowSp: l.flowSp || 40, flowLen: l.flowLen || 10 });
+  }
+  LINES[l.id] = o;
+}
+// slab pillars
+const SLAB_COL = { amber: [0xffb04a, 0xff9a2e], teal: [0x2fa3b0, 0x1d7f8c], ghost: [0xd9e6ee, 0x667788] };
+const PILLARS = (F.pillars || []).map(p => {
+  const grp = new THREE.Group(); scene.add(grp);
+  const [col, emis] = SLAB_COL[p.col || 'amber'];
+  const slabG = new THREE.CylinderGeometry(p.R, p.R, p.SH * .87, 48, 1);
+  const ghost = p.col === 'ghost';
+  const mat = new THREE.MeshStandardMaterial({ color: col, emissive: emis, emissiveIntensity: ghost ? .15 : .38, roughness: .45, metalness: .1, transparent: ghost, opacity: ghost ? .28 : 1, depthWrite: !ghost });
+  const ringG = new THREE.TorusGeometry(p.R, p.R * .025, 6, 64); ringG.rotateX(Math.PI / 2);
+  const edgeM = new THREE.MeshBasicMaterial({ color: new THREE.Color(col).multiplyScalar(ghost ? 1.2 : 2.2), toneMapped: false, transparent: ghost, opacity: ghost ? .5 : 1 });
+  const nMax = Math.ceil(Math.max(...p.n.map(k => k[1])));
+  const slabs = [];
+  for (let k = 0; k < nMax; k++) { const s = new THREE.Group(); s.add(new THREE.Mesh(slabG, mat)); const r = new THREE.Mesh(ringG, edgeM); r.position.y = p.SH * .435; s.add(r); grp.add(s); slabs.push(s); }
+  return { p, grp, slabs, nf: track(p.n.map(([t, v]) => [t, [v]])), at: p.at.length > 1 ? track(p.at.map(([t, lo, la]) => [t, [lo, la]])) : () => p.at[0].slice(1) };
+});
+function placePillar(P, t) {
+  const p = P.p, vis = t >= p.t0 && t < (p.t1 ?? 1e9);
+  P.grp.visible = vis; if (!vis) return;
+  const [lo, la] = P.at(t), G = geo(lo, la, 0); G.y = p.sea ? 0 : G.y; P.grp.position.copy(G);
+  const grow = eo(seg(t, p.t0, p.t0 + (p.grow ?? 1.6)));
+  const n = Math.max(0, P.nf(t)[0]) * grow;
+  P.slabs.forEach((s, i) => { const f = clamp(n - i); s.visible = f > 0.001; s.scale.set(1, Math.max(.001, f), 1); s.position.y = i * p.SH + p.SH * f / 2; });
+  P.top = G.clone().setY(G.y + Math.max(n, .3) * p.SH); P.n = n; P.base = G;
+}
+// movers: flat warm-white glyphs travelling along a line, a few km per film second
+const glyphG = (() => { const s = new THREE.Shape(); s.moveTo(1.6, 0); s.lineTo(-1, .8); s.lineTo(-.6, 0); s.lineTo(-1, -.8); s.lineTo(1.6, 0); const g = new THREE.ShapeGeometry(s); g.rotateX(-Math.PI / 2); return g; })();
+const MOVERS = (F.movers || []).map(m => {
+  const L = LINES[m.line], mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0xf4e6cf).multiplyScalar(.85), toneMapped: false, transparent: true, depthWrite: false, depthTest: false });
+  const items = Array.from({ length: m.n }, (_, i) => { const g = new THREE.Mesh(glyphG, mat); g.renderOrder = 6; scene.add(g); return { g, off: ((i * 7919) % 13 - 6) / 6 }; });
+  return { m, L, mat, items };
+});
+// the cross-section wall
+let SEC = null;
+if (F.section) {
+  const s = F.section, A = s.a, Bq = s.b, N = 600, pts = [];
+  for (let i = 0; i < N; i++) { const k = i / (N - 1), lo = lerp(A[0], Bq[0], k), la = lerp(A[1], Bq[1], k), [X, Z] = xz(lo, la); pts.push({ k, X, Z, h: hAt(X, Z) }); }
+  const P0 = pts[0], P1 = pts[N - 1], tx = P1.X - P0.X, tz = P1.Z - P0.Z, tlen = Math.hypot(tx, tz);
+  let nx = -tz / tlen, nz = tx / tlen; if (s.flip) { nx = -nx; nz = -nz; }
+  const BASE = -(s.base ?? 4), DEX = s.dex ?? 100;
+  const pos = [], bed = [], idx = [];
+  const VX = s.vex ?? 1; pts.forEach((p, i) => { const top = p.h > 0 ? yOf(p.h) * VX : 0, bd = p.h > 0 ? top : p.h / 1000 * DEX; pos.push(p.X, top, p.Z, p.X, BASE, p.Z); bed.push(bd, bd); if (i) { const q = 2 * i; idx.push(q - 2, q - 1, q, q - 1, q + 1, q); } });
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aBed', new THREE.Float32BufferAttribute(bed, 1)); g.setIndex(idx);
+  const m = new THREE.ShaderMaterial({ side: THREE.DoubleSide, transparent: true, toneMapped: false, uniforms: { op: { value: 0 }, ex: { value: EX } },
+    vertexShader: `attribute float aBed; varying float vY, vBed; void main(){ vY = position.y; vBed = aBed; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+    fragmentShader: `varying float vY, vBed; uniform float op, ex;
+      void main(){ vec3 c;
+        if (vY > vBed + .002 && vY <= 0.001) { float k = clamp(-vY / 2., 0., 1.); c = mix(vec3(.03, .11, .13), vec3(.006, .02, .04), pow(k, .7)); if (vY > -.03) c += vec3(.35, .5, .55) * .5; }
+        else { float d = (vBed - vY); float q = clamp(d / 1.5, 0., 1.); c = mix(vec3(.50, .40, .28), vec3(.09, .075, .06), q);
+          if (d < .03) c = vec3(.80, .64, .42);
+          float m = vY * 1000. / ex; float l = abs(fract(m / 50. + .5) - .5) * 50.; c += vec3(.05, .04, .03) * (1. - smoothstep(0., 1.2, l));
+          c *= .93 + .07 * sin(vY * 40.); c *= .38; }
+        gl_FragColor = vec4(c, op); }` });
+  const mesh = new THREE.Mesh(g, m); mesh.renderOrder = 1; mesh.visible = false; scene.add(mesh);
+  SEC = { s, pts, P0, P1, nx, nz, len: tlen, mesh, m, DEX };
+}
+
+// ---------- camera ----------
+const CAM = track(F.cam.map(([t, d, p, y, lo, la, h]) => [t, [Math.log(d), p, y, lo, la, h ?? 0]]));
+function mapCam(t) {
+  const [ld, pd, yd, lo, la, h] = CAM(clamp(t, F.cam[0][0], F.cam[F.cam.length - 1][0]));
+  const [X, Z] = xz(lo, la), d = Math.exp(ld), p = pd * D2R, y = yd * D2R, drift = (F.drift ?? .4) * t;
+  const yy = y + drift * D2R;
+  return { d, cam: new THREE.Vector3(X + Math.sin(yy) * Math.cos(p) * d, h + Math.sin(p) * d, Z + Math.cos(yy) * Math.cos(p) * d), tgt: new THREE.Vector3(X, h, Z) };
+}
+function setCamera(t) {
+  const { d, cam, tgt } = mapCam(t);
+  camera.position.copy(cam); camera.near = Math.max(.05, d * .04); camera.far = d * 8 + 600; camera.lookAt(tgt);
+  camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  scene.fog.near = d * 1.2; scene.fog.far = d * 4.2 + 80;
+  return d;
+}
+
+// ---------- post ----------
+const post = makePost(renderer, scene, camera, Wd, Ht, { ssaa: SS, ao: false });
+post.dof.maxCoc = 6; post.bloom.strength = .55; post.bloom.radius = .55; post.bloom.threshold = .95;
+const VU = post.vig.uniforms; VU.amt.value = .42; VU.warm.value = .25; VU.sat.value = .92; VU.contrast.value = .12;
+
+// ---------- overlay ----------
+const OS = 2, ov = document.createElement('canvas'); ov.width = Wd * OS; ov.height = Ht * OS; ov.style.width = Wd + 'px'; ov.style.height = Ht + 'px'; document.body.appendChild(ov);
+renderer.domElement.style.width = Wd + 'px'; renderer.domElement.style.height = Ht + 'px';
+const g = ov.getContext('2d');
+await Promise.all(['500 20px Barlow', '600 20px Barlow'].map(f => document.fonts.load(f, 'ABC')));
+const scr = v => { const p = v.clone().project(camera); return [(p.x + 1) / 2 * Wd, (1 - p.y) / 2 * Ht, p.z]; };
+const C = { land: '#2b2119', sea: '#bcdbe6', light: '#f6eee0', amber: '#ffc36b', amberSoft: 'rgba(255,214,150,.95)', ice: '#d9e6ee', teal: '#8fd6de', dim: 'rgba(240,232,216,.7)' };
+let TX = [];
+function txt(s, x, y, o) {
+  g.save(); g.font = `${o.w || 500} ${o.size}px Barlow`; g.letterSpacing = (o.sp || 0) + 'px';
+  g.textAlign = o.align || 'center'; g.textBaseline = o.base || 'middle'; g.globalAlpha = clamp(o.a ?? 1); g.fillStyle = o.col || C.light;
+  if (o.shadow) { g.shadowColor = 'rgba(8,10,14,.55)'; g.shadowBlur = 10; }
+  g.fillText(s, x, y); const w = g.measureText(s).width;
+  const x0 = o.align === 'left' ? x : o.align === 'right' ? x - w : x - w / 2;
+  if ((o.a ?? 1) > .5 && !o.nobox) TX.push({ id: o.id || s, text: s, x0, y0: y - o.size * .6, x1: x0 + w, y1: y + o.size * .6 });
+  g.restore(); return w;
+}
+const tw = (s, size, w = 500, sp = 0) => { g.save(); g.font = `${w} ${size}px Barlow`; g.letterSpacing = sp + 'px'; const r = g.measureText(s).width; g.restore(); return r; };
+function line(pts, col, w = 2, a = 1, dash = null) { if (a <= 0) return; g.save(); g.globalAlpha = clamp(a); g.strokeStyle = col; g.lineWidth = w; if (dash) g.setLineDash(dash); g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.restore(); }
+function dot(x, y, r, col, a = 1) { if (a <= 0) return; g.save(); g.globalAlpha = clamp(a); g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.restore(); }
+const fadeIO = (t, a, b, fi = .5, fo = .5) => ss(seg(t, a, a + fi)) * (1 - ss(seg(t, b - fo, b)));
+const BOTTOM = Ht - 330;                     // map text stays above the subtitle shelf
+const STY = {
+  land: { size: 40, w: 600, sp: 10, col: C.land, a: .85 }, landS: { size: 28, w: 600, sp: 6, col: C.land, a: .85 },
+  landL: { size: 40, w: 600, sp: 10, col: C.light, a: .92, shadow: 1 }, landLS: { size: 28, w: 600, sp: 6, col: C.light, a: .92, shadow: 1 },
+  sea: { size: 30, w: 500, sp: 8, col: C.sea, a: .95 }, town: { size: 30, w: 600, sp: 4, col: C.light, a: .95, align: 'left', dot: 1, shadow: 1 },
+  townD: { size: 30, w: 600, sp: 4, col: C.land, a: .9, align: 'left', dot: 1 }, note: { size: 26, w: 500, sp: 4, col: C.amberSoft, a: .95, shadow: 1 },
+  noteI: { size: 26, w: 500, sp: 4, col: C.ice, a: .95, shadow: 1 } };
+function mapLabels(t) {
+  for (const [lo, la, s, kind, a0, a1] of F.labels || []) {
+    let a = fadeIO(t, a0, a1); if (a <= .01) continue;
+    const st = STY[kind], [x, y, z] = scr(geo(lo, la, .05)); if (z > 1) continue;
+    const w = tw(s, st.size, st.w, st.sp), x0 = st.align === 'left' ? x + 16 : x - w / 2, x1 = x0 + w;
+    const m = Math.min(x0 - 30, Wd - 30 - x1, y - 120, BOTTOM - y); a *= ss(seg(m, 0, 40)); if (a <= .01) continue;
+    if (st.dot) dot(x, y, 6, st.col === C.land ? C.land : C.amber, a);
+    txt(s, st.align === 'left' ? x + 16 : x, y, { ...st, a: a * st.a, id: 'L' + s + a0 });
+  }
+}
+function dots(t) {
+  for (const d of F.dots || []) {
+    const a = fadeIO(t, d.t, d.out ?? 1e9, .25, .6); if (a <= 0) continue;
+    const [x, y, z] = scr(geo(...d.ll, .05)); if (z > 1) continue;
+    dot(x, y, 8 * eo(seg(t, d.t, d.t + .3)), d.col === 'teal' ? C.teal : C.amber, a);
+    const r = seg(t, d.t, d.t + 1.1); if (r < 1) { g.save(); g.globalAlpha = a * (1 - r) * .9; g.strokeStyle = C.amber; g.lineWidth = 2.5; g.beginPath(); g.arc(x, y, 8 + 34 * eo(r), 0, 7); g.stroke(); g.restore(); }
+    if (d.label) { const st = { size: d.size || 30, w: 600, sp: 4, col: d.dark ? C.land : C.light, shadow: !d.dark }; const al = d.side === 'l' ? 'right' : 'left';
+      txt(d.label, x + (d.side === 'l' ? -18 : 18), y + (d.dy || 0), { ...st, align: al, a: a * ss(seg(t, d.t + .15, d.t + .5)), id: 'D' + d.label }); }
+  }
+}
+function areas(t) {
+  for (const A of F.areas || []) {
+    const a = fadeIO(t, A.t0, A.t1, .8, 1.2) * (A.op ?? .5); if (a <= 0) continue;
+    const P = drape(A.ll, { step: 1, lift: .02 }).map(v => scr(v));
+    g.save(); g.globalAlpha = a; g.fillStyle = A.fill || 'rgba(31,90,92,1)'; g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fill(); g.restore();
+  }
+}
+function measures(t) {
+  for (const M of F.measures || []) {
+    const mk = seg(t, M.t0, M.t0 + .8), out = 1 - ss(seg(t, M.t1 - .5, M.t1)); if (mk <= 0 || out <= 0) continue;
+    const [ax, ay] = scr(geo(...M.a, .08)), [bx, by] = scr(geo(...M.b, .08)), e = eio(mk);
+    const mx = (ax + bx) / 2, my = (ay + by) / 2;
+    line([[mx + (ax - mx) * e, my + (ay - my) * e], [mx + (bx - mx) * e, my + (by - my) * e]], 'rgba(246,238,224,.95)', 3, out);
+    const ux = bx - ax, uy = by - ay, ul = Math.hypot(ux, uy) || 1, nx = -uy / ul * 12, ny = ux / ul * 12, tk = ss(seg(t, M.t0 + .7, M.t0 + 1)) * out;
+    for (const [x, y] of [[ax, ay], [bx, by]]) line([[x - nx, y - ny], [x + nx, y + ny]], 'rgba(246,238,224,.95)', 3, tk);
+    const la = ss(seg(t, M.t0 + .8, M.t0 + 1.3)) * out, lx = mx + (M.dx ?? 30), ly = my + (M.dy ?? 0);
+    if (M.cap) txt(M.cap, lx, ly - 26, { size: 24, w: 500, sp: 5, align: M.align || 'left', col: C.amberSoft, a: la, shadow: 1, id: 'mc' + M.t0 });
+    txt(M.label, lx, ly + 16, { size: 50, w: 600, sp: 3, align: M.align || 'left', col: C.light, a: la, shadow: 1, id: 'ml' + M.t0 });
+  }
+}
+function pillarLabels(t) {
+  for (const P of PILLARS) {
+    const p = P.p; if (!P.grp.visible || !p.label) continue;
+    const a = ss(seg(t, p.t0 + .6, p.t0 + 1.2)) * (1 - ss(seg(t, (p.t1 ?? 1e9) - .4, p.t1 ?? 1e9))); if (a <= 0) continue;
+    const [x, y, z] = scr(P.top); if (z > 1) continue; const [bx, by] = scr(P.base); if (bx < -40 || bx > Wd + 40 || by < 0 || by > Ht) continue;
+    const lab = typeof p.label === 'function' ? p.label(t, P.n) : p.label; if (!lab) continue;
+    const yy = Math.max(220, y - 60), xx = clamp(x, 200, Wd - 200);
+    txt(lab, xx, yy, { size: p.size || 76, w: 600, sp: 2, col: p.col === 'teal' ? C.teal : p.col === 'ghost' ? C.dim : C.light, a, shadow: 1, id: 'pl' + p.id });
+    if (p.sub) txt(p.sub, xx, yy - (p.size || 76) * .62 - 8, { size: 24, w: 500, sp: 4, col: C.amberSoft, a, shadow: 1, id: 'ps' + p.id });
+  }
+}
+function sectionText(t) {
+  if (!SEC) return; const s = SEC.s;
+  const a = ss(seg(t, s.t0 + .3, s.t0 + .7)) * (1 - ss(seg(t, s.t1 - .3, s.t1))); if (a <= 0) return;
+  txt(s.cap || 'SECTION', 64, 170, { size: 26, w: 600, sp: 6, align: 'left', col: C.amberSoft, a, id: 'sec-t' });
+  (s.head || []).forEach((h, i) => txt(h, 62, 228 + i * 62, { size: 58, w: 600, sp: 3, align: 'left', col: C.light, a, id: 'sec-h' + i }));
+  txt(s.note || `LAND ×${EX}`, 64, 228 + (s.head || []).length * 62 + 6, { size: 22, w: 500, sp: 4, align: 'left', col: C.dim, a, id: 'sec-n' });
+  for (const m of s.marks || []) {           // [k along a→b, text, height above ground km]
+    const p = SEC.pts[Math.round(clamp(m[0]) * (SEC.pts.length - 1))], top = p.h > 0 ? yOf(p.h) * (s.vex ?? 1) : 0;
+    const [x, y] = scr(new THREE.Vector3(p.X, top + (m[2] ?? .05), p.Z));
+    const [xb, yb] = scr(new THREE.Vector3(p.X, top, p.Z));
+    line([[x, y - 70], [xb, yb]], C.amber, 2, a * ss(seg(t, s.t0 + .8, s.t0 + 1.2)), [6, 6]);
+    txt(m[1], x, y - 96, { size: 28, w: 600, sp: 4, col: C.light, a: a * ss(seg(t, s.t0 + 1, s.t0 + 1.4)), shadow: 1, id: 'sm' + m[1] });
+  }
+}
+function title(t) {
+  const T_ = F.title; if (!T_) return; const a = fadeIO(t, T_.t0, T_.t1, .6, .6); if (a <= 0) return;
+  const [x, y] = scr(geo(...T_.ll, .05));
+  const r = seg(t, T_.t0, T_.t0 + 1.4);
+  for (const k of [0, .33, .66]) { const q = (r * 1.4 + k) % 1; g.save(); g.globalAlpha = a * (1 - q) * .8 * (r < 1 ? 1 : 0); g.strokeStyle = C.amber; g.lineWidth = 2.5; g.beginPath(); g.arc(x, y, 8 + 50 * q, 0, 7); g.stroke(); g.restore(); }
+  dot(x, y, 7, C.amber, a);
+  const lx = T_.x, ly = T_.y, e = eo(seg(t, T_.t0 + .1, T_.t0 + .8));
+  line([[x, y], [x + (lx - x) * e, y + (ly + 30 - y) * e]], 'rgba(255,214,150,.9)', 2, a);
+  txt(T_.coord || '', lx, ly - 70, { size: 24, w: 500, sp: 6, align: 'left', col: C.amberSoft, a, shadow: 1, id: 'tc' });
+  txt(T_.text, lx - 3, ly - 10, { size: T_.size || 84, w: 600, sp: 6, align: 'left', col: C.light, a: a * ss(seg(t, T_.t0 + .2, T_.t0 + .8)), shadow: 1, id: 'tt' });
+  if (T_.sub) txt(T_.sub, lx, ly + 52, { size: 34, w: 500, sp: 8, align: 'left', col: 'rgba(246,238,224,.92)', a: a * ss(seg(t, T_.t0 + .4, T_.t0 + 1)), shadow: 1, id: 'ts' });
+}
+function texts(t) {
+  for (const X of F.texts || []) {
+    const a = fadeIO(t, X.t0, X.t1); if (a <= 0) continue;
+    let yy = X.y, prev = 0; X.lines.forEach(([s, size, col, w], i) => { if (i) yy += prev * .5 + size * .5 + 22; prev = size; txt(s, X.x, yy, { size, w: w || 600, sp: size > 40 ? 3 : 5, align: X.align || 'left', col: C[col] || col || C.light, a, shadow: 1, id: 'x' + X.t0 + i }); });
+  }
+}
+function subtitles(t) {
+  const gr = g.createLinearGradient(0, Ht - 420, 0, Ht); gr.addColorStop(0, 'rgba(6,10,15,0)'); gr.addColorStop(1, 'rgba(6,10,15,.6)');
+  g.fillStyle = gr; g.fillRect(0, Ht - 420, Wd, 420);
+  const c = CUES.find(c => t >= c.t0 - .12 && t < c.t1 + .12); if (!c) return;
+  const a = ss(seg(t, c.t0 - .12, c.t0 + .08)) * (1 - ss(seg(t, c.t1 - .08, c.t1 + .12)));
+  const X = 78, Y = Ht - 250;
+  let size = 48; while (tw(c.text, size, 500, 1) > Wd - X - 50 && size > 30) size -= 1;
+  g.save(); g.globalAlpha = a; g.fillStyle = C.amber; g.fillRect(X - 26, Y - 34, 5, 68); g.restore();
+  txt(c.text, X, Y, { size, w: 500, sp: 1, align: 'left', col: C.light, a, id: 'sub', nobox: true });
+}
+function credits() {
+  (F.credits || []).forEach((s, i) => txt(s, Wd - 36, Ht - 92 + i * 24, { size: 17, w: 500, sp: 1.5, align: 'right', col: 'rgba(240,232,216,.6)', base: 'alphabetic', id: 'cr' + i, nobox: true }));
+}
+
+// ---------- the frame ----------
+function frame(t) {
+  TX = [];
+  const dist = setCamera(t);
+  // cut-away
+  if (SEC) { const s = SEC.s, on = t >= s.t0 && t < s.t1; CUT.p.set(SEC.P0.X, SEC.P0.Z, SEC.nx, SEC.nz); CUT.d.value = on ? .01 + 400 * eio(seg(t, s.t0, s.t0 + .9)) : 0; SEC.mesh.visible = on; SEC.m.uniforms.op.value = ss(seg(t, s.t0, s.t0 + .3)); }
+  // lines
+  for (const id in LINES) {
+    const o = LINES[id], l = o.l, k = (l.ease === 'lin' ? seg : (x, a, b) => eio(seg(x, a, b)))(t, l.t0, l.t1);
+    const out = l.out ? 1 - ss(seg(t, l.out[0], l.out[1])) * (1 - (l.outTo ?? 0)) : 1, on = t >= l.t0 ? 1 : 0;
+    const L = o.S[o.S.length - 1], head = k * L;
+    const near = l.near ? lerp(.35, 1, ss(seg(dist, l.near[0], l.near[1]))) : 1;
+    for (const r of [o.glow, o.core, o.case]) if (r) rv(r, { revB: head, inten: on * out * near, head, headAmt: r === o.case ? 0 : 1.4 * (1 - ss(seg(k, .85, 1))), soft: Math.max(.5, L * .01), flowPh: t * (l.flowV || 8) });
+  }
+  // movers
+  for (const M of MOVERS) {
+    const m = M.m, a = fadeIO(t, m.t0, m.t1, .4, .6), sc = clamp(dist * (m.scale || .004), .02, 20);
+    M.items.forEach((it, i) => {
+      const s = (t - m.t0) * m.v - i * m.gap + (m.s0 || 0), Lm = M.L.S[M.L.S.length - 1];
+      const vis = a > 0 && s > 0 && s < Lm; it.g.visible = vis; if (!vis) return;
+      const P = along(M.L.pts, M.L.S, s), off = it.off * (m.spread || 0) * sc;
+      it.g.position.set(P.p.x + P.dir.z * off, P.p.y + .02, P.p.z - P.dir.x * off); it.g.rotation.y = Math.atan2(-P.dir.z, P.dir.x); it.g.scale.setScalar(sc);
+    });
+    M.mat.opacity = a;
+  }
+  for (const P of PILLARS) placePillar(P, t);
+  SNOW.value = F.snow ? track(F.snow.map(([a, b]) => [a, [b]]))(t)[0] : 0;
+  post.dof.focus = dist; post.dof.aper = dist * (F.aper ? F.aper(t) : 6);
+  post.bloom.strength = .55 * lerp(.35, 1, ss(seg(dist, F.bloomNear ?? 5, (F.bloomNear ?? 5) * 4)));
+  VU.fade.value = ss(seg(t, 0, .5)) * (1 - ss(seg(t, FULL - .8, FULL)));
+  post.composer.render();
+  g.setTransform(OS, 0, 0, OS, 0, 0); g.clearRect(0, 0, Wd, Ht);
+  areas(t); mapLabels(t); dots(t); measures(t); pillarLabels(t); sectionText(t); title(t); texts(t);
+  if (!Q.has('nosubs')) subtitles(t);
+  credits();
+}
+window.DUR = T1 - T0;
+window.render = t => frame(t + T0);
+window.TEXTS = t => { window.render(t); return TX.map(o => ({ ...o })); };
+const EVF = [...(F.ev || [])];
+for (const l of F.lines || []) EVF.push({ t: l.t0, type: l.sound || 'draw', d: l.t1 - l.t0 });
+for (const d of F.dots || []) EVF.push({ t: d.t, type: 'pin' });
+for (const P of F.pillars || []) if (P.slabEv !== false) { const n = Math.ceil(P.n[0][1]); for (let i = 0; i < Math.min(n, 24); i++) EVF.push({ t: P.t0 + (P.grow ?? 1.6) * (1 - Math.pow(1 - (i + 1) / n, 1 / 3)), type: 'slab', i, col: P.col }); }
+for (const M of F.measures || []) EVF.push({ t: M.t0, type: 'measure' });
+if (F.section) EVF.push({ t: F.section.t0, type: 'cut' });
+window.EV = EVF.map(e => ({ ...e, t: e.t - T0 })).filter(e => e.t >= 0 && e.t <= T1 - T0).sort((a, b) => a.t - b.t);
+window.render(0);
+window.READY = true;
+</script>
+</body></html>

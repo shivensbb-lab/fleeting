@@ -1,0 +1,89 @@
+{
+ "dur": 54.09,
+ "cues": [
+  {
+   "id": "v01",
+   "t0": 1.0,
+   "vo_end": 6.02,
+   "text": "In 480 BC, a few thousand Greeks blocked the road into Greece.",
+   "t1": 6.62
+  },
+  {
+   "id": "v02",
+   "t0": 6.52,
+   "vo_end": 11.4,
+   "text": "Marching south: the army of Persia, the largest empire of its time.",
+   "t1": 12.0
+  },
+  {
+   "id": "v03",
+   "t0": 12.0,
+   "vo_end": 15.465,
+   "text": "They chose a pass called Thermopylae. The Hot Gates.",
+   "t1": 16.065
+  },
+  {
+   "id": "v04",
+   "t0": 15.865,
+   "vo_end": 18.946,
+   "text": "Mountains on one side. The sea on the other.",
+   "t1": 19.546
+  },
+  {
+   "id": "v05",
+   "t0": 19.346,
+   "vo_end": 23.884,
+   "text": "At its narrowest, says Herodotus, room for just one cart.",
+   "t1": 24.484
+  },
+  {
+   "id": "v06",
+   "t0": 24.384,
+   "vo_end": 29.501,
+   "text": "About 7,000 Greeks, with 300 Spartans, held it for two days.",
+   "t1": 30.621
+  },
+  {
+   "id": "v07",
+   "t0": 30.701,
+   "vo_end": 34.631,
+   "text": "Then a local man showed the Persians a path over the mountain.",
+   "t1": 35.231
+  },
+  {
+   "id": "v08",
+   "t0": 34.931,
+   "vo_end": 37.116,
+   "text": "It came down behind the Greeks.",
+   "t1": 38.436
+  },
+  {
+   "id": "v09",
+   "t0": 38.516,
+   "vo_end": 40.013,
+   "text": "But look at it today.",
+   "t1": 40.613
+  },
+  {
+   "id": "v10",
+   "t0": 40.413,
+   "vo_end": 44.649,
+   "text": "For 25 centuries, rivers have carried silt into the gulf.",
+   "t1": 45.249
+  },
+  {
+   "id": "v11",
+   "t0": 45.049,
+   "vo_end": 47.519,
+   "text": "The sea is now kilometres away.",
+   "t1": 48.119
+  },
+  {
+   "id": "v12",
+   "t0": 48.119,
+   "vo_end": 51.091,
+   "text": "The narrow road where the Spartans fell is gone.",
+   "t1": 52.691
+  }
+ ]
+}
