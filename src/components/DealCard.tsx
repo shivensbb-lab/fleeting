@@ -2,14 +2,7 @@ import Link from 'next/link'
 import { Clock, MapPin, Users } from 'lucide-react'
 import type { Deal } from '@/lib/supabase'
 import { type City, formatPrice } from '@/lib/cities'
-
-function timeLeft(expiresAt: string) {
-  const diff = new Date(expiresAt).getTime() - Date.now()
-  if (diff <= 0) return 'Expired'
-  const h = Math.floor(diff / 3600000)
-  const m = Math.floor((diff % 3600000) / 60000)
-  return h > 0 ? `${h}h ${m}m left` : `${m}m left`
-}
+import { timeLeft, isExpiringSoon } from '@/lib/time'
 
 const CATEGORY_COLORS: Record<string, string> = {
   restaurant: 'bg-red-100 text-red-700',
@@ -23,7 +16,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 export default function DealCard({ deal, city }: { deal: Deal; city: City }) {
   const discountedPrice = Math.round(deal.original_price * (1 - deal.discount_pct / 100))
   const expires = timeLeft(deal.expires_at)
-  const isUrgent = new Date(deal.expires_at).getTime() - Date.now() < 3600000
+  const isUrgent = isExpiringSoon(deal.expires_at)
   const colorClass = CATEGORY_COLORS[deal.category] ?? CATEGORY_COLORS.default
 
   return (

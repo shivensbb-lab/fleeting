@@ -1,4 +1,4 @@
-// Vercel Cron Job — runs every hour to refresh real deals from all sources
+// Vercel Cron Job — runs daily at 00:00 UTC to refresh real deals from all sources
 // Configured in vercel.json. Protected by CRON_SECRET env var.
 
 import { NextRequest, NextResponse } from 'next/server'

@@ -54,7 +54,7 @@ export default function PricingPage({
       })
       const data = await res.json()
       if (data.url) {
-        window.location.href = data.url
+        window.location.assign(data.url)
       } else if (data.demo) {
         // Demo mode — simulate upgrade
         await supabase.auth.updateUser({ data: { tier: tierId } })

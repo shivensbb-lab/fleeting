@@ -1,7 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// When Supabase isn't configured (demo mode), fall back to a dummy URL so the
+// client can still be created; createClient throws on a missing or non-HTTP URL.
+const configuredUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+const supabaseUrl = /^https?:\/\//.test(configuredUrl) ? configuredUrl : 'https://placeholder.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 

@@ -6,14 +6,7 @@ import Link from 'next/link'
 import { Clock, MapPin, Users, ArrowLeft, CheckCircle } from 'lucide-react'
 import { DEMO_DEALS } from '@/lib/demo-data'
 import { getCityById, formatPrice } from '@/lib/cities'
-
-function timeLeft(expiresAt: string) {
-  const diff = new Date(expiresAt).getTime() - Date.now()
-  if (diff <= 0) return 'Expired'
-  const h = Math.floor(diff / 3600000)
-  const m = Math.floor((diff % 3600000) / 60000)
-  return h > 0 ? `${h}h ${m}m left` : `${m}m left`
-}
+import { timeLeft, isExpiringSoon } from '@/lib/time'
 
 export default function DealPage({
   params,
@@ -36,7 +29,7 @@ export default function DealPage({
   const discountedPrice = Math.round(deal.original_price * (1 - deal.discount_pct / 100))
   const total = discountedPrice * qty
   const expires = timeLeft(deal.expires_at)
-  const isUrgent = new Date(deal.expires_at).getTime() - Date.now() < 3600000
+  const isUrgent = isExpiringSoon(deal.expires_at)
 
   async function handleBook() {
     setLoading(true)
@@ -50,7 +43,7 @@ export default function DealPage({
       if (data.demo) {
         setBooked(true)
       } else if (data.url) {
-        window.location.href = data.url
+        window.location.assign(data.url)
       } else {
         alert(data.error ?? 'Something went wrong')
       }
