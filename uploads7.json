@@ -1,0 +1,66 @@
+[
+ {
+  "dir": "map-thermopylae",
+  "file": "thermopylae-pass-that-moved.mp4",
+  "srt": "subtitles_en.srt",
+  "title": "Thermopylae Isn't There Anymore #shorts",
+  "tags": [
+   "thermopylae",
+   "300 spartans",
+   "leonidas",
+   "ancient greece",
+   "persian wars",
+   "3d map",
+   "history shorts"
+  ],
+  "description": "In 480 BC about 7,000 Greeks, with 300 Spartans, held the pass at Thermopylae — mountains on one side, the sea on the other, room for a single cart at its narrowest (Herodotus). A local man showed the Persians a path over the mountain that came down behind them.\n\nBut the pass itself is gone: 25 centuries of river silt have pushed the shore out. Measured on today's terrain at the pass, the sea is now about 4 km from where it lapped the mountain's foot.\n\n3D map built from real terrain (AWS Terrain Tiles) and Sentinel-2 cloudless 2016 imagery by EOX (CC BY 4.0). Routes and historic shorelines are schematic. Narration is a synthetic (text-to-speech) voice; animated and scored in code.\n\n#history #maps #shorts #under7minutes"
+ },
+ {
+  "dir": "map-hannibal",
+  "file": "hannibal-crosses-the-alps.mp4",
+  "srt": "subtitles_en.srt",
+  "title": "Hannibal's Alps Crossing on a 3D Map #shorts",
+  "tags": [
+   "hannibal",
+   "alps",
+   "carthage",
+   "punic war",
+   "ancient rome",
+   "3d map",
+   "history shorts"
+  ],
+  "description": "In 218 BC Hannibal marched from New Carthage in Spain to attack Rome by land. Polybius says about 59,000 men crossed the Pyrenees; after the Rhône, the elephants, snow, landslides and mountain tribes, about 26,000 came down into Italy after 15 days in the Alps. Which pass he used is still debated.\n\nFigures: Polybius, Histories book 3.\n\n3D map built from real terrain (AWS Terrain Tiles) and Sentinel-2 cloudless 2016 imagery by EOX (CC BY 4.0). Routes and historic shorelines are schematic. Narration is a synthetic (text-to-speech) voice; animated and scored in code.\n\n#history #maps #shorts #under7minutes"
+ },
+ {
+  "dir": "map-dday",
+  "file": "dday-five-beaches.mp4",
+  "srt": "subtitles_en.srt",
+  "title": "D-Day: How 7,000 Ships Found 5 Beaches #shorts",
+  "tags": [
+   "d-day",
+   "normandy",
+   "1944",
+   "operation overlord",
+   "ww2",
+   "3d map",
+   "history shorts"
+  ],
+  "description": "6 June 1944: ships left ports all along England's south coast, gathered south of the Isle of Wight at 'Piccadilly Circus', and nearly 7,000 vessels crossed the Channel to five beaches — Utah, Omaha, Gold, Juno, Sword — along about 80 km of Normandy. US Rangers climbed the 30 m cliffs of Pointe du Hoc. By nightfall about 156,000 Allied troops had landed by sea and air.\n\n3D map built from real terrain (AWS Terrain Tiles) and Sentinel-2 cloudless 2016 imagery by EOX (CC BY 4.0). Routes and historic shorelines are schematic. Narration is a synthetic (text-to-speech) voice; animated and scored in code.\n\n#history #maps #shorts #under7minutes"
+ },
+ {
+  "dir": "map-napoleon",
+  "file": "napoleon-1812-march.mp4",
+  "srt": "subtitles_en.srt",
+  "title": "Napoleon in Russia: 422,000 In, 10,000 Out #shorts",
+  "tags": [
+   "napoleon",
+   "1812",
+   "russia",
+   "moscow",
+   "minard",
+   "3d map",
+   "history shorts"
+  ],
+  "description": "June 1812: Napoleon crossed the Niemen into Russia with 422,000 men, by Minard's famous count. Vitebsk, Smolensk, Borodino — and Moscow in September with about 100,000. The city burned, the Tsar refused peace, and the retreat met winter. About 10,000 made it back across the Niemen.\n\nFigures from Charles Joseph Minard's 1869 chart; modern estimates vary.\n\n3D map built from real terrain (AWS Terrain Tiles) and Sentinel-2 cloudless 2016 imagery by EOX (CC BY 4.0). Routes and historic shorelines are schematic. Narration is a synthetic (text-to-speech) voice; animated and scored in code.\n\n#history #maps #shorts #under7minutes"
+ }
+]
