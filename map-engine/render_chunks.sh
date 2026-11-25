@@ -19,7 +19,7 @@ while [ $a -lt $DUR10 ]; do
   echo "file '$(basename $ex)'" >> $C/list.txt; a=$b
 done
 ffmpeg -v error -y -f concat -safe 0 -i $C/list.txt -c copy $D/out/video.mp4
-.venv/bin/python /home/user/fleeting/map-engine/mix.py $D && cd $D && sh ../u7-uploads/mux6.sh out/video.mp4 out/mix.wav $o.mp4 > out/mux.log 2>&1
+.venv/bin/python /home/user/fleeting/map-engine/mix.py $D && cd $D && sh ../u7-uploads/mux6.sh out/video.mp4 out/mix.wav tmp_final.mp4 > out/mux.log 2>&1 && ffprobe -v error tmp_final.mp4 && mv tmp_final.mp4 $o.mp4
 $PY -c "
 import json
 c=json.load(open('$D/voice/cues.json'))['cues']
