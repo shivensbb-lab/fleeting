@@ -1,0 +1,47 @@
+{
+ "dur": 24.84,
+ "cues": [
+  {
+   "id": "v1",
+   "t0": 0.3,
+   "vo_end": 4.772,
+   "text": "1872: a ship found sailing with *nobody on board*",
+   "t1": 5.372
+  },
+  {
+   "id": "v2",
+   "t0": 5.122,
+   "vo_end": 8.189,
+   "text": "Six months of food and water, *untouched*",
+   "t1": 8.789
+  },
+  {
+   "id": "v3",
+   "t0": 8.539,
+   "vo_end": 12.441,
+   "text": "1,700 barrels of alcohol. *Nine were empty.*",
+   "t1": 13.041
+  },
+  {
+   "id": "v4",
+   "t0": 12.791,
+   "vo_end": 16.167,
+   "text": "The lifeboat was gone. So were *all ten people.*",
+   "t1": 16.767
+  },
+  {
+   "id": "v5",
+   "t0": 16.667,
+   "vo_end": 20.116,
+   "text": "Why did they leave? *A, B or C?*",
+   "t1": 20.716
+  },
+  {
+   "id": "v6",
+   "t0": 20.616,
+   "vo_end": 22.645,
+   "text": "Case still open. *Your verdict?*",
+   "t1": 24.245
+  }
+ ]
+}

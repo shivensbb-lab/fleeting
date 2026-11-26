@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cold case</title>
+<style>
+  @font-face { font-family: 'Slab'; src: url(fonts/AlfaSlabOne-Regular.ttf); font-display: block; }
+  @font-face { font-family: 'Bagel'; src: url(fonts/BagelFatOne-Regular.ttf); font-display: block; }
+  @font-face { font-family: 'Blk'; src: url(fonts/ArchivoBlack-Regular.ttf); font-display: block; }
+  @font-face { font-family: 'Mono'; src: url(fonts/JetBrainsMono.ttf); font-weight: 100 900; font-display: block; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #F4ECDD; }
+  svg, canvas { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #paper { mix-blend-mode: multiply; pointer-events: none; }
+  #fx { pointer-events: none; }
+  .mul { mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<!-- Vertical case-file engine. Print helpers (halftone, per-glyph pop, caption bar, stamp, dot wipe, paper + grain) adapted from the
+     Lemo-Opuscar Halftone Dossier demo engine. The case itself is ./case.js; timing comes from ./voice/cues.json. -->
+<svg id="stage" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="boil" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="boilT" type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="1" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="4" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -22 15.2" result="gm"/>
+      <feComposite in="d" in2="gm" operator="in"/>
+    </filter>
+    <filter id="stampInk" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="11" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="21" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 5.9" result="gm"/>
+      <feComposite in="d" in2="gm" operator="in"/>
+    </filter>
+    <clipPath id="frameClip"><rect width="1080" height="1920"/></clipPath>
+  </defs>
+  <g clip-path="url(#frameClip)">
+    <g id="cam"><g id="world"></g></g>
+    <g id="hud"></g>
+    <g id="cap"></g>
+    <g id="wipe"></g>
+    <rect id="flash" width="1080" height="1920" fill="#FFFFFF" opacity="0"/>
+    <rect id="fade" width="1080" height="1920" opacity="0"/>
+  </g>
+</svg>
+<canvas id="paper" width="1080" height="1920"></canvas>
+<canvas id="fx" width="1080" height="1920"></canvas>
+<script src="case.js"></script>
+<script>
+const NS = 'http://www.w3.org/2000/svg', W = 1080, H = 1920;
+const F = { slab: "'Slab'", bagel: "'Bagel'", blk: "'Blk'", mono: "'Mono'" };
+function el(tag, attrs = {}, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, str, attrs) { const e = el('text', attrs, parent); e.textContent = str; return e; }
+function tf(e, x = 0, y = 0, s = 1, r = 0, sy) { e.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${r.toFixed(2)}) scale(${s.toFixed(4)} ${(sy ?? s).toFixed(4)})`); }
+function op(e, o) { e.setAttribute('opacity', Math.max(0, Math.min(1, o)).toFixed(3)); }
+function show(e, v) { e.style.display = v ? '' : 'none'; }
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = { out: p => 1 - Math.pow(1 - p, 3), in: p => p * p * p, io: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  back: p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); } };
+const pop = (t, t0, d = 0.35) => t < t0 ? 0 : E.back(seg(t, t0, t0 + d));
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const mctx = document.createElement('canvas').getContext('2d');
+function measure(str, size, family, weight = 400) { mctx.font = `${weight} ${size}px ${family}`; return mctx.measureText(str).width; }
+
+function chars(parent, str, o) {
+  const { x, y, size, family, weight = 400, fill, anchor = 'start', ls = 0, shadow, stroke, sw = 0 } = o;
+  const g = el('g', {}, parent); const arr = [...str];
+  const widths = arr.map(c => measure(c, size, family, weight));
+  const total = widths.reduce((a, b) => a + b, 0) + ls * (arr.length - 1);
+  let cx = anchor === 'middle' ? x - total / 2 : anchor === 'end' ? x - total : x;
+  const items = arr.map((ch, i) => {
+    const cg = el('g', {}, g);
+    const base = { x: 0, y: 0, 'font-size': size, 'font-family': family, 'font-weight': weight, 'text-anchor': 'middle' };
+    if (shadow) txt(cg, ch, { ...base, x: shadow.dx, y: shadow.dy, fill: shadow.fill, class: 'mul' });
+    const st = stroke ? { stroke, 'stroke-width': sw, 'paint-order': 'stroke', 'stroke-linejoin': 'round' } : {};
+    txt(cg, ch, { ...base, fill, ...st });
+    const it = { g: cg, x: cx + widths[i] / 2, y, w: widths[i], size };
+    cx += widths[i] + ls; tf(cg, it.x, it.y); return it;
+  });
+  return { g, items, total };
+}
+function charsPop(c, t, t0, stagger = 0.04, d = 0.36, from = 60) {
+  c.items.forEach((it, i) => {
+    const s = t0 + i * stagger, p = seg(t, s, s + d), h = it.size * 0.35;
+    if (t < s) { op(it.g, 0); return; }
+    op(it.g, 1);
+    const sc = E.back(p), sq = 1 + 0.25 * Math.sin(p * Math.PI) * (1 - p);
+    it.g.setAttribute('transform', `translate(${it.x} ${it.y + from * (1 - E.out(p))}) translate(0 ${-h}) scale(${(sc / sq).toFixed(3)} ${(sc * sq).toFixed(3)}) translate(0 ${h})`);
+  });
+}
+function halftone(parent, { x0 = 0, y0 = 0, w = W, h = H, step = 22, angle = 15, color, f, maxK = 0.62 }) {
+  const a = angle * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), n = Math.ceil(Math.hypot(w, h) / step / 2) + 2;
+  let d = '';
+  for (let i = -n; i <= n; i++) for (let j = -n; j <= n; j++) {
+    const u = i * step, v = j * step, x = x0 + w / 2 + u * ca - v * sa, y = y0 + h / 2 + u * sa + v * ca;
+    if (x < x0 - step || x > x0 + w + step || y < y0 - step || y > y0 + h + step) continue;
+    const s = clamp(f(x, y)); if (s < 0.05) continue;
+    const r = s * step * maxK;
+    d += `M${(x - r).toFixed(1)} ${y.toFixed(1)}a${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(2 * r).toFixed(1)} 0a${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(-2 * r).toFixed(1)} 0`;
+  }
+  return el('path', { d, fill: color }, parent);
+}
+const radial = (cx, cy, R, pw = 1.2) => (x, y) => Math.pow(clamp(1 - Math.hypot(x - cx, y - cy) / R), pw);
+const edge = (R = 900, pw = 1.6) => (x, y) => Math.pow(clamp(Math.hypot((x - 540) * 1.6, y - 960) / R - 0.35), pw) * 1.3;
+const ramp = (y0, y1) => (x, y) => clamp((y - y0) / (y1 - y0));
+function bg(parent, color) { return el('rect', { width: W, height: H, fill: color }, parent); }
+function stampEl(parent, str, { size = 150, color, family = F.blk, padX = 44, padY = 22, border = 12 } = {}) {
+  const g = el('g', {}, parent), inner = el('g', { filter: 'url(#stampInk)' }, g);
+  const w = measure(str, size, family) + padX * 2, h = size * 1.05 + padY * 2;
+  el('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 20, fill: 'none', stroke: color, 'stroke-width': border }, inner);
+  el('rect', { x: -w / 2 + border * 1.8, y: -h / 2 + border * 1.8, width: w - border * 3.6, height: h - border * 3.6, rx: 10, fill: 'none', stroke: color, 'stroke-width': border * .35 }, inner);
+  txt(inner, str, { x: 0, y: size * 0.36, 'font-size': size, 'font-family': family, fill: color, 'text-anchor': 'middle' });
+  return { g, w, h };
+}
+function stampAnim(s, t, t0, x, y, rot) {
+  if (t < t0 - 0.09) { op(s.g, 0); return; }
+  const p = seg(t, t0 - 0.09, t0), after = Math.max(0, t - t0), bounce = 1 + 0.05 * Math.sin(after * 30) * Math.exp(-after * 9);
+  op(s.g, p < 1 ? 0.3 + 0.7 * p : 0.93); tf(s.g, x, y, lerp(2.6, 1, E.in(p)) * bounce, rot);
+}
+
+// ---------------- prop kit: flat fill + heavy ink outline, boiled ----------------
+let C = {};
+let INK_OVR = null;
+const ink = (o = {}) => ({ stroke: INK_OVR || C.ink, 'stroke-width': 7, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', ...o });
+const P = {
+  ship(g) { el('path', { d: 'M-170 40 L170 40 L130 110 L-140 110 Z', fill: C.wood, ...ink() }, g);
+    el('path', { d: 'M-60 40 L-60 -190 M50 40 L50 -170', ...ink({ 'stroke-width': 9 }) }, g);
+    el('path', { d: 'M-60 -180 Q-10 -120 -60 -40 Z', fill: C.cream, ...ink() }, g); el('path', { d: 'M-60 -180 Q-130 -110 -60 -40 Z', fill: C.cream, ...ink() }, g);
+    el('path', { d: 'M50 -160 Q110 -100 50 -30 Z', fill: C.cream, ...ink() }, g); el('path', { d: 'M50 -160 Q0 -100 50 -30 Z', fill: C.cream, ...ink() }, g);
+    el('path', { d: 'M-200 120 Q-150 100 -100 120 T0 120 T100 120 T200 120', fill: 'none', ...ink({ stroke: C.hi, 'stroke-width': 8 }) }, g); },
+  barrel(g, x = 0, y = 0, s = 1, empty = false) { const b = el('g', { transform: `translate(${x} ${y}) scale(${s})` }, g);
+    el('path', { d: 'M-50 -70 Q-64 0 -50 70 L50 70 Q64 0 50 -70 Z', fill: empty ? C.paper : C.wood, ...ink() }, b);
+    el('path', { d: 'M-58 -30 L58 -30 M-58 30 L58 30', ...ink({ 'stroke-width': 6 }) }, b);
+    if (empty) el('path', { d: 'M-30 -10 L30 10 M-30 10 L30 -10', ...ink({ stroke: C.red, 'stroke-width': 9 }) }, b); return b; },
+  crate(g) { el('rect', { x: -150, y: -110, width: 300, height: 220, rx: 6, fill: C.wood, ...ink() }, g);
+    el('path', { d: 'M-150 -110 L150 110 M150 -110 L-150 110', ...ink({ 'stroke-width': 6 }) }, g);
+    el('rect', { x: -90, y: -40, width: 180, height: 80, rx: 6, fill: C.cream, ...ink() }, g);
+    txt(g, '6 MONTHS', { x: 0, y: 14, 'font-size': 34, 'font-family': F.mono, 'font-weight': 800, fill: C.ink, 'text-anchor': 'middle' }); },
+  lifeboat(g) { el('path', { d: 'M-160 0 Q0 90 160 0 Z', fill: 'none', ...ink({ 'stroke-dasharray': '18 16', 'stroke-width': 8 }) }, g);
+    el('path', { d: 'M-200 -160 L-200 0 M200 -160 L200 0 M-200 -160 Q-160 -170 -150 -120 M200 -160 Q160 -170 150 -120', fill: 'none', ...ink({ 'stroke-width': 9 }) }, g);
+    txt(g, 'GONE', { x: 0, y: -60, 'font-size': 64, 'font-family': F.blk, fill: C.red, 'text-anchor': 'middle' }); },
+  person(g, x, y, s = 1, col) { const p = el('g', { transform: `translate(${x} ${y}) scale(${s})` }, g);
+    el('circle', { cx: 0, cy: -60, r: 24, fill: col || C.cream, ...ink() }, p); el('path', { d: 'M-34 30 Q-34 -26 0 -26 Q34 -26 34 30 Z', fill: col || C.hi, ...ink() }, p); return p; },
+  tower(g) { el('path', { d: 'M-150 200 L-150 -150 L-150 -200 L-110 -200 L-110 -170 L-70 -170 L-70 -200 L-30 -200 L-30 -170 L10 -170 L10 -200 L50 -200 L50 -170 L90 -170 L90 -200 L130 -200 L130 -150 L130 200 Z', fill: C.stone, ...ink() }, g);
+    el('path', { d: 'M-50 200 L-50 110 Q-10 60 30 110 L30 200', fill: C.ink }, g);
+    for (const [x, y] of [[-90, -80], [70, -80], [-90, 20], [70, 20]]) el('rect', { x: x - 14, y, width: 28, height: 50, rx: 14, fill: C.ink }, g); },
+  crown(g) { el('path', { d: 'M-130 60 L-150 -70 L-75 -10 L0 -110 L75 -10 L150 -70 L130 60 Z', fill: C.hi, ...ink() }, g);
+    el('rect', { x: -135, y: 60, width: 270, height: 40, rx: 6, fill: C.hi2, ...ink() }, g);
+    for (const x of [-75, 0, 75]) el('circle', { cx: x, cy: 80, r: 10, fill: C.red, ...ink({ 'stroke-width': 4 }) }, g); },
+  stairs(g) { el('path', { d: 'M-200 140 L-200 90 L-120 90 L-120 40 L-40 40 L-40 -10 L40 -10 L40 -60 L120 -60 L120 -110 L200 -110 L200 140 Z', fill: C.stone, ...ink() }, g);
+    el('rect', { x: -170, y: 100, width: 200, height: 70, rx: 4, fill: C.wood, ...ink() }, g);
+    txt(g, '1674', { x: -70, y: 148, 'font-size': 40, 'font-family': F.mono, 'font-weight': 800, fill: C.cream, 'text-anchor': 'middle' }); },
+  post(g, word) { el('rect', { x: -60, y: -260, width: 120, height: 470, rx: 6, fill: C.wood, ...ink() }, g);
+    for (const y of [-200, -60, 80]) el('path', { d: `M-40 ${y} q20 20 0 50`, fill: 'none', ...ink({ 'stroke-width': 4 }) }, g);
+    const tg = el('g', { transform: 'rotate(-90)' }, g); txt(tg, word, { x: 0, y: 16, 'font-size': 58, 'font-family': F.slab, fill: C.ink, 'text-anchor': 'middle', 'letter-spacing': 4 }); },
+  house(g, x, y, s = 1) { const h = el('g', { transform: `translate(${x} ${y}) scale(${s})` }, g);
+    el('path', { d: 'M-80 60 L-80 -20 L0 -90 L80 -20 L80 60 Z', fill: C.wood, ...ink() }, h); el('rect', { x: -20, y: 10, width: 40, height: 50, fill: C.ink }, h); return h; },
+  tent(g) { el('path', { d: 'M-220 120 L0 -150 L220 120 Z', fill: C.hi2, ...ink() }, g); el('path', { d: 'M0 -150 L0 120', ...ink({ 'stroke-width': 5 }) }, g);
+    el('path', { d: 'M90 -40 L120 60', ...ink({ stroke: C.red, 'stroke-width': 12 }) }, g); el('path', { d: 'M-220 120 L220 120', ...ink() }, g); },
+  thermo(g) { el('rect', { x: -40, y: -220, width: 80, height: 330, rx: 40, fill: C.cream, ...ink() }, g); el('circle', { cx: 0, cy: 150, r: 70, fill: C.hi2, ...ink() }, g);
+    el('rect', { x: -16, y: 20, width: 32, height: 120, fill: C.hi2 }, g);
+    for (let i = 0; i < 6; i++) el('path', { d: `M40 ${-180 + i * 36} L70 ${-180 + i * 36}`, ...ink({ 'stroke-width': 5 }) }, g); },
+  prints(g) { for (let i = 0; i < 6; i++) { const x = (i % 2 ? 40 : -40) + i * 6, y = 200 - i * 80; el('ellipse', { cx: x, cy: y, rx: 22, ry: 34, fill: C.ink, opacity: 0.85 }, g); } },
+  bones(g) { el('path', { d: 'M-120 -40 Q0 -140 120 -40 M-130 10 Q0 -80 130 10 M-130 60 Q0 -20 130 60', fill: 'none', ...ink({ stroke: C.cream, 'stroke-width': 22 }) }, g);
+    el('path', { d: 'M-120 -40 Q0 -140 120 -40 M-130 10 Q0 -80 130 10 M-130 60 Q0 -20 130 60', fill: 'none', ...ink({ 'stroke-width': 5 }) }, g);
+    el('path', { d: 'M0 -110 L0 90', ...ink({ 'stroke-width': 16, stroke: C.cream }) }, g); el('path', { d: 'M-20 -30 L20 -10 L-10 10 L30 30', fill: 'none', ...ink({ stroke: C.red, 'stroke-width': 8 }) }, g); },
+  bag(g) { el('path', { d: 'M-240 -300 L240 -300 L260 320 L-260 320 Z', fill: 'rgba(255,255,255,0.10)', stroke: C.cream, 'stroke-width': 5, opacity: .8 }, g);
+    el('rect', { x: -240, y: -300, width: 480, height: 40, fill: C.red, opacity: .9 }, g);
+    txt(g, 'EVIDENCE', { x: 0, y: -268, 'font-size': 30, 'font-family': F.mono, 'font-weight': 800, fill: C.cream, 'text-anchor': 'middle', 'letter-spacing': 8 }); },
+};
+
+// ---------------- stage ----------------
+const world = document.getElementById('world'), cam = document.getElementById('cam'), hud = document.getElementById('hud');
+const capL = document.getElementById('cap'), wipe = document.getElementById('wipe'), flash = document.getElementById('flash'), fade = document.getElementById('fade');
+const scenes = [];
+function scene(t0, t1, build) { const g = el('g', {}, world); const s = { g, t0, t1 }; s.update = build(g, s); scenes.push(s); return s; }
+let K, CUES, DUR, SHAKES = [], FLASHES = [], WIPES = [], hudUpdate = () => {}, wipeUpdate = () => {}, capUpdate = () => {};
+
+// caption bar: the spoken line, keyword (*...*) in the highlight ink, wrapped to ≤ 2 lines, bottom-centre
+function captionFor(text) {
+  const size = 46, maxW = 900, parts = [];
+  text.split('*').forEach((s, i) => { if (s) parts.push([s, i % 2 === 1]); });
+  const words = []; parts.forEach(([s, hi]) => s.split(/(\s+)/).forEach(w => { if (w) words.push([w, hi]); }));
+  const lines = [[]]; let lw = 0;
+  for (const w of words) { const ww = measure(w[0], size, F.blk); if (lw + ww > maxW && lines[lines.length - 1].length && w[0].trim()) { lines.push([]); lw = 0; } if (!lines[lines.length - 1].length && !w[0].trim()) continue; lines[lines.length - 1].push(w); lw += ww; }
+  const g = el('g', {}, capL), inner = el('g', {}, g), lh = size * 1.25;
+  const widths = lines.map(l => l.reduce((a, [s]) => a + measure(s, size, F.blk), 0)), wMax = Math.max(...widths), padX = 34, hgt = lh * lines.length + size * 0.7;
+  el('rect', { x: -wMax / 2 - padX + 8, y: -hgt / 2 + 8, width: wMax + padX * 2, height: hgt, rx: 16, fill: C.shadow, class: 'mul' }, inner);
+  el('rect', { x: -wMax / 2 - padX, y: -hgt / 2, width: wMax + padX * 2, height: hgt, rx: 16, fill: C.ink }, inner);
+  lines.forEach((l, i) => { const t = el('text', { x: -widths[i] / 2, y: -hgt / 2 + size * 0.35 + lh * (i + 0.5) + size * 0.36 - lh * 0.12, 'font-size': size, 'font-family': F.blk }, inner);
+    l.forEach(([s, hi]) => { const sp = el('tspan', { fill: hi ? C.hi : C.cream }, t); sp.textContent = s; }); });
+  return g;
+}
+
+function buildAll() {
+  const T = id => CUES.find(c => c.id === id).t0;
+  const X = [T('v2'), T('v3'), T('v4'), T('v5'), T('v6')];
+  // S1 hook: the evidence bag on dark ink
+  scene(0, X[0], (g) => {
+    bg(g, C.ink);
+    halftone(g, { color: C.ink2, step: 24, angle: 20, f: radial(540, 900, 760, 0.9), maxK: 0.72 });
+    halftone(g, { color: C.red, step: 26, angle: 70, f: edge(1100, 1.4), maxK: 0.55 }).setAttribute('class', 'mul');
+    const bagG = el('g', {}, g); P.bag(bagG);
+    const objG = el('g', { filter: 'url(#boil)' }, bagG); K.hook(objG);
+    const year = chars(g, K.year, { x: 540, y: 400, size: 230, family: F.bagel, fill: C.hi, anchor: 'middle', shadow: { fill: C.red, dx: 10, dy: 10 } });
+    const st = stampEl(g, 'UNSOLVED', { size: 120, color: C.red });
+    const titleLines = K.title.map((s, i) => chars(g, s, { x: 540, y: 1430 + i * 100, size: 92, family: F.slab, fill: C.cream, anchor: 'middle', shadow: { fill: C.red, dx: 6, dy: 6 } }));
+    SHAKES.push([0.9, 22, 0.35]); FLASHES.push(0.9);
+    return (t) => {
+      tf(bagG, 540, lerp(1300, 900, E.back(seg(t, 0, 0.45))), 1, -3 + Math.sin(t * 1.3) * 1.5);
+      charsPop(year, t, 0.05, 0.06);
+      stampAnim(st, t, 0.9, 560, 1180, -9);
+      titleLines.forEach((c, i) => charsPop(c, t, 1.4 + i * 0.35, 0.03));
+    };
+  });
+  // S2–S4 exhibits
+  K.exhibits.forEach((ex, i) => scene(X[i], X[i + 1], (g) => {
+    const t0 = X[i], dark = !!ex.dark;
+    bg(g, dark ? C.ink : C.paper);
+    halftone(g, { color: dark ? C.ink2 : C.dot, step: 22, angle: 15 + i * 25, f: edge(1250, 1.8), maxK: 0.5 }).setAttribute('class', dark ? '' : 'mul');
+    // giant halftone numeral bleeding off the right edge
+    const num = el('g', {}, g); const nid = 'numClip' + i;
+    const cp = el('clipPath', { id: nid }, document.querySelector('defs')); txt(cp, String(i + 1), { x: 760, y: 1180, 'font-size': 1100, 'font-family': F.bagel, 'text-anchor': 'middle' });
+    txt(num, String(i + 1), { x: 760, y: 1180, 'font-size': 1100, 'font-family': F.bagel, 'text-anchor': 'middle', fill: dark ? C.ink2 : C.hi, opacity: dark ? 1 : 0.85 });
+    const hg = el('g', { 'clip-path': `url(#${nid})` }, num); halftone(hg, { color: dark ? C.red : C.hi2, step: 20, angle: 45, f: ramp(300, 1300), maxK: 0.7 }).setAttribute('class', 'mul');
+    const lab = chars(g, `EXHIBIT 0${i + 1}`, { x: 64, y: 330, size: 44, family: F.mono, weight: 800, fill: dark ? C.cream : C.ink, ls: 6 });
+    const heads = ex.head.map((s, j) => chars(g, s, { x: 60, y: 460 + j * 104, size: ex.hsize || 96, family: F.slab, fill: dark ? C.cream : C.ink, shadow: { fill: C.shadow, dx: 8, dy: 8 } }));
+    const pg = el('g', {}, g); const pin = el('g', { filter: 'url(#boil)' }, pg); INK_OVR = dark ? C.cream : null; ex.draw(pin, t0); INK_OVR = null;
+    if (ex.stamp) ex.st = stampEl(g, ex.stamp, { size: 92, color: C.red });
+    if (ex.stamp) { SHAKES.push([t0 + (ex.stampAt ?? 2.4), 14, 0.3]); }
+    return (t) => {
+      const z = lerp(1, 1.06, seg(t, t0, X[i + 1])); tf(g, 540 - 540 * z, 960 - 960 * z, z);
+      tf(num, lerp(500, 0, E.out(seg(t, t0, t0 + 0.5))), 0);
+      charsPop(lab, t, t0 + 0.05, 0.02);
+      heads.forEach((c, j) => charsPop(c, t, t0 + 0.2 + j * 0.25, 0.035));
+      tf(pg, 540, lerp(1500, ex.py ?? 1040, E.back(seg(t, t0 + 0.25, t0 + 0.7))) + Math.sin(t * 2) * 6, ex.ps ?? 1.5, Math.sin(t * 1.7) * 1.5);
+      if (ex.anim) ex.anim(t, t0);
+      if (ex.st) stampAnim(ex.st, t, t0 + (ex.stampAt ?? 2.4), ex.sx ?? 700, ex.sy ?? 1330, -10);
+    };
+  }));
+  // S5 verdict + S6 end (one continuous scene)
+  scene(X[3], DUR + 1, (g) => {
+    const t0 = X[3], tEnd = X[4];
+    bg(g, C.ink);
+    const rays = el('g', {}, g);
+    for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; el('path', { d: `M ${Math.cos(a - .06) * 40} ${Math.sin(a - .06) * 40} L ${Math.cos(a) * 1500} ${Math.sin(a) * 1500} L ${Math.cos(a + .06) * 40} ${Math.sin(a + .06) * 40} Z`, fill: i % 2 ? C.ink2 : C.ink }, rays); }
+    halftone(g, { color: C.ink2, step: 26, angle: 20, f: edge(900, 1.1), maxK: 0.7 });
+    const h = chars(g, 'YOUR VERDICT?', { x: 540, y: 330, size: 104, family: F.slab, fill: C.hi, anchor: 'middle', shadow: { fill: C.red, dx: 7, dy: 7 } });
+    const cards = K.options.map((o, i) => {
+      const cg = el('g', {}, g);
+      el('rect', { x: -450 + 10, y: -95 + 10, width: 900, height: 190, rx: 18, fill: C.shadow, class: 'mul' }, cg);
+      el('rect', { x: -450, y: -95, width: 900, height: 190, rx: 18, fill: C.cream, stroke: C.ink, 'stroke-width': 7 }, cg);
+      el('circle', { cx: -350, cy: 0, r: 64, fill: [C.hi, C.hi2, C.red][i], stroke: C.ink, 'stroke-width': 7 }, cg);
+      txt(cg, 'ABC'[i], { x: -350, y: 32, 'font-size': 88, 'font-family': F.bagel, fill: C.ink, 'text-anchor': 'middle' });
+      const sz = measure(o, 58, F.blk) > 600 ? 46 : 58;
+      txt(cg, o, { x: -255, y: sz * 0.36, 'font-size': sz, 'font-family': F.blk, fill: C.ink });
+      return { g: cg, t: t0 + 0.6 + (K.optT ? K.optT[i] : i * 1.0), y: 640 + i * 250 };
+    });
+    const st = stampEl(g, 'CASE OPEN', { size: 120, color: C.red });
+    const cta = chars(g, 'COMMENT A, B OR C', { x: 540, y: 1590, size: 74, family: F.slab, fill: C.cream, anchor: 'middle', shadow: { fill: C.red, dx: 6, dy: 6 } });
+    SHAKES.push([tEnd + 0.5, 24, 0.4]); FLASHES.push(tEnd + 0.5);
+    return (t) => {
+      op(rays, 1); rays.setAttribute('transform', `translate(540 960) rotate(${t * 10})`);
+      charsPop(h, t, t0 + 0.05, 0.04);
+      cards.forEach((c, i) => { const p = seg(t, c.t, c.t + 0.4); op(c.g, t >= c.t ? 1 : 0); const wob = Math.sin(t * 3 + i) * 3;
+        tf(c.g, 540 + lerp(-1100, 0, E.back(p)) * (i % 2 ? -1 : 1), c.y + wob, 1, (1 - p) * 8 * (i % 2 ? 1 : -1)); });
+      // the stamp misses: it lands half off the page, tilted
+      stampAnim(st, t, tEnd + 0.5, 800, 1420, -16);
+      charsPop(cta, t, tEnd + 1.0, 0.03);
+    };
+  });
+  // HUD
+  const hudG = el('g', {}, hud);
+  const caseNo = txt(hudG, K.caseNo, { x: 54, y: 120, 'font-size': 30, 'font-family': F.mono, 'font-weight': 800 });
+  const chip = el('g', {}, hudG), chipBg = el('rect', { x: 54, y: 136, height: 48, rx: 8 }, chip);
+  const chipT = txt(chip, '', { x: 70, y: 170, 'font-size': 30, 'font-family': F.blk });
+  const recG = el('g', {}, hudG), rec = el('circle', { cx: 830, cy: 108, r: 11, fill: C.red }, recG);
+  const recT = txt(recG, 'FILE ' + K.year, { x: 852, y: 120, 'font-size': 30, 'font-family': F.mono, 'font-weight': 800 });
+  const chips = [[0, X[0], 'COLD CASE'], [X[0], X[1], 'EXHIBIT 01'], [X[1], X[2], 'EXHIBIT 02'], [X[2], X[3], 'EXHIBIT 03'], [X[3], DUR + 1, 'VERDICT']];
+  hudUpdate = (t) => {
+    const c = chips.find(c => t >= c[0] && t < c[1]); show(hudG, !!c); if (!c) return;
+    const dk = t < X[0] || t >= X[3] || (K.exhibits.findIndex((e, i) => e.dark && t >= X[i] && t < X[i + 1]) >= 0);
+    const inkC = dk ? C.cream : C.ink;
+    caseNo.setAttribute('fill', inkC); recT.setAttribute('fill', inkC);
+    chipBg.setAttribute('fill', dk ? C.cream : C.ink); chipT.textContent = c[2]; chipT.setAttribute('fill', dk ? C.red : C.hi);
+    chipBg.setAttribute('width', measure(c[2], 30, F.blk) + 32); op(rec, Math.floor(t * 2) % 2 ? 0.25 : 1);
+  };
+  // captions
+  const caps = CUES.map(c => ({ c, g: captionFor(c.text) }));
+  capUpdate = (t) => caps.forEach(({ c, g }) => {
+    const on = t >= c.t0 - 0.05 && t < c.t1 + 0.05; show(g, on); if (!on) return;
+    const p = seg(t, c.t0 - 0.05, c.t0 + 0.3); tf(g, 540, 1700 + 40 * (1 - E.out(p)), lerp(0.85, 1, E.back(p)), -1 * (1 - p) - 0.5); op(g, seg(t, c.t0 - 0.05, c.t0 + 0.07) * (1 - seg(t, c.t1 - 0.05, c.t1 + 0.05)));
+  });
+  // dot wipes
+  const dotsG = el('g', {}, wipe), wipeDots = [];
+  for (let y = 0; y <= H + 80; y += 80) for (let x = 0; x <= W + 80; x += 80) wipeDots.push({ el: el('circle', { cx: x, cy: y, r: 0 }, dotsG), x, y });
+  WIPES = [[X[0], C.hi], [X[1], C.hi2], [X[2], C.red], [X[3], C.ink2]];
+  wipeUpdate = (t) => {
+    const w = WIPES.find(([b]) => Math.abs(t - b) < 0.22); show(dotsG, !!w); if (!w) return;
+    dotsG.setAttribute('fill', w[1]); const u = (t - w[0] + 0.22) / 0.44;
+    wipeDots.forEach(d => { const delay = (d.x / W * 0.4 + d.y / H * 0.6) * 0.35, p = clamp((u - delay) / 0.65); d.el.setAttribute('r', (Math.sin(p * Math.PI) * 62).toFixed(1)); });
+  };
+}
+
+function buildPaper() {
+  const cv = document.getElementById('paper'), ctx = cv.getContext('2d'), r = rng(3);
+  const small = document.createElement('canvas'); small.width = 54; small.height = 96;
+  const sctx = small.getContext('2d'), sim = sctx.createImageData(54, 96);
+  for (let i = 0; i < sim.data.length; i += 4) { const v = 242 + r() * 13; sim.data[i] = sim.data[i + 1] = sim.data[i + 2] = v; sim.data[i + 3] = 255; }
+  sctx.putImageData(sim, 0, 0); ctx.imageSmoothingEnabled = true; ctx.drawImage(small, 0, 0, W, H);
+  const base = ctx.getImageData(0, 0, W, H);
+  for (let i = 0; i < base.data.length; i += 4) { const n = (r() - 0.5) * 26; base.data[i] = clamp(base.data[i] + n, 0, 255); base.data[i + 1] = clamp(base.data[i + 1] + n, 0, 255); base.data[i + 2] = clamp(base.data[i + 2] + n - 4, 0, 255); }
+  ctx.putImageData(base, 0, 0);
+  const gr = ctx.createRadialGradient(540, 960, 500, 540, 960, 1250); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(120,100,80,0.35)');
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(140,120,100,0.18)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, 960); ctx.lineTo(W, 962); ctx.stroke();
+}
+function drawFx(frame) {
+  const ctx = document.getElementById('fx').getContext('2d'); ctx.clearRect(0, 0, W, H);
+  const r = rng(1000 + Math.floor(frame / 2));
+  ctx.fillStyle = 'rgba(255,248,235,0.75)'; for (let i = 0; i < 520; i++) { ctx.beginPath(); ctx.arc(r() * W, r() * H, 0.6 + r() * 1.8, 0, 7); ctx.fill(); }
+  ctx.fillStyle = 'rgba(29,35,64,0.25)'; for (let i = 0; i < 90; i++) { ctx.beginPath(); ctx.arc(r() * W, r() * H, 0.6 + r() * 1.3, 0, 7); ctx.fill(); }
+}
+const boilT = document.getElementById('boilT');
+function render(t) {
+  const frame = Math.round(t * 30);
+  boilT.setAttribute('seed', 1 + (Math.floor(t * 10) % 40));
+  for (const s of scenes) { const on = t >= s.t0 && t < s.t1; show(s.g, on); if (on) s.update(t); }
+  let dx = 0, dy = 0;
+  for (const [t0, a, d] of SHAKES) if (t >= t0 && t < t0 + d) { const k = 1 - (t - t0) / d; dx += a * k * k * Math.sin(t * 91 + t0); dy += a * k * k * Math.cos(t * 77 + t0 * 3); }
+  const beat = 60 / 110, pulse = 1 + 0.006 * Math.exp(-((t % beat) / 0.07));
+  cam.setAttribute('transform', `translate(${(dx + 540 * (1 - pulse)).toFixed(2)} ${(dy + 960 * (1 - pulse)).toFixed(2)}) scale(${pulse.toFixed(4)})`);
+  let fl = 0; for (const f of FLASHES) if (t >= f && t < f + 0.14) fl = Math.max(fl, 0.5 * (1 - (t - f) / 0.14));
+  op(flash, fl); fade.setAttribute('fill', C.ink); op(fade, seg(t, DUR - 0.5, DUR - 0.05));
+  hudUpdate(t); capUpdate(t); wipeUpdate(t); drawFx(frame);
+}
+async function init() {
+  const cj = await (await fetch('voice/cues.json')).json(); CUES = cj.cues; DUR = cj.dur;
+  const T = id => CUES.find(c => c.id === id).t0;
+  K = window.CASE(T); C = K.C;
+  await Promise.all(["400 50px 'Slab'", "400 50px 'Bagel'", "400 50px 'Blk'", "800 50px 'Mono'"].map(f => document.fonts.load(f, 'ABCabc0123')));
+  await document.fonts.ready;
+  buildPaper(); buildAll();
+  window.DUR = DUR;
+  window.EV = [{ t: 0.9, type: 'stamp' }, { t: 0, type: 'hit' }, ...WIPES.map(([t]) => ({ t, type: 'wipe' })),
+    ...K.exhibits.filter(e => e.stamp).map((e, i) => ({ t: WIPES[K.exhibits.indexOf(e)][0] + (e.stampAt ?? 2.4), type: 'stamp' })),
+    ...SHAKES.slice(-1).map(([t]) => ({ t, type: 'bigstamp' })), ...(K.ev || [])];
+  render(parseFloat(new URLSearchParams(location.search).get('t') || '0'));
+  window.READY = true;
+}
+window.TEXTS = t => [];
+init();
+</script>
+</body>
+</html>

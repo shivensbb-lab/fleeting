@@ -1,0 +1,55 @@
+[
+ {
+  "id": "v1",
+  "text": "Fourteen eighty-three. Two princes walk into the Tower of London. They never walk out.",
+  "sub": "1483: two princes enter the Tower. *They never leave.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.3,
+  "asr": "1483, two princes walk into the Tower of London. They never walk out."
+ },
+ {
+  "id": "v2",
+  "text": "Exhibit one. Edward, twelve, was about to be crowned king.",
+  "sub": "Edward, 12, was about to be *crowned king*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit one. Edward, 12, was about to be crowned king."
+ },
+ {
+  "id": "v3",
+  "text": "Exhibit two. Their uncle took the crown instead.",
+  "sub": "Their uncle took the crown *instead*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v4",
+  "text": "Exhibit three. In sixteen seventy-four, two small skeletons turned up under a staircase.",
+  "sub": "1674: two small skeletons *under a staircase*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit three. In 1674, two small skeletons turned up under a staircase."
+ },
+ {
+  "id": "v5",
+  "text": "Who did it? Their uncle, Richard the Third? Henry Tudor? Or did they escape?",
+  "sub": "Who did it? *A, B or C?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Who did it? Their uncle, Richard III? Henry Tudor? Or did they escape?"
+ },
+ {
+  "id": "v6",
+  "text": "Case still open. What's your verdict?",
+  "sub": "Case still open. *Your verdict?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Case still open. What's your verdict?"
+ }
+]

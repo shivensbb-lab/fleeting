@@ -1,0 +1,47 @@
+{
+ "dur": 25.55,
+ "cues": [
+  {
+   "id": "v1",
+   "t0": 0.3,
+   "vo_end": 5.17,
+   "text": "1590: the governor returns. *Everyone is gone.*",
+   "t1": 5.77
+  },
+  {
+   "id": "v2",
+   "t0": 5.52,
+   "vo_end": 9.325,
+   "text": "100+ settlers, including *his granddaughter*",
+   "t1": 9.925
+  },
+  {
+   "id": "v3",
+   "t0": 9.675,
+   "vo_end": 12.081,
+   "text": "No bodies. *No graves.*",
+   "t1": 12.681
+  },
+  {
+   "id": "v4",
+   "t0": 12.431,
+   "vo_end": 16.051,
+   "text": "One word on a post: *CROATOAN*",
+   "t1": 16.651
+  },
+  {
+   "id": "v5",
+   "t0": 16.551,
+   "vo_end": 20.819,
+   "text": "Where did they go? *A, B or C?*",
+   "t1": 21.419
+  },
+  {
+   "id": "v6",
+   "t0": 21.319,
+   "vo_end": 23.348,
+   "text": "Case still open. *Your verdict?*",
+   "t1": 24.948
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+[
+ {
+  "id": "v1",
+  "text": "December eighteen seventy-two. A ship is found sailing with nobody on board.",
+  "sub": "1872: a ship found sailing with *nobody on board*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.3,
+  "asr": "December 1872, a ship is found sailing with nobody on board."
+ },
+ {
+  "id": "v2",
+  "text": "Exhibit one. Six months of food and water, untouched.",
+  "sub": "Six months of food and water, *untouched*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v3",
+  "text": "Exhibit two. Seventeen hundred barrels of alcohol. Nine were empty.",
+  "sub": "1,700 barrels of alcohol. *Nine were empty.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit two. 1,700 barrels of alcohol. Nine were empty."
+ },
+ {
+  "id": "v4",
+  "text": "Exhibit three. The lifeboat was gone. So were all ten people.",
+  "sub": "The lifeboat was gone. So were *all ten people.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v5",
+  "text": "Why did they leave? Pirates? Fumes from the cargo? Or a waterspout?",
+  "sub": "Why did they leave? *A, B or C?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Why did they leave pirates, fumes from the cargo, or a water spout?"
+ },
+ {
+  "id": "v6",
+  "text": "Case still open. What's your verdict?",
+  "sub": "Case still open. *Your verdict?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Case still open. What's your verdict?"
+ }
+]

@@ -1,0 +1,47 @@
+{
+ "dur": 25.03,
+ "cues": [
+  {
+   "id": "v1",
+   "t0": 0.3,
+   "vo_end": 4.558,
+   "text": "1959: nine hikers die *on one mountain*",
+   "t1": 5.158
+  },
+  {
+   "id": "v2",
+   "t0": 4.908,
+   "vo_end": 8.028,
+   "text": "The tent was cut open *from the inside*",
+   "t1": 8.628
+  },
+  {
+   "id": "v3",
+   "t0": 8.378,
+   "vo_end": 11.832,
+   "text": "-30°C outside. Most had *no shoes.*",
+   "t1": 12.432
+  },
+  {
+   "id": "v4",
+   "t0": 12.182,
+   "vo_end": 16.084,
+   "text": "Broken ribs and skulls. *No sign of a fight.*",
+   "t1": 16.684
+  },
+  {
+   "id": "v5",
+   "t0": 16.584,
+   "vo_end": 20.304,
+   "text": "What happened? *A, B or C?*",
+   "t1": 20.904
+  },
+  {
+   "id": "v6",
+   "t0": 20.804,
+   "vo_end": 22.833,
+   "text": "Case still open. *Your verdict?*",
+   "t1": 24.433
+  }
+ ]
+}

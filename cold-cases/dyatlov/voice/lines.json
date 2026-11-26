@@ -1,0 +1,54 @@
+[
+ {
+  "id": "v1",
+  "text": "February nineteen fifty-nine. Nine hikers die on a mountain in Russia.",
+  "sub": "1959: nine hikers die *on one mountain*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.3,
+  "asr": "February 1959, nine hikers die on a mountain in Russia."
+ },
+ {
+  "id": "v2",
+  "text": "Exhibit one. Their tent was cut open from the inside.",
+  "sub": "The tent was cut open *from the inside*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v3",
+  "text": "Exhibit two. They ran into thirty below. Most had no shoes.",
+  "sub": "-30°C outside. Most had *no shoes.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit two. They ran into 30 below. Most had no shoes."
+ },
+ {
+  "id": "v4",
+  "text": "Exhibit three. Some had broken ribs and skulls, but no sign of a fight.",
+  "sub": "Broken ribs and skulls. *No sign of a fight.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v5",
+  "text": "What happened? An avalanche? A secret weapons test? Or something else?",
+  "sub": "What happened? *A, B or C?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "What happened in Avalanche, a secret weapons test, or something else?"
+ },
+ {
+  "id": "v6",
+  "text": "Case still open. What's your verdict?",
+  "sub": "Case still open. *Your verdict?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Case still open. What's your verdict?"
+ }
+]

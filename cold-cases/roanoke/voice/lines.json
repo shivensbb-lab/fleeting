@@ -1,0 +1,55 @@
+[
+ {
+  "id": "v1",
+  "text": "In fifteen ninety, a governor sails back to his colony in America. Everyone is gone.",
+  "sub": "1590: the governor returns. *Everyone is gone.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.3,
+  "asr": "In 1590, a governor sails back to his colony in America. Everyone is gone."
+ },
+ {
+  "id": "v2",
+  "text": "Exhibit one. More than a hundred settlers, including his own granddaughter.",
+  "sub": "100+ settlers, including *his granddaughter*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit one. More than a hundred settlers, including his own granddaughter."
+ },
+ {
+  "id": "v3",
+  "text": "Exhibit two. No bodies. No graves.",
+  "sub": "No bodies. *No graves.*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35
+ },
+ {
+  "id": "v4",
+  "text": "Exhibit three. One word, carved into a post. Kro-ah-toe-an.",
+  "sub": "One word on a post: *CROATOAN*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.35,
+  "asr": "Exhibit three. One word carved into a post. Croatoan."
+ },
+ {
+  "id": "v5",
+  "text": "Where did they go? Did they join the Croatoan people? Die at sea? Or move inland?",
+  "sub": "Where did they go? *A, B or C?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Where did they go, did they join the Croatone people, die at sea, or move inland?"
+ },
+ {
+  "id": "v6",
+  "text": "Case still open. What's your verdict?",
+  "sub": "Case still open. *Your verdict?*",
+  "voice": "am_onyx",
+  "speed": 1.02,
+  "pre": 0.5,
+  "asr": "Case still open. What's your verdict?"
+ }
+]

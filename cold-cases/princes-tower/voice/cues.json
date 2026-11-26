@@ -1,0 +1,47 @@
+{
+ "dur": 25.32,
+ "cues": [
+  {
+   "id": "v1",
+   "t0": 0.3,
+   "vo_end": 4.563,
+   "text": "1483: two princes enter the Tower. *They never leave.*",
+   "t1": 5.163
+  },
+  {
+   "id": "v2",
+   "t0": 4.913,
+   "vo_end": 8.265,
+   "text": "Edward, 12, was about to be *crowned king*",
+   "t1": 8.865
+  },
+  {
+   "id": "v3",
+   "t0": 8.615,
+   "vo_end": 11.245,
+   "text": "Their uncle took the crown *instead*",
+   "t1": 11.845
+  },
+  {
+   "id": "v4",
+   "t0": 11.595,
+   "vo_end": 16.372,
+   "text": "1674: two small skeletons *under a staircase*",
+   "t1": 16.972
+  },
+  {
+   "id": "v5",
+   "t0": 16.872,
+   "vo_end": 20.592,
+   "text": "Who did it? *A, B or C?*",
+   "t1": 21.192
+  },
+  {
+   "id": "v6",
+   "t0": 21.092,
+   "vo_end": 23.121,
+   "text": "Case still open. *Your verdict?*",
+   "t1": 24.721
+  }
+ ]
+}
